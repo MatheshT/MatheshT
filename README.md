@@ -12,17 +12,23 @@
 ![](https://streak-stats.demolab.com/?user=MatheshT&theme=neon&hide_border=true)<br/>
 ![](https://github-readme-stats.shion.dev/api/top-langs/?username=MatheshT&theme=neon&hide_border=true&include_all_commits=true&count_private=false&layout=compact)
 
-## 🚀 Currently Learning
+## 🚀 **Currently Learning**
 
-- [ ] Microsoft Sentinel
-- [ ] Detection Engineering
-- [ ] Threat Hunting
-- [ ] Cloud Security (AWS & Azure)
-- [ ] Security Automation
-- [ ] Advanced Splunk
+<p align="left"> <img src="https://img.shields.io/badge/Microsoft%20Sentinel-0078D4?style=for-the-badge&logo=microsoft&logoColor=white"/> <img src="https://img.shields.io/badge/Detection%20Engineering-FF6B35?style=for-the-badge"/> <img src="https://img.shields.io/badge/Threat%20Hunting-8A2BE2?style=for-the-badge"/> <img src="https://img.shields.io/badge/Cloud%20Security-0EA5E9?style=for-the-badge&logo=amazonaws&logoColor=white"/> <img src="https://img.shields.io/badge/Security%20Automation-22C55E?style=for-the-badge"/> <img src="https://img.shields.io/badge/Splunk-000000?style=for-the-badge&logo=splunk&logoColor=white"/> <img src="https://img.shields.io/badge/Wazuh-0052CC?style=for-the-badge"/> </p>
 
-📌 Featured Projects
-🤖 MCP Security Copilot – AI-powered SOC investigation assistant integrating Wazuh, VirusTotal, and LLMs.
+📌 **Featured Project**
+🤖 MCP Security Copilot
+
+An AI-powered Security Operations Center (SOC) investigation assistant that integrates Wazuh, VirusTotal, and Large Language Models (LLMs) to accelerate threat detection, alert correlation, IOC enrichment, and incident analysis.
+
+Key Features
+
+🔹 AI-assisted incident investigation
+🔹 Wazuh SIEM integration
+🔹 VirusTotal threat intelligence lookup
+🔹 IOC correlation and enrichment
+🔹 Automated security report generation
+🔹 LLM-powered investigation summaries
 
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
