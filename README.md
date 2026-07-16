@@ -12,10 +12,19 @@
 ![](https://streak-stats.demolab.com/?user=MatheshT&theme=neon&hide_border=true)<br/>
 ![](https://github-readme-stats.shion.dev/api/top-langs/?username=MatheshT&theme=neon&hide_border=true&include_all_commits=true&count_private=false&layout=compact)
 
+#🚀 Currently Learning
+Microsoft Sentinel
+Advanced Splunk
+Detection Engineering
+Threat Hunting
+Cloud Security (AWS & Azure)
+Security Automation with Python
+
+#📌 Featured Projects
+🤖 MCP Security Copilot – AI-powered SOC investigation assistant integrating Wazuh, VirusTotal, and LLMs.
+
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=MatheshT&limit=5&theme=shadow_green&combine_all_yearly_contributions=true)
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
