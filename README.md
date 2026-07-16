@@ -12,7 +12,7 @@
 ![](https://streak-stats.demolab.com/?user=MatheshT&theme=neon&hide_border=true)<br/>
 ![](https://github-readme-stats.shion.dev/api/top-langs/?username=MatheshT&theme=neon&hide_border=true&include_all_commits=true&count_private=false&layout=compact)
 
-#🚀 Currently Learning
+🚀 Currently Learning
 Microsoft Sentinel
 Advanced Splunk
 Detection Engineering
@@ -20,7 +20,7 @@ Threat Hunting
 Cloud Security (AWS & Azure)
 Security Automation with Python
 
-#📌 Featured Projects
+📌 Featured Projects
 🤖 MCP Security Copilot – AI-powered SOC investigation assistant integrating Wazuh, VirusTotal, and LLMs.
 
 ### ✍️ Random Dev Quote
