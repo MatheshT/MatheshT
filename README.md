@@ -10,7 +10,8 @@
 
 <a href="https://linkedin.com/in/mathesh-t-664112339"><img src="https://img.shields.io/badge/LINKEDIN-00F5D4?style=for-the-badge&logo=linkedin&logoColor=050816" alt="LinkedIn" /></a>
 <a href="mailto:matheshrmd@gmail.com"><img src="https://img.shields.io/badge/EMAIL-7C3AED?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-<img src="https://komarev.com/ghpvc/?username=MatheshT&style=for-the-badge&color=00F5D4&label=PROFILE+VIEWS" alt="Profile views" />
+<img src="https://komarev.com/ghpvc/?username=MatheshT&style=for-the-badge&color=00F5D4&label=LIVE+PROFILE+VISITORS" alt="Live profile visitor counter" />
+<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FMatheshT%2FMatheshT&title=TELEMETRY&edge_flat=false" alt="Live repository telemetry counter" />
 
 </div>
 
@@ -23,6 +24,12 @@ I am a cybersecurity student focused on **SOC operations, threat detection, inci
 <div align="center">
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2400&pause=650&color=00F5D4&center=true&vCenter=true&width=860&lines=DEFEND+THE+SIGNAL;DETECT+THE+ANOMALY;AUTOMATE+THE+RESPONSE;BUILD+CALMER+SECURITY+OPERATIONS" alt="Animated cybersecurity mission statement" />
+
+</div>
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/detection-widgets.svg" width="100%" alt="Animated detection engineering and cybersecurity capability dashboard" />
 
 </div>
 
@@ -54,11 +61,11 @@ I am a cybersecurity student focused on **SOC operations, threat detection, inci
 
 </div>
 
-## `CURRENTLY / UPGRADING`
+## `CURRENTLY / UPGRADING // BUILDING ACROSS CYBERSECURITY`
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/ambient-3d.svg" width="100%" alt="Animated 3D upgrading focus background" />
+<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/detection-widgets.svg" width="100%" alt="Animated cybersecurity focus dashboard" />
 
 </div>
 
@@ -96,10 +103,6 @@ I am strengthening detection rules, reducing alert fatigue, hunting for hidden p
 
 <img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="100%" alt="Animated contribution snake" />
 
-<br /><br />
-
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/ambient-3d.svg" width="100%" alt="Animated 3D contribution background" />
-
 </div>
 
 ## `OPEN CHANNEL / LET'S CONNECT`
@@ -120,7 +123,7 @@ I am open to **cybersecurity internships, SOC collaborations, defensive security
 <!--
   INSTALLATION:
   1. Keep this README.md in the public repository named exactly MatheshT.
-  2. Keep cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, and ops-dashboard.svg in the repository root.
+  2. Keep cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, and detection-widgets.svg in the repository root.
   3. The README uses raw.githubusercontent.com URLs so GitHub can load the SVG animations reliably.
   4. Never include passwords, API keys, tokens, or private infrastructure details.
 -->

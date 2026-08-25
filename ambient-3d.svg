@@ -12,12 +12,12 @@
   </defs>
   <g clip-path="url(#clip)">
     <rect width="1200" height="260" fill="url(#bg)"/><rect width="1200" height="260" fill="url(#dots)"/>
-    <ellipse cx="600" cy="142" rx="320" ry="150" fill="url(#glow)" filter="url(#blur)"/>
+    <ellipse cx="600" cy="142" rx="320" ry="150" fill="url(#glow)" opacity=".72"/>
     <g opacity=".55" stroke="#14506a" stroke-width="1">
       <path d="M0 235H1200M45 210H1155M105 185H1095M180 160H1020M250 135H950"/>
       <path d="M40 260L495 120M200 260L535 120M360 260L570 120M520 260L590 120M680 260L610 120M840 260L630 120M1000 260L650 120M1160 260L675 120"/>
     </g>
-    <g transform="translate(600 130)" fill="none" filter="url(#glow)">
+    <g transform="translate(600 130)" fill="none">
       <ellipse rx="250" ry="64" stroke="#00f5d4" stroke-opacity=".34" stroke-width="2"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="16s" repeatCount="indefinite"/></ellipse>
       <ellipse rx="250" ry="64" stroke="#7c3aed" stroke-opacity=".4" stroke-width="2" transform="rotate(60)"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="12s" repeatCount="indefinite"/></ellipse>
       <ellipse rx="250" ry="64" stroke="#ff6b35" stroke-opacity=".25" stroke-width="2" transform="rotate(120)"/>
