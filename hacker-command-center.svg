@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Futuristic hacker cyber security command center</title>
+  <desc id="desc">A dark neon hacker command center with animated code rain, scanlines, terminal text, holographic rings, and a rotating 3D security core.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#02040b"/><stop offset=".48" stop-color="#071525"/><stop offset="1" stop-color="#18072d"/></linearGradient>
+    <linearGradient id="neon" x1="0" x2="1"><stop stop-color="#00f5d4"/><stop offset=".5" stop-color="#00a6ff"/><stop offset="1" stop-color="#b026ff"/></linearGradient>
+    <radialGradient id="core"><stop stop-color="#00f5d4" stop-opacity=".95"/><stop offset=".25" stop-color="#00a6ff" stop-opacity=".36"/><stop offset="1" stop-color="#02040b" stop-opacity="0"/></radialGradient>
+    <pattern id="scan" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0H8" stroke="#8be9fd" stroke-opacity=".035"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="clip"><rect width="1200" height="430" rx="22"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1200" height="430" fill="url(#bg)"/><rect width="1200" height="430" fill="url(#scan)"/>
+    <g font-family="monospace" font-size="12" fill="#00f5d4" opacity=".35">
+      <text x="28" y="45"><animate attributeName="y" values="45;410;45" dur="8s" repeatCount="indefinite"/>01001101</text><text x="90" y="150"><animate attributeName="y" values="150;20;400;150" dur="11s" repeatCount="indefinite"/>11010010</text><text x="172" y="92"><animate attributeName="y" values="92;390;92" dur="9s" repeatCount="indefinite"/>01101101</text><text x="1060" y="75"><animate attributeName="y" values="75;402;75" dur="10s" repeatCount="indefinite"/>10100111</text><text x="1125" y="190"><animate attributeName="y" values="190;30;190" dur="7s" repeatCount="indefinite"/>00111010</text><text x="980" y="280"><animate attributeName="y" values="280;40;280" dur="12s" repeatCount="indefinite"/>11001100</text>
+    </g>
+    <g stroke="#123954" stroke-width="1" opacity=".65"><path d="M0 370H1200M0 338H1200M0 306H1200M0 274H1200M0 242H1200"/><path d="M40 430L510 184M210 430L550 184M380 430L580 184M550 430L600 184M720 430L620 184M890 430L640 184M1060 430L660 184M1230 430L680 184"/></g>
+    <g font-family="monospace">
+      <text x="48" y="54" fill="#00f5d4" font-size="13" letter-spacing="3">MATHESHT // HACKER DEFENSE GRID</text>
+      <text x="48" y="90" fill="#e6fffb" font-size="34" font-weight="700" letter-spacing="2">ACCESS THE SIGNAL.</text>
+      <text x="50" y="118" fill="#8be9fd" font-size="13" letter-spacing="2">SOC • THREAT HUNTING • CLOUD • DFIR • APPSEC • AUTOMATION</text>
+      <text x="985" y="52" fill="#22c55e" font-size="11">● SECURE CHANNEL</text><text x="985" y="72" fill="#64748b" font-size="10">ENCRYPTION: ACTIVE</text>
+      <g transform="translate(50 170)"><rect width="255" height="138" rx="10" fill="#030914" stroke="#00f5d4" stroke-opacity=".52"/><circle cx="22" cy="25" r="5" fill="#ff5f56"/><circle cx="40" cy="25" r="5" fill="#ffbd2e"/><circle cx="58" cy="25" r="5" fill="#27c93f"/><text x="20" y="56" fill="#22c55e" font-size="11">root@mathesht:~$</text><text x="20" y="79" fill="#8be9fd" font-size="11">./detect --mode=defense</text><text x="20" y="102" fill="#64748b" font-size="11">[+] telemetry stream online</text><text x="20" y="123" fill="#00f5d4" font-size="11">[+] threat surface mapped</text></g>
+      <g transform="translate(900 170)"><rect width="250" height="138" rx="10" fill="#030914" stroke="#b026ff" stroke-opacity=".58"/><text x="20" y="28" fill="#64748b" font-size="10">VISUAL TELEMETRY</text><text x="20" y="60" fill="#e6fffb" font-size="23">LIVE / 24x7</text><path d="M20 91h205" stroke="#251440" stroke-width="4"/><path d="M20 91h160" stroke="url(#neon)" stroke-width="4"><animate attributeName="x2" values="120;210;160" dur="4s" repeatCount="indefinite"/></path><text x="20" y="119" fill="#c4b5fd" font-size="11">SIGNAL → ANALYZE → RESPOND</text></g>
+    </g>
+    <g transform="translate(600 250)" filter="url(#glow)">
+      <circle r="148" fill="url(#core)" opacity=".42"/><ellipse rx="150" ry="45" fill="none" stroke="#00f5d4" stroke-opacity=".45" stroke-width="2"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/></ellipse><ellipse rx="150" ry="45" fill="none" stroke="#b026ff" stroke-opacity=".5" stroke-width="2" transform="rotate(60)"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="11s" repeatCount="indefinite"/></ellipse><path d="M0-84L72-42L72 42L0 84L-72 42L-72-42Z" fill="none" stroke="url(#neon)" stroke-width="3"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite"/></path><path d="M0-53L46 0L0 53L-46 0Z" fill="none" stroke="#00f5d4" stroke-width="5"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="5s" repeatCount="indefinite"/></path><circle r="17" fill="#00f5d4"><animate attributeName="r" values="11;22;11" dur="2s" repeatCount="indefinite"/></circle><text x="-64" y="-112" fill="#8be9fd" font-size="10">DEFENSE CORE</text>
+    </g>
+    <rect x="-300" y="146" width="300" height="3" fill="url(#neon)" opacity=".72"><animate attributeName="x" from="-300" to="1200" dur="5s" repeatCount="indefinite"/></rect>
+    <path d="M0 411H1200" stroke="#00f5d4" stroke-opacity=".75"/><text x="48" y="395" fill="#00f5d4" font-family="monospace" font-size="11" letter-spacing="2">BUILD  •  BREAK  •  HUNT  •  HARDEN  •  DEFEND</text><text x="1035" y="395" fill="#64748b" font-family="monospace" font-size="10">MODE: STEALTH</text>
+  </g>
+</svg>

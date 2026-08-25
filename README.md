@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/cyber-hero.svg" width="100%" alt="Animated 3D cyber security operations interface for Mathesh T" />
+<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/hacker-command-center.svg" width="100%" alt="Futuristic hacker-style cyber security command center for Mathesh T" />
 
 <br />
 
@@ -17,9 +17,9 @@
 
 <br />
 
-## `MATHESH T / CYBERSECURITY OPERATIONS`
+## `MATHESH T // CYBER DEFENSE COMMAND CENTER`
 
-I am a cybersecurity student focused on **SOC operations, threat detection, incident response, cloud security, and defensive automation**. I build practical security tools that turn noisy telemetry into clear decisions and repeatable workflows.
+I am a cybersecurity student and defensive security builder working across **SOC operations, threat intelligence, detection engineering, incident response, digital forensics, cloud security, application security, penetration testing, GRC, and security automation**. I design practical tools that turn noisy telemetry into clear decisions, faster investigations, and repeatable defensive workflows.
 
 <div align="center">
 
@@ -123,7 +123,7 @@ I am open to **cybersecurity internships, SOC collaborations, defensive security
 <!--
   INSTALLATION:
   1. Keep this README.md in the public repository named exactly MatheshT.
-  2. Keep cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, and detection-widgets.svg in the repository root.
+  2. Keep hacker-command-center.svg, cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, and detection-widgets.svg in the repository root.
   3. The README uses raw.githubusercontent.com URLs so GitHub can load the SVG animations reliably.
   4. Never include passwords, API keys, tokens, or private infrastructure details.
 -->
