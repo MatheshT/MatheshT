@@ -19,13 +19,31 @@
 
 ## `MATHESH T // CYBER DEFENSE COMMAND CENTER`
 
-I am a cybersecurity student and defensive security builder working across **SOC operations, threat intelligence, detection engineering, incident response, digital forensics, cloud security, application security, penetration testing, GRC, and security automation**. I design practical tools that turn noisy telemetry into clear decisions, faster investigations, and repeatable defensive workflows.
+I am a cybersecurity student and defensive security builder working across **SOC operations, threat intelligence, detection engineering, incident response, digital forensics, cloud security, application security, penetration testing, GRC, risk, privacy, security architecture, and security automation**. I design practical tools that turn noisy telemetry into clear decisions, faster investigations, and repeatable defensive workflows.
 
 <div align="center">
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2400&pause=650&color=00F5D4&center=true&vCenter=true&width=860&lines=DEFEND+THE+SIGNAL;DETECT+THE+ANOMALY;AUTOMATE+THE+RESPONSE;BUILD+CALMER+SECURITY+OPERATIONS" alt="Animated cybersecurity mission statement" />
 
 </div>
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/terminal-simulator.svg" width="100%" alt="Animated interactive-style cybersecurity terminal simulator" />
+
+</div>
+
+<details>
+<summary><strong>Open terminal command outputs</strong></summary>
+
+```text
+help      → view available security projects and capabilities
+projects  → inspect MCP Security Copilot and defensive builds
+skills    → explore SOC, cloud, DFIR, AppSec, GRC, and automation areas
+contact   → open LinkedIn or start an email conversation
+```
+
+</details>
 
 <div align="center">
 
@@ -69,7 +87,7 @@ I am a cybersecurity student and defensive security builder working across **SOC
 
 </div>
 
-I am strengthening detection rules, reducing alert fatigue, hunting for hidden patterns across endpoints and identities, learning cloud-native SIEM workflows, and developing stronger defensive fundamentals.
+I am strengthening detection rules, reducing alert fatigue, hunting for hidden patterns across endpoints and identities, learning cloud-native SIEM workflows, and developing stronger defensive fundamentals. The contribution card and visitor counters below are live profile telemetry; the animated threat panels are visual simulations rather than a claim of a real-time global threat feed.
 
 ## `FEATURED BUILD / MCP SECURITY COPILOT`
 
@@ -93,7 +111,7 @@ I am strengthening detection rules, reducing alert fatigue, hunting for hidden p
 
 </div>
 
-## `TELEMETRY / CONTRIBUTION SIGNAL`
+## `LIVE TELEMETRY / CONTRIBUTIONS + VISITORS`
 
 <div align="center">
 
@@ -123,7 +141,7 @@ I am open to **cybersecurity internships, SOC collaborations, defensive security
 <!--
   INSTALLATION:
   1. Keep this README.md in the public repository named exactly MatheshT.
-  2. Keep hacker-command-center.svg, cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, and detection-widgets.svg in the repository root.
+  2. Keep hacker-command-center.svg, cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, detection-widgets.svg, and terminal-simulator.svg in the repository root.
   3. The README uses raw.githubusercontent.com URLs so GitHub can load the SVG animations reliably.
   4. Never include passwords, API keys, tokens, or private infrastructure details.
 -->
