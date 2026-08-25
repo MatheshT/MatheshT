@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" role="img" aria-labelledby="title desc">
+  <title id="title">Animated 3D cyber ambient background</title>
+  <desc id="desc">A futuristic deep-space cyber background with a perspective grid, holographic rings, floating particles, and a moving scan beam.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#03050d"/><stop offset=".5" stop-color="#0b1023"/><stop offset="1" stop-color="#180b2b"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#00f5d4" stop-opacity=".3"/><stop offset="1" stop-color="#00f5d4" stop-opacity="0"/></radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#00f5d4" stop-opacity="0"/><stop offset=".5" stop-color="#00f5d4" stop-opacity=".55"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#8be9fd" opacity=".17"/></pattern>
+    <clipPath id="clip"><rect width="1200" height="260" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1200" height="260" fill="url(#bg)"/><rect width="1200" height="260" fill="url(#dots)"/>
+    <ellipse cx="600" cy="142" rx="320" ry="150" fill="url(#glow)" filter="url(#blur)"/>
+    <g opacity=".55" stroke="#14506a" stroke-width="1">
+      <path d="M0 235H1200M45 210H1155M105 185H1095M180 160H1020M250 135H950"/>
+      <path d="M40 260L495 120M200 260L535 120M360 260L570 120M520 260L590 120M680 260L610 120M840 260L630 120M1000 260L650 120M1160 260L675 120"/>
+    </g>
+    <g transform="translate(600 130)" fill="none" filter="url(#glow)">
+      <ellipse rx="250" ry="64" stroke="#00f5d4" stroke-opacity=".34" stroke-width="2"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="16s" repeatCount="indefinite"/></ellipse>
+      <ellipse rx="250" ry="64" stroke="#7c3aed" stroke-opacity=".4" stroke-width="2" transform="rotate(60)"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="12s" repeatCount="indefinite"/></ellipse>
+      <ellipse rx="250" ry="64" stroke="#ff6b35" stroke-opacity=".25" stroke-width="2" transform="rotate(120)"/>
+      <path d="M-60-40L0-75L60-40L60 40L0 75L-60 40Z" stroke="#00f5d4" stroke-width="2" opacity=".7"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite"/></path>
+      <path d="M0-75V75M-60-40L60 40M60-40L-60 40" stroke="#7c3aed" stroke-opacity=".7"/>
+      <circle r="10" fill="#00f5d4" stroke="none"><animate attributeName="r" values="7;16;7" dur="2s" repeatCount="indefinite"/></circle>
+    </g>
+    <rect x="-300" y="35" width="300" height="4" fill="url(#beam)" opacity=".7"><animate attributeName="x" from="-300" to="1200" dur="5s" repeatCount="indefinite"/></rect>
+    <g fill="#8be9fd" filter="url(#glow)"><circle cx="130" cy="54" r="2"><animate attributeName="cy" values="54;30;54" dur="3s" repeatCount="indefinite"/></circle><circle cx="1040" cy="72" r="2"><animate attributeName="cy" values="72;98;72" dur="4s" repeatCount="indefinite"/></circle><circle cx="930" cy="190" r="2"><animate attributeName="cx" values="930;950;930" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="280" cy="180" r="2"><animate attributeName="cx" values="280;255;280" dur="4.5s" repeatCount="indefinite"/></circle></g>
+    <path d="M0 248H1200" stroke="#00f5d4" stroke-opacity=".7"/>
+  </g>
+</svg>
