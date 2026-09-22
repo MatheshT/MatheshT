@@ -1,0 +1,12 @@
+<!-- Custom Wazuh Detection Rules engineered by Mathesh T -->
+<group name="windows,sysmon,credential_access">
+  <rule id="100201" level="12">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.targetImage">.*\\lsass\.exe</field>
+    <field name="win.eventdata.grantedAccess">0x1010|0x1410|0x1fffff</field>
+    <description>Potential Credential Dumping: Process attempted suspicious read access to LSASS memory</description>
+    <mitre>
+      <id>T1003.001</id>
+    </mitre>
+  </rule>
+</group>
