@@ -5,6 +5,7 @@
 
 <br />
 
+
 <img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/ambient-3d.svg" width="100%" alt="Animated 3D cyber background" />
 
 <br />
@@ -27,6 +28,7 @@ I am a cybersecurity student and defensive security builder working across **SOC
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2400&pause=650&color=00F5D4&center=true&vCenter=true&width=860&lines=DEFEND+THE+SIGNAL;DETECT+THE+ANOMALY;AUTOMATE+THE+RESPONSE;BUILD+CALMER+SECURITY+OPERATIONS" alt="Animated cybersecurity mission statement" />
 
 </div>
+
 
 <div align="center">
 
