@@ -1,0 +1,16 @@
+title: Suspicious Token Elevation via Secondary Logon
+id: 9a7b5d1e-3f2c-4e8a-b9d1-7c5e2f1a0b3d
+status: stable
+description: Detects suspicious process spawning using SeDebugPrivilege
+author: Mathesh T
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\\cmd.exe'
+      - '\\powershell.exe'
+    ParentImage|endswith: '\\services.exe'
+  condition: selection
+level: high
