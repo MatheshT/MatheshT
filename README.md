@@ -1,150 +1,140 @@
 <div align="center">
 
-
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/hacker-command-center.svg" width="100%" alt="Futuristic hacker-style cyber security command center for Mathesh T" />
-
-<br />
-
-
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/ambient-3d.svg" width="100%" alt="Animated 3D cyber background" />
+# MATHESH T
+### **CYBERSECURITY SPECIALIST & SOC ANALYST**
+#### *Incident Response • Threat Hunting • VAPT • Digital Forensics • AI Security Tooling*
 
 <br />
 
-<a href="https://linkedin.com/in/mathesh-t-664112339"><img src="https://img.shields.io/badge/LINKEDIN-00F5D4?style=for-the-badge&logo=linkedin&logoColor=050816" alt="LinkedIn" /></a>
-<a href="mailto:matheshrmd@gmail.com"><img src="https://img.shields.io/badge/EMAIL-7C3AED?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-<img src="https://komarev.com/ghpvc/?username=MatheshT&style=for-the-badge&color=00F5D4&label=LIVE+PROFILE+VISITORS" alt="Live profile visitor counter" />
-<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FMatheshT%2FMatheshT&title=TELEMETRY&edge_flat=false" alt="Live repository telemetry counter" />
-
-</div>
+[![Live Portfolio](https://img.shields.io/badge/🌐_LIVE_PORTFOLIO-0284c7?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mathesht.github.io/MatheshT/)
+[![LinkedIn](https://img.shields.io/badge/LINKEDIN-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mathesh-t-664112339/)
+[![Email](https://img.shields.io/badge/EMAIL-ea4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:matheshrmd@gmail.com)
+[![Profile Visitors](https://komarev.com/ghpvc/?username=MatheshT&style=for-the-badge&color=00f0ff&label=PROFILE+VIEWS)](https://github.com/MatheshT)
 
 <br />
 
-## `MATHESH T // CYBER DEFENSE COMMAND CENTER`
-
-I am a cybersecurity student and defensive security builder working across **SOC operations, threat intelligence, detection engineering, incident response, digital forensics, cloud security, application security, penetration testing, GRC, risk, privacy, security architecture, and security automation**. I design practical tools that turn noisy telemetry into clear decisions, faster investigations, and repeatable defensive workflows.
-
-<div align="center">
-
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2400&pause=650&color=00F5D4&center=true&vCenter=true&width=860&lines=DEFEND+THE+SIGNAL;DETECT+THE+ANOMALY;AUTOMATE+THE+RESPONSE;BUILD+CALMER+SECURITY+OPERATIONS" alt="Animated cybersecurity mission statement" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2500&pause=600&color=38BDF8&center=true&vCenter=true&width=860&lines=DEFEND+THE+SIGNAL;DETECT+THE+ANOMALY;AUTOMATE+THE+RESPONSE;BUILD+RESILIENT+CYBER+DEFENSE" alt="Typing Animation" />
 
 </div>
 
+---
+
+## 👨‍💻 Executive Summary
+
+I am a Cybersecurity candidate and defensive security builder pursuing **B.Tech in Cybersecurity at Sri Shakthi Institute of Engineering and Technology, Coimbatore (2024–2028, CGPA: 7.7 / 10.0)**. 
+
+My operational focus is across **SOC Alert Triage, Threat Detection Engineering, SIEM Telemetry Correlation (Wazuh / Splunk), Vulnerability Assessment & Penetration Testing (VAPT), and Digital Forensics**. I design production-ready security tools like **`mcp-security-copilot`** that automate repetitive analysis workflows, correlate threat intelligence via VirusTotal, and map incidents to the MITRE ATT&CK matrix.
+
+- 📍 **Location**: Ramanathapuram, Tamil Nadu, India
+- 🎓 **Education**: B.Tech Cybersecurity, Sri Shakthi Institute of Engineering and Technology (2024–2028) • **GPA: 7.7 / 10.0**
+- 🌐 **Interactive Portfolio**: [mathesht.github.io/MatheshT](https://mathesht.github.io/MatheshT/)
+- ✉️ **Direct Contact**: [matheshrmd@gmail.com](mailto:matheshrmd@gmail.com) • `+91 96294 58096`
+
+---
+
+## 🏆 Ranked Competitive Honors & Awards
+
+| Honor / Achievement | Issuing Institution / Authority | Impact & Verification |
+| :--- | :--- | :--- |
+| 🥇 **1st Place Champion** | **Mirage CTF** — Amrita Vishwa Vidyapeetham, Chennai | Solved high-difficulty challenges in Web Exploitation, Cryptography & Forensics |
+| 🥈 **2nd Place Winner** | **HACKNEXT '26 Hackathon** — SNS College, Coimbatore | Architected automated real-time incident mitigation pipelines under 24hr constraints |
+| 🎯 **Top 30 Finalist** | **Lunar CTF** — Kerala State-Level Contest | Qualified among the top 30 elite collegiate cyber teams across Kerala |
+| 🚩 **150+ Flags Solved** | **PicoCTF** — CyLab Academy / Carnegie Mellon University | Continuous hands-on mastery in Binary Exploitation, Forensics, and RSA/AES Crypto |
+| 📑 **Research Publication** | **International Journal of Computer Application (IJCA)** | Published peer-reviewed research (Ref: `IJCA/4243`, ISSN: `2250`) on Cyber Defense |
+| 🛡️ **Top 100 Merit** | **Cyber Hunter Warrior Directorate** | Awarded Certificate of Achievement to Merit in national ethical hacking challenge |
+| 🛡️ **Cyber Volunteer** | **National Cyber Safety Initiative** | Recognized community volunteer supporting public cyber awareness and safety |
+
+---
+
+## 🛠️ Technical Arsenal & Competencies
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/terminal-simulator.svg" width="100%" alt="Animated interactive-style cybersecurity terminal simulator" />
+### Security Operations & Defense
+![Wazuh](https://img.shields.io/badge/Wazuh_SIEM-00AEEF?style=for-the-badge&logo=wazuh&logoColor=white)
+![Splunk](https://img.shields.io/badge/Splunk-000000?style=for-the-badge&logo=splunk&logoColor=white)
+![VirusTotal](https://img.shields.io/badge/VirusTotal_API-394EFF?style=for-the-badge&logo=virustotal&logoColor=white)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-C00000?style=for-the-badge&logo=shield&logoColor=white)
+![Incident Response](https://img.shields.io/badge/Incident_Response-059669?style=for-the-badge)
+![Alert Triage](https://img.shields.io/badge/Alert_Triage-0284C7?style=for-the-badge)
+
+### Offensive Testing & VAPT
+![Burp Suite](https://img.shields.io/badge/Burp_Suite-FF6633?style=for-the-badge&logo=burpsuite&logoColor=white)
+![Nmap](https://img.shields.io/badge/Nmap_Network_Scanner-000000?style=for-the-badge)
+![Wireshark](https://img.shields.io/badge/Wireshark_Packet_Analysis-1679A7?style=for-the-badge&logo=wireshark&logoColor=white)
+![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge)
+![OWASP Top 10](https://img.shields.io/badge/OWASP_Top_10-2563EB?style=for-the-badge)
+
+### Digital Forensics & Analysis
+![Autopsy](https://img.shields.io/badge/Autopsy_Forensics-22C55E?style=for-the-badge)
+![Scapy](https://img.shields.io/badge/Scapy_Packet_Crafting-EF4444?style=for-the-badge)
+![Cryptography](https://img.shields.io/badge/AES__256_Cryptography-7C3AED?style=for-the-badge)
+![Memory Forensics](https://img.shields.io/badge/Memory_Forensics-475569?style=for-the-badge)
+
+### Programming & Operating Systems
+<img src="https://skillicons.dev/icons?i=python,linux,bash,git,github,docker,fastapi,js&theme=dark" alt="Python, Linux, Bash, Git, GitHub, Docker, FastAPI, JS" />
 
 </div>
 
-<details>
-<summary><strong>Open terminal command outputs</strong></summary>
+---
 
-```text
-help      → view available security projects and capabilities
-projects  → inspect MCP Security Copilot and defensive builds
-skills    → explore SOC, cloud, DFIR, AppSec, GRC, and automation areas
-contact   → open LinkedIn or start an email conversation
-```
+## 🚀 Flagship Open Source Repositories
 
-</details>
+### 1. [mcp-security-copilot](https://github.com/MatheshT/mcp-security-copilot) `Python` `Wazuh` `VirusTotal` `MCP`
+> **AI-Powered Security Copilot automating SOC Level-1 Investigations.**
+- Connects **Wazuh SIEM alerts, VirusTotal threat intelligence, and the Model Context Protocol (MCP)**.
+- Automatically queries IoCs, correlates endpoint telemetry, maps events to MITRE ATT&CK, and generates structured mitigation playbooks.
+
+### 2. [Ai-sensitive-data-protector](https://github.com/MatheshT/Ai-sensitive-data-protector) `JavaScript` `Chrome Extension` `DLP`
+> **Browser Extension for Data Loss Prevention (DLP) & PII Redaction.**
+- Automatically intercepts and redacts passwords, API keys, emails, phone numbers, and custom secret tokens before user prompts are sent to Generative AI platforms (ChatGPT, Claude, DeepSeek).
+
+### 3. [Medical-prescription-and-sucure-report-](https://github.com/MatheshT/Medical-prescription-and-sucure-report-) `Python` `Cryptography`
+> **Cryptographic Confidentiality Architecture for Clinical Healthcare Data.**
+- End-to-end data encryption pipeline securing diagnostic reports and digital prescriptions using robust AES-256 standards.
+
+### 4. [CodeAlpha_NetworkIDS](https://github.com/MatheshT/CodeAlpha_NetworkIDS) `Python` `Scapy` `NIDS`
+> **Real-Time Signature & Anomaly Network Intrusion Detection System.**
+- Analyzes live network interface traffic, identifies port sweeps, flags SYN flood denial-of-service attempts, and raises real-time telemetry alerts.
+
+### 5. [CodeAlpha_BasicNetworkSniffer](https://github.com/MatheshT/CodeAlpha_BasicNetworkSniffer) `Python` `Raw Sockets`
+> **Low-Level Socket Packet Sniffer developed from scratch in Python.**
+- Extracts and unpacks raw Ethernet frames, IPv4 protocol headers, TCP/UDP port data, and payload flags for packet inspection.
+
+---
+
+## 💼 Industry Internships
+
+- **BCBuzz** — *Cybersecurity Intern*  
+  Hands-on security operations, simulated threat hunting exercises, and enterprise log analysis.
+- **SkillCraft Technology** — *Cybersecurity Intern*  
+  Applied security research, custom script development, and vulnerability assessment on web/network targets.
+- **CodeAlpha** — *Cybersecurity Intern (Credential ID: `CA/DF1/136754`)*  
+  Engineered practical security utilities including socket packet sniffers, NIDS tooling, and phishing defense materials.
+- **Prodigy Infotech** — *Cybersecurity Intern*  
+  Packet analysis, network vulnerability auditing, and script-based defense.
+
+---
+
+## 📊 GitHub Analytics
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/detection-widgets.svg" width="100%" alt="Animated detection engineering and cybersecurity capability dashboard" />
+<img src="https://github-readme-stats.vercel.app/api?username=MatheshT&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="48%" alt="Mathesh's GitHub Stats" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MatheshT&layout=compact&theme=tokyonight&hide_border=true" width="48%" alt="Mathesh's Top Languages" />
 
 </div>
 
-## `CAPABILITIES / DEFENSIVE STACK`
+---
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/SOC_OPERATIONS-07111F?style=for-the-badge&labelColor=00F5D4&color=07111F" alt="SOC Operations" />
-<img src="https://img.shields.io/badge/THREAT_DETECTION-07111F?style=for-the-badge&labelColor=7C3AED&color=07111F" alt="Threat Detection" />
-<img src="https://img.shields.io/badge/INCIDENT_RESPONSE-07111F?style=for-the-badge&labelColor=FF6B35&color=07111F" alt="Incident Response" />
-<img src="https://img.shields.io/badge/CLOUD_SECURITY-07111F?style=for-the-badge&labelColor=0EA5E9&color=07111F" alt="Cloud Security" />
-<img src="https://img.shields.io/badge/SECURITY_AUTOMATION-07111F?style=for-the-badge&labelColor=22C55E&color=07111F" alt="Security Automation" />
+### 🤝 Open for Full-Time SOC Roles, Security Internships & Defensive Research
 
-<br /><br />
+[![LinkedIn](https://img.shields.io/badge/Connect_on_LinkedIn-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mathesh-t-664112339/)
+[![Portfolio](https://img.shields.io/badge/Visit_Official_Portfolio-0284c7?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mathesht.github.io/MatheshT/)
+[![Email](https://img.shields.io/badge/Email_Mathesh-ea4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:matheshrmd@gmail.com)
 
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/ops-dashboard.svg" width="100%" alt="Animated cybersecurity operations dashboard" />
-
-<br /><br />
-
-<img src="https://skillicons.dev/icons?i=python,java,linux,bash,git,github,docker,postgresql&theme=dark" alt="Python, Java, Linux, Bash, Git, GitHub, Docker and PostgreSQL" />
-
-<br /><br />
-
-<img src="https://img.shields.io/badge/WAZUH-00AEEF?style=for-the-badge" alt="Wazuh" />
-<img src="https://img.shields.io/badge/SPLUNK-000000?style=for-the-badge&logo=splunk&logoColor=65D1FF" alt="Splunk" />
-<img src="https://img.shields.io/badge/WIRESHARK-1679A7?style=for-the-badge&logo=wireshark&logoColor=white" alt="Wireshark" />
-<img src="https://img.shields.io/badge/BURP%20SUITE-FF6633?style=for-the-badge&logo=burpsuite&logoColor=white" alt="Burp Suite" />
-<img src="https://img.shields.io/badge/VIRUSTOTAL-394EFF?style=for-the-badge" alt="VirusTotal" />
+*“To build an effective defense, you must understand the attacker's methodology.”*
 
 </div>
-
-## `CURRENTLY / UPGRADING // BUILDING ACROSS CYBERSECURITY`
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/detection-widgets.svg" width="100%" alt="Animated cybersecurity focus dashboard" />
-
-</div>
-
-I am strengthening detection rules, reducing alert fatigue, hunting for hidden patterns across endpoints and identities, learning cloud-native SIEM workflows, and developing stronger defensive fundamentals. The contribution card and visitor counters below are live profile telemetry; the animated threat panels are visual simulations rather than a claim of a real-time global threat feed.
-
-## `FEATURED BUILD / MCP SECURITY COPILOT`
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/MatheshT/MatheshT/main/mcp-pipeline.svg" width="100%" alt="Animated 3D MCP Security Copilot investigation pipeline" />
-
-</div>
-
-**MCP Security Copilot** is an AI-assisted SOC investigation workspace designed to connect **Wazuh alerts, VirusTotal enrichment, IOC correlation, analyst investigation, and automated reporting** in one controlled workflow.
-
-> **Automate the repetition. Preserve the analyst's control.**
-
-<div align="center">
-
-<img src="https://img.shields.io/badge/ALERT-00F5D4?style=for-the-badge&labelColor=07111F" alt="Alert stage" />
-<img src="https://img.shields.io/badge/ENRICH-0EA5E9?style=for-the-badge&labelColor=07111F" alt="Enrich stage" />
-<img src="https://img.shields.io/badge/CORRELATE-7C3AED?style=for-the-badge&labelColor=07111F" alt="Correlate stage" />
-<img src="https://img.shields.io/badge/INVESTIGATE-FF6B35?style=for-the-badge&labelColor=07111F" alt="Investigate stage" />
-<img src="https://img.shields.io/badge/REPORT-22C55E?style=for-the-badge&labelColor=07111F" alt="Report stage" />
-
-</div>
-
-## `LIVE TELEMETRY / CONTRIBUTIONS + VISITORS`
-
-<div align="center">
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=MatheshT&theme=github_dark" width="100%" alt="GitHub contribution telemetry" />
-
-<br /><br />
-
-<img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="100%" alt="Animated contribution snake" />
-
-</div>
-
-## `OPEN CHANNEL / LET'S CONNECT`
-
-I am open to **cybersecurity internships, SOC collaborations, defensive security projects, and opportunities to learn with strong teams**. If you are building safer systems or exploring the future of security operations, connect with me.
-
-<div align="center">
-
-<a href="https://linkedin.com/in/mathesh-t-664112339"><img src="https://img.shields.io/badge/CONNECT_ON_LINKEDIN-00F5D4?style=for-the-badge&logo=linkedin&logoColor=050816" alt="Connect on LinkedIn" /></a>
-<a href="mailto:matheshrmd@gmail.com"><img src="https://img.shields.io/badge/START_A_CONVERSATION-7C3AED?style=for-the-badge&logo=gmail&logoColor=white" alt="Start a conversation by email" /></a>
-
-<br /><br />
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F5D4,35:7C3AED,65:111827,100:050816&height=140&section=footer&animation=twinkling" width="100%" alt="Animated cyber security footer" />
-
-</div>
-
-<!--
-  INSTALLATION:
-  1. Keep this README.md in the public repository named exactly MatheshT.
-  2. Keep hacker-command-center.svg, cyber-hero.svg, mcp-pipeline.svg, ambient-3d.svg, ops-dashboard.svg, detection-widgets.svg, and terminal-simulator.svg in the repository root.
-  3. The README uses raw.githubusercontent.com URLs so GitHub can load the SVG animations reliably.
-  4. Never include passwords, API keys, tokens, or private infrastructure details.
--->
