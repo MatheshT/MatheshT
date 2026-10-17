@@ -155,6 +155,7 @@ mathesh@soc-station:~$ ./triage_alert.py --alert-id 5712
 
 | Repository | Focus Domain | Key Technologies | Status |
 | :--- | :--- | :--- | :---: |
+| **[PhoneDataRecoveryAI](https://github.com/MatheshT/PhoneDataRecoveryAI)** | AegisForensic AI Mobile Forensics & Artifact Carving Studio | Python FastAPI ADB Forensics SQLite Carving AI Super-Res 3D HUD | 🟢 Flagship Active |
 | **[mcp-security-copilot](https://github.com/MatheshT/mcp-security-copilot)** | AI-Powered SOC Copilot & Alert Triage | `Python` `Wazuh SIEM` `VirusTotal API` `MCP` | 🟢 Flagship Active |
 | **[Medical-prescription-and-sucure-report-](https://github.com/MatheshT/Medical-prescription-and-sucure-report-)** | Healthcare Data Cryptography & Privacy | `Python` `AES-256` `SHA-256` `Integrity Protocol` | 🟢 Active |
 | **[Ai-sensitive-data-protector](https://github.com/MatheshT/Ai-sensitive-data-protector)** | Chrome DLP & PII Redaction for LLMs | `JavaScript` `Chrome Extension APIs` `DLP Heuristics` | 🟢 Published |
