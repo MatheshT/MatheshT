@@ -1,0 +1,4723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathesh T | 3D Realistic Town Tour | 360° Free Rotation & Infinite Loop</title>
+  
+  <meta name="description" content="Realistic 3D Town Portfolio of Mathesh T - Full 360° free rotation, natural pedestrian life, modern villas, and interactive pavilions in a continuous loop." />
+  <meta name="keywords" content="Mathesh T, 3D Realistic Town, 360 Rotation, Infinite Loop Portfolio, Three.js Town, Cybersecurity SOC Analyst" />
+  <meta name="author" content="Mathesh T" />
+
+  <!-- Google Fonts: Inter, Rajdhani, Orbitron -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Three.js (r128) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --primary-gold: #FFD166;   /* Special keywords: Warm Yellow */
+      --primary-amber: #FF7A45;  /* Links: Bright Orange */
+      --primary-cyan: #FF9F68;   /* Hover text: Light Orange */
+      --primary-emerald: #FFD166;
+      --hud-panel-bg: rgba(15, 23, 42, 0.88);
+      --hud-panel-border: rgba(255, 107, 53, 0.4);
+      --text-main: #F5F5F5;      /* Main headings: Soft White */
+      --text-muted: #A1A1AA;     /* Secondary text: Muted Gray */
+      --text-body: #D4D4D8;      /* Normal paragraphs: Light Gray */
+      --text-highlight: #FF6B35; /* Highlighted words: Ember Orange */
+      --font-display: 'Rajdhani', -apple-system, sans-serif;
+      --font-title: 'Orbitron', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #7dd3fc;
+      color: var(--text-main);
+      font-family: var(--font-display);
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      outline: none;
+      cursor: grab;
+    }
+
+    #webgl-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* VIBRANT GAME HUD OVERLAY */
+    .town-hud-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 20px;
+    }
+
+    .interactive-element {
+      pointer-events: auto;
+    }
+
+    /* TOP HEADER BAR */
+    .town-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .town-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--hud-panel-bg);
+      border: 2px solid var(--primary-gold);
+      border-radius: 14px;
+      padding: 8px 16px;
+      box-shadow: 0 4px 25px rgba(245, 158, 11, 0.3);
+      backdrop-filter: blur(14px);
+    }
+
+    .profile-avatar-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 2px solid var(--primary-gold);
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-avatar-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-meta h1 {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mode-status-pill {
+      font-family: var(--font-display);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #10b981, #0284c7);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .profile-meta p {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* TOP ACTION BUTTONS */
+    .town-top-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hud-control {
+      background: var(--hud-panel-bg);
+      border: 1.5px solid var(--primary-gold);
+      backdrop-filter: blur(14px);
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-hud-control:hover, .btn-hud-control.active {
+      background: linear-gradient(135deg, var(--primary-gold), var(--primary-amber));
+      color: #000000;
+      border-color: #ffd700;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+    }
+
+    .btn-endless-tour {
+      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%) !important;
+      color: #fff !important;
+      border: 1.5px solid #fff !important;
+      font-weight: 800 !important;
+      animation: tourGlow 2.5s infinite alternate;
+    }
+
+    @keyframes tourGlow {
+      from { box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+      to { box-shadow: 0 0 25px rgba(2, 132, 199, 0.8); }
+    }
+
+    .btn-return-classic {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(16, 185, 129, 0.3));
+      border: 1.5px solid #38bdf8;
+      color: #fff;
+    }
+
+    /* TOP RIGHT 3D ROTATION HUD */
+    .town-rotation-hud {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .radar-circle-frame {
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      border: 3px solid var(--primary-gold);
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+      background: rgba(15, 23, 42, 0.95);
+      position: relative;
+    }
+
+    #loop-radar-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .radar-tag {
+      position: absolute;
+      bottom: 2px;
+      width: 100%;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--primary-gold);
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .rotation-hint-pill {
+      background: var(--hud-panel-bg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      color: #38bdf8;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* RIGHT QUICK ACTION BUTTONS */
+    .town-action-buttons {
+      position: absolute;
+      bottom: 90px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .action-circle-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--hud-panel-bg);
+      border: 2px solid var(--primary-gold);
+      color: var(--primary-gold);
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.15s ease;
+    }
+
+    .action-circle-btn:active, .action-circle-btn.active {
+      background: var(--primary-gold);
+      color: #000;
+      transform: scale(0.92);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+    }
+
+    .action-circle-btn span {
+      font-size: 8px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    /* VIRTUAL JOYSTICK / D-PAD (BOTTOM LEFT) */
+    .town-movement-pad {
+      position: absolute;
+      bottom: 90px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pad-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-key-pad {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--hud-panel-bg);
+      border: 2px solid var(--primary-gold);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-key-pad:active, .btn-key-pad.pressed {
+      background: var(--primary-gold);
+      color: #000;
+      transform: scale(0.92);
+    }
+
+    /* PROXIMITY PAVILION / VILLA INSPECT BANNER (CENTER BOTTOM) */
+    .town-inspect-prompt-wrap {
+      align-self: center;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .town-inspect-banner {
+      background: var(--hud-panel-bg);
+      border: 2px solid var(--primary-gold);
+      border-radius: 30px;
+      padding: 10px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+      animation: bannerGlow 2s infinite alternate;
+    }
+
+    @keyframes bannerGlow {
+      from { box-shadow: 0 0 15px rgba(245, 158, 11, 0.35); }
+      to { box-shadow: 0 0 35px rgba(2, 132, 199, 0.7); }
+    }
+
+    .pavilion-emblem-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary-gold), var(--primary-amber));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .btn-inspect-pavilion {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      color: #000;
+      border: none;
+      font-family: var(--font-title);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-inspect-pavilion:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
+    }
+
+    /* BOTTOM CIRCULAR LOOP PAVILION DOCK */
+    .town-pavilions-dock {
+      align-self: center;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--hud-panel-bg);
+      border: 2px solid var(--primary-gold);
+      border-radius: 14px;
+      padding: 6px 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 95vw;
+    }
+
+    .pavilion-chip-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: #e2e8f0;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .pavilion-chip-btn i {
+      color: var(--primary-gold);
+    }
+
+    .pavilion-chip-btn:hover, .pavilion-chip-btn.active {
+      background: linear-gradient(135deg, var(--primary-gold), var(--primary-amber));
+      color: #000;
+      border-color: #ffd700;
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    }
+
+    .pavilion-chip-btn.active i {
+      color: #000;
+    }
+
+    /* PAVILION DETAILS BRIEFING MODAL */
+    .town-modal-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      background: rgba(10, 15, 25, 0.8);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .town-modal-layer.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .town-modal-window {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 3px solid var(--primary-gold);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 860px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 0 60px rgba(245, 158, 11, 0.4), 0 20px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .modal-hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-tag-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-title);
+      font-size: 13px;
+      color: var(--primary-gold);
+    }
+
+    .btn-close-modal {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .btn-close-modal:hover {
+      background: #ef4444;
+      transform: rotate(90deg);
+    }
+
+    .modal-content-area {
+      padding: 24px;
+    }
+
+    .modal-hero-grid {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-icon-shield {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary-gold), var(--primary-amber));
+      border: 2px solid #ffd700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: #000;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+    }
+
+    .modal-title-zone h2 {
+      font-family: var(--font-title);
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .modal-badge-line {
+      font-size: 13px;
+      color: #38bdf8;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-lore-quote {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.35);
+      border-left: 4px solid var(--primary-gold);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .modal-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .pavilion-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.5px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 16px 18px;
+      transition: all 0.2s ease;
+    }
+
+    .pavilion-card:hover {
+      border-color: var(--primary-gold);
+      background: rgba(30, 41, 59, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+      font-weight: 800;
+    }
+
+    .card-issuer {
+      font-size: 12px;
+      color: #38bdf8;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .modal-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .town-rotation-hud { display: none; }
+      .profile-meta p { display: none; }
+      .modal-hero-grid { grid-template-columns: 1fr; }
+      .modal-cards-grid { grid-template-columns: 1fr; }
+    }
+  
+    /* =========================================================================
+       ULTRA ULTRA ADVENTURE & QUEST STYLES
+       ========================================================================= */
+    #speedlines-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* ADVENTURE QUEST & XP PROGRESS BANNER (TOP-CENTER) */
+    .adventure-quest-banner {
+      position: absolute;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.88);
+      border: 1.5px solid var(--primary-gold);
+      backdrop-filter: blur(16px);
+      padding: 8px 18px;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      min-width: 290px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(245, 158, 11, 0.25);
+      z-index: 20;
+      transition: all 0.3s ease;
+    }
+
+    .adventure-quest-banner:hover {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+      transform: translateX(-50%) scale(1.02);
+    }
+
+    .quest-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .quest-title-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #38bdf8;
+      font-family: var(--font-title);
+    }
+
+    .quest-xp-badge {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .quest-rank-txt {
+      color: #a7f3d0;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .quest-progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .quest-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8 0%, #10b981 50%, #f59e0b 100%);
+      width: 0%;
+      border-radius: 6px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    /* NITRO BOOST ACTION BUTTON */
+    .btn-nitro-fire {
+      background: linear-gradient(135deg, #f97316 0%, #ef4444 50%, #06b6d4 100%) !important;
+      border-color: #fde047 !important;
+      color: #fff !important;
+      animation: pulseNitroGlow 1.8s infinite alternate ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes pulseNitroGlow {
+      0% { box-shadow: 0 0 12px rgba(249, 115, 22, 0.5); transform: scale(1.0); }
+      100% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.8), 0 0 15px rgba(239, 68, 68, 0.6); transform: scale(1.06); }
+    }
+
+    /* FLOATING QUEST REWARD TOAST */
+    .quest-toast {
+      position: absolute;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+      backdrop-filter: blur(14px);
+      padding: 12px 24px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+    }
+
+    .quest-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .quest-toast-icon {
+      font-size: 26px;
+      color: #f59e0b;
+      animation: spinToastIcon 3s infinite linear;
+    }
+
+    @keyframes spinToastIcon {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .quest-toast-meta b {
+      display: block;
+      font-size: 15px;
+      font-family: var(--font-title);
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .quest-toast-meta span {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* COMPANION DRONE SPEECH BUBBLE */
+    .drone-dialog-bubble {
+      position: absolute;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1.5px solid #06b6d4;
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f8fafc;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+      pointer-events: none;
+      z-index: 25;
+      display: none;
+      max-width: 240px;
+      line-height: 1.4;
+      font-family: var(--font-display);
+    }
+
+    /* QUEST VICTORY CELEBRATION MODAL */
+    .quest-victory-box {
+      background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 24px;
+      padding: 35px 40px;
+      text-align: center;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 0 50px rgba(245, 158, 11, 0.6), 0 20px 40px rgba(0, 0, 0, 0.8);
+      position: relative;
+      animation: victoryBoxPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes victoryBoxPop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1.0); opacity: 1; }
+    }
+
+    .victory-trophy {
+      font-size: 58px;
+      color: #f59e0b;
+      text-shadow: 0 0 30px #f59e0b;
+      margin-bottom: 12px;
+      animation: bounceTrophy 1.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes bounceTrophy {
+      0% { transform: translateY(0) rotate(-5deg); }
+      100% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .quest-victory-box h2 {
+      font-family: var(--font-title);
+      font-size: 26px;
+      color: #fde047;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .quest-victory-box p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .victory-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .v-stat-item span {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    .v-stat-item b {
+      display: block;
+      font-size: 16px;
+      color: #38bdf8;
+      font-family: var(--font-title);
+      margin-top: 4px;
+    }
+
+
+    /* =========================================================================
+       CINEMATIC LIGHT SWEEP INTRO & WELCOME TEXT REVEAL
+       ========================================================================= */
+    .town-intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 50%, rgba(11, 7, 4, 0.72) 0%, rgba(3, 7, 18, 0.92) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      overflow: hidden;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+    }
+
+    .town-intro-overlay.dismissed {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    /* Dramatic Anamorphic Light Sweep Beam */
+    .light-sweep-beam {
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 48%;
+      height: 220%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 107, 53, 0.12) 25%,
+        rgba(255, 209, 102, 0.65) 48%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(255, 209, 102, 0.65) 52%,
+        rgba(255, 122, 69, 0.15) 75%,
+        transparent 100%
+      );
+      transform: rotate(28deg);
+      filter: blur(6px);
+      pointer-events: none;
+      animation: cinematicIntroBeamSweep 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      box-shadow: 0 0 70px rgba(255, 209, 102, 0.7);
+    }
+
+    .light-sweep-flare {
+      position: absolute;
+      width: 100vw;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.8), #fff, rgba(255, 209, 102, 0.8), transparent);
+      box-shadow: 0 0 30px #FFD166, 0 0 60px #FF6B35;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) scaleX(0);
+      pointer-events: none;
+      animation: flareSweepExpand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    @keyframes cinematicIntroBeamSweep {
+      0% {
+        transform: translate(-100%, -100%) rotate(28deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(260%, 260%) rotate(28deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes flareSweepExpand {
+      0% {
+        transform: translateY(-50%) scaleX(0);
+        opacity: 0;
+      }
+      40% {
+        transform: translateY(-50%) scaleX(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-50%) scaleX(1);
+        opacity: 0;
+      }
+    }
+
+    .intro-content-container {
+      position: relative;
+      z-index: 10;
+      max-width: 860px;
+      padding: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .intro-top-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 209, 102, 0.12);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #FFD166;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(255, 209, 102, 0.2);
+      animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .intro-welcome-heading {
+      font-family: var(--font-title);
+      font-size: clamp(34px, 5.5vw, 64px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      text-transform: uppercase;
+      color: #F5F5F5;
+      margin-bottom: 18px;
+      perspective: 1000px;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .intro-word {
+      display: inline-block;
+      white-space: nowrap;
+      margin: 0 0.16em;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .intro-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(115%) rotateX(-50deg);
+      transform-origin: 50% 100%;
+      filter: blur(6px);
+      animation: introCharCascade 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      color: #F5F5F5;
+    }
+
+    .intro-word.intro-grad-word .intro-char {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF7A45 35%, #FF9F68 70%, #FFD166 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.6));
+    }
+
+    @keyframes introCharCascade {
+      0% {
+        opacity: 0;
+        transform: translateY(115%) rotateX(-50deg);
+        filter: blur(6px);
+      }
+      60% {
+        opacity: 1;
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+        filter: blur(0);
+      }
+    }
+
+    .intro-welcome-subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(14px, 1.8vw, 17px);
+      color: #D4D4D8;
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+    }
+
+    .intro-welcome-subtitle strong {
+      color: #FF6B35;
+      font-weight: 700;
+    }
+
+    .intro-controls-hints {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    }
+
+    .hint-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: var(--font-display);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #A1A1AA;
+    }
+
+    .hint-badge i {
+      color: #FFD166;
+    }
+
+    
+    .btn-enter-town {
+      position: relative;
+      z-index: 9999999 !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+    }
+    .town-intro-overlay.dismissed {
+      opacity: 0 !important;
+      transform: scale(1.05) !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+
+    .btn-enter-town {
+      background: linear-gradient(135deg, #FF6B35, #FF7A45);
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.45);
+      transition: all 0.25s ease;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both;
+    }
+
+    .btn-enter-town:hover {
+      background: linear-gradient(135deg, #e0531c, #eb642f);
+      border-color: #FFD166;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 30px rgba(255, 122, 69, 0.65);
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HOLOGRAPHIC SCROLL ELEVATION & ZOOM HUD */
+    .scroll-hud-widget {
+      position: fixed;
+      right: 28px;
+      bottom: 120px;
+      z-index: 900;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 107, 53, 0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 10px;
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #F5F5F5;
+      font-family: var(--font-mono);
+      opacity: 0;
+      transform: translateX(25px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 107, 53, 0.2);
+    }
+
+    .scroll-hud-widget.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-hud-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 107, 53, 0.15);
+      border: 1px solid #FF6B35;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFD166;
+      font-size: 13px;
+    }
+
+    .scroll-hud-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scroll-hud-label {
+      font-size: 9.5px;
+      color: #A1A1AA;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .scroll-hud-value {
+      font-size: 12px;
+      color: #FFD166;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- WebGL 3D Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+  <canvas id="speedlines-canvas"></canvas>
+
+  <!-- Interactive 3D Town HUD Overlay -->
+  <div class="town-hud-overlay">
+
+  <!-- CINEMATIC LIGHT SWEEP INTRO & WELCOME TEXT REVEAL -->
+  <div id="town-intro-overlay" class="town-intro-overlay">
+    <div class="light-sweep-beam"></div>
+    <div class="light-sweep-flare"></div>
+
+    <div class="intro-content-container">
+      <div class="intro-top-tag">
+        <i class="fas fa-satellite-dish"></i> <span>SIMULATION LOADED // 360° INFINITE LOOP</span>
+      </div>
+
+      <h1 class="intro-welcome-heading">
+        <span class="intro-word"><span class="intro-char" style="animation-delay: 0.10s;">W</span><span class="intro-char" style="animation-delay: 0.14s;">E</span><span class="intro-char" style="animation-delay: 0.18s;">L</span><span class="intro-char" style="animation-delay: 0.22s;">C</span><span class="intro-char" style="animation-delay: 0.26s;">O</span><span class="intro-char" style="animation-delay: 0.30s;">M</span><span class="intro-char" style="animation-delay: 0.34s;">E</span></span>
+        <span class="intro-word"><span class="intro-char" style="animation-delay: 0.42s;">T</span><span class="intro-char" style="animation-delay: 0.46s;">O</span></span>
+        <span class="intro-word"><span class="intro-char" style="animation-delay: 0.54s;">M</span><span class="intro-char" style="animation-delay: 0.58s;">Y</span></span>
+        <span class="intro-word intro-grad-word"><span class="intro-char" style="animation-delay: 0.66s;">T</span><span class="intro-char" style="animation-delay: 0.70s;">O</span><span class="intro-char" style="animation-delay: 0.74s;">W</span><span class="intro-char" style="animation-delay: 0.78s;">N</span></span>
+      </h1>
+
+      <p class="intro-welcome-subtitle">
+        Explore <strong>Mathesh T</strong>'s Defensive Cyber Town &mdash; Full 360° view, living pedestrians, circular roadways, and interactive SOC monuments.
+      </p>
+
+      <div class="intro-controls-hints">
+        <div class="hint-badge"><i class="fas fa-arrows-up-down-left-right"></i> WASD / Arrows to Drive & Walk</div>
+        <div class="hint-badge"><i class="fas fa-mouse"></i> Click & Drag for 360° Free Look</div>
+        <div class="hint-badge"><i class="fas fa-computer-mouse"></i> Scroll Wheel for Elevation & Drone Zoom</div>
+        <button id="btn-enter-town" class="btn-enter-town" onclick="dismissTownWelcome()">
+          <span>START EXPLORING</span> <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOLOGRAPHIC SCROLL HUD WIDGET -->
+  <div id="scroll-hud-widget" class="scroll-hud-widget">
+    <div class="scroll-hud-icon"><i class="fas fa-arrows-up-down"></i></div>
+    <div class="scroll-hud-body">
+      <div class="scroll-hud-label">ELEVATION // ZOOM</div>
+      <div class="scroll-hud-value" id="scroll-hud-val">ALTITUDE: 5.2m | ZOOM: 1.0X</div>
+    </div>
+  </div>
+
+
+    <!-- TOP HEADER BAR -->
+    <header class="town-top-bar">
+      <!-- Profile Badge -->
+      <div class="town-profile-badge interactive-element">
+        <div class="profile-avatar-box">
+          <img src="mathesh_avatar.png" alt="Mathesh T" onerror="this.style.display='none'" />
+          <i class="fas fa-user-shield" style="color:var(--primary-gold);"></i>
+        </div>
+        <div class="profile-meta">
+          <h1>
+            MATHESH T <span id="mode-status-tag" class="mode-status-pill">360° FREE LOOK</span>
+          </h1>
+          <p>REALISTIC TOWN // 360° ORBIT & NORMAL PEDESTRIANS</p>
+        </div>
+      </div>
+
+      <!-- Action Controls -->
+      <div class="town-top-controls interactive-element">
+        <!-- Endless Auto-Tour Loop -->
+        <button id="btn-toggle-endless" class="btn-hud-control btn-endless-tour" title="Start Infinite Seamless 360 Loop Tour (T)">
+          <i class="fas fa-arrows-spin"></i> <span id="tour-lbl">INFINITE TOUR LOOP</span>
+        </button>
+
+        <!-- 360 Auto-Rotation Toggle -->
+        <button id="btn-toggle-spin" class="btn-hud-control" title="Toggle Smooth 360 Auto-Rotation (R)">
+          <i class="fas fa-rotate"></i> <span id="spin-lbl">AUTO-SPIN 360°</span>
+        </button>
+
+        <!-- Toggle Car Ride vs Walking -->
+        <button id="btn-toggle-vehicle" class="btn-hud-control" title="Ride Sports Car or Walk on Foot (V)">
+          <i class="fas fa-car-side"></i> <span id="veh-lbl">RIDE CAR</span>
+        </button>
+
+        <!-- Dynamic Lighting & Mood Atmosphere Toggle -->
+        <button id="btn-toggle-lighting" class="btn-hud-control" title="Switch Atmospheric Lighting & Mood (L)">
+          <i class="fas fa-sun"></i> <span id="lighting-lbl">DAY NOON</span>
+        </button>
+
+        <!-- Sound FX Audio Toggle -->
+        <button id="btn-toggle-audio" class="btn-hud-control" title="Toggle Sound FX (M)">
+          <i class="fas fa-volume-high"></i> <span id="audio-lbl">AUDIO ON</span>
+        </button>
+
+        <button id="btn-replay-intro" class="btn-hud-control" onclick="replayTownWelcome()" title="Replay Cinematic Light Sweep Intro & Welcome Reveal">
+          <i class="fas fa-film"></i> <span>INTRO</span>
+        </button>
+
+        <!-- Return to Classic Web Portfolio -->
+        <a href="mathesh_portfolio_2026.html" class="btn-hud-control btn-return-classic" title="Return to standard portfolio view">
+          <i class="fas fa-arrow-left"></i> <span>CLASSIC PORTFOLIO</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ULTRA QUEST & XP PROGRESSION BANNER (TOP-CENTER) -->
+    <div class="adventure-quest-banner interactive-element" id="quest-banner">
+      <div class="quest-info-row">
+        <span class="quest-title-pill">
+          <i class="fas fa-gem"></i> CTF CORES: <b id="quest-cores-cnt">0</b> / 15
+        </span>
+        <span class="quest-xp-badge" id="quest-xp-lbl">+0 XP</span>
+        <span class="quest-rank-txt" id="quest-rank-lbl">RECON SCOUT</span>
+      </div>
+      <div class="quest-progress-track">
+        <div class="quest-progress-fill" id="quest-progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- COMPANION DRONE SPEECH BUBBLE -->
+    <div id="drone-speech-bubble" class="drone-dialog-bubble">
+      <i class="fas fa-robot" style="color:#06b6d4; margin-right:5px;"></i>
+      <span id="drone-speech-txt">Cyber-Bot online! Explore the town or collect data cores!</span>
+    </div>
+
+    <!-- TOP-RIGHT RADAR & 360 ROTATION HINT HUD -->
+    <div class="town-rotation-hud interactive-element">
+      <div class="radar-circle-frame">
+        <canvas id="loop-radar-canvas" width="175" height="175"></canvas>
+        <div class="radar-tag">INFINITE CIRCULAR LOOP</div>
+      </div>
+      <div class="rotation-hint-pill">
+        <i class="fas fa-computer-mouse"></i> <span>DRAG TO ROTATE 360°</span>
+      </div>
+    </div>
+
+    <!-- RIGHT ACTION BUTTONS -->
+    <div class="town-action-buttons interactive-element">
+      <button id="btn-action-nitro" class="action-circle-btn btn-nitro-fire" title="Turbo Nitro Boost (F)">
+        <i class="fas fa-bolt"></i>
+        <span id="nitro-btn-lbl">NITRO</span>
+      </button>
+      <button id="btn-action-jump" class="action-circle-btn" title="Jump (Space)">
+        <i class="fas fa-person-running"></i>
+        <span>JUMP</span>
+      </button>
+      <button id="btn-action-sprint" class="action-circle-btn" title="Sprint (Shift)">
+        <i class="fas fa-gauge-high"></i>
+        <span>SPRINT</span>
+      </button>
+      <button id="btn-action-view" class="action-circle-btn" title="Cycle Camera Views: Chase / FPS / Drone / Aerial (C)">
+        <i class="fas fa-video"></i>
+        <span id="cam-view-lbl">CHASE</span>
+      </button>
+    </div>
+
+    <!-- VIRTUAL JOYSTICK / D-PAD (BOTTOM LEFT) -->
+    <div class="town-movement-pad interactive-element">
+      <div class="pad-row">
+        <button id="pad-up" class="btn-key-pad" title="Move Forward (W / Up)">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </div>
+      <div class="pad-row">
+        <button id="pad-left" class="btn-key-pad" title="Turn Left (A / Left)">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button id="pad-down" class="btn-key-pad" title="Move Back (S / Down)">
+          <i class="fas fa-arrow-down"></i>
+        </button>
+        <button id="pad-right" class="btn-key-pad" title="Turn Right (D / Right)">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- PROXIMITY PAVILION / VILLA INSPECT BANNER -->
+    <div class="town-inspect-prompt-wrap">
+      <div id="town-inspect-banner" class="town-inspect-banner interactive-element">
+        <div class="pavilion-emblem-icon">
+          <i class="fas fa-house-chimney"></i>
+        </div>
+        <div>
+          <div style="font-size:11px; color:var(--primary-gold); font-weight:800;">APPROACHING TOWN PAVILION</div>
+          <div id="proximity-pavilion-name" style="font-size:14px; font-weight:800; color:#fff;">01: Mathesh Cyber Villa</div>
+        </div>
+        <button id="btn-open-pavilion" class="btn-inspect-pavilion">
+          <i class="fas fa-door-open"></i> <span>ENTER PAVILION (SPACE)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTTOM CIRCULAR LOOP PAVILION DOCK -->
+    <nav class="town-pavilions-dock interactive-element">
+      <div class="pavilion-chip-btn active" data-pavilion="0">
+        <i class="fas fa-house"></i> <span>01. Cyber Villa</span>
+      </div>
+      <div class="pavilion-chip-btn" data-pavilion="1">
+        <i class="fas fa-trophy"></i> <span>02. CTF Arena</span>
+      </div>
+      <div class="pavilion-chip-btn" data-pavilion="2">
+        <i class="fas fa-laptop-code"></i> <span>03. Tech Foundry</span>
+      </div>
+      <div class="pavilion-chip-btn" data-pavilion="3">
+        <i class="fas fa-building"></i> <span>04. Corporate HQ</span>
+      </div>
+      <div class="pavilion-chip-btn" data-pavilion="4">
+        <i class="fas fa-atom"></i> <span>05. Skill Academy</span>
+      </div>
+      <div class="pavilion-chip-btn" data-pavilion="5">
+        <i class="fas fa-landmark"></i> <span>06. Town Hall</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- PAVILION DETAILS BRIEFING MODAL -->
+  <div id="town-modal" class="town-modal-layer">
+    <div class="town-modal-window">
+      <div class="modal-hud-header">
+        <div class="modal-tag-badge">
+          <i class="fas fa-house-laptop"></i> <span id="modal-tag-txt">PAVILION 01 // OVERVIEW</span>
+        </div>
+        <button id="modal-close-btn" class="btn-close-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="modal-content-area">
+        <div class="modal-hero-grid">
+          <div id="modal-icon-box" class="modal-icon-shield">
+            <i class="fas fa-house"></i>
+          </div>
+          <div class="modal-title-zone">
+            <h2 id="modal-title">Mathesh's Cyber Villa & Academy Grounds</h2>
+            <div class="modal-badge-line">
+              <span>LOCATION: <strong style="color:var(--primary-gold);">INFINITE BOULEVARD MILE 0.0</strong></span>
+              <span>•</span>
+              <span id="modal-subtitle">SOC DEFENDER & B.E. CYBER SECURITY</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-lore" class="modal-lore-quote">
+          Pavilion overview loaded...
+        </div>
+
+        <!-- Detail Cards Grid -->
+        <div id="modal-cards-container" class="modal-cards-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="modal-bottom-bar">
+          <div style="font-size:12px; color:#94a3b8;">
+            <i class="fas fa-shield-halved" style="color:var(--primary-emerald);"></i> VERIFIED PRODUCTION CREDENTIALS OF MATHESH T
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button id="modal-link-btn" class="btn-hud-control" style="border-color:var(--primary-gold); color:var(--primary-gold);">
+              <i class="fas fa-external-link-alt"></i> <span>Open Full Section</span>
+            </button>
+            <button id="modal-dismiss-btn" class="btn-hud-control">
+              <span>Resume Loop Tour</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D ENGINE SCRIPT -->
+  <script>
+    /* =========================================================================
+       1. SYNTHESIZED WEB AUDIO ENGINE
+       ========================================================================= */
+    const TownAudio = (function() {
+      let ctx = null;
+      let engineOsc = null;
+      let engineGain = null;
+      let isMuted = false;
+
+      function init() {
+        if (!ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            ctx = new AudioContext();
+            setupCarSound();
+          }
+        }
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+      }
+
+      function setupCarSound() {
+        try {
+          engineOsc = ctx.createOscillator();
+          engineGain = ctx.createGain();
+          engineOsc.type = 'triangle';
+          engineOsc.frequency.setValueAtTime(45, ctx.currentTime);
+          engineGain.gain.setValueAtTime(0.0, ctx.currentTime);
+          engineOsc.connect(engineGain);
+          engineGain.connect(ctx.destination);
+          engineOsc.start();
+        } catch(e) {}
+      }
+
+      return {
+        init: init,
+        playIntroSweepChime: () => {
+          if (isMuted || !ctx) return;
+          try {
+            const now = ctx.currentTime;
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(freq, now + i * 0.07);
+              gain.gain.setValueAtTime(0.04, now + i * 0.07);
+              gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 1.6);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now + i * 0.07);
+              osc.stop(now + i * 0.07 + 1.8);
+            });
+          } catch(e) {}
+        },
+        updateCarPitch: (speedRatio) => {
+          if (isMuted || !engineOsc || !ctx) return;
+          const targetFreq = 48 + Math.abs(speedRatio) * 110;
+          const targetVol = Math.min(0.08, 0.02 + Math.abs(speedRatio) * 0.05);
+          engineOsc.frequency.setTargetAtTime(targetFreq, ctx.currentTime, 0.05);
+          engineGain.gain.setTargetAtTime(targetVol, ctx.currentTime, 0.05);
+        },
+        stopCar: () => {
+          if (engineGain && ctx) engineGain.gain.setTargetAtTime(0.0, ctx.currentTime, 0.05);
+        },
+        pavilionChime: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.09);
+            g.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.09);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.09 + 0.5);
+            osc.connect(g);
+            g.connect(ctx.destination);
+            osc.start(ctx.currentTime + i * 0.09);
+            osc.stop(ctx.currentTime + i * 0.09 + 0.5);
+          });
+        },
+        footstep: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(110 + Math.random() * 20, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(35, ctx.currentTime + 0.05);
+          g.gain.setValueAtTime(0.035, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.05);
+        },
+        pickupOrb: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          [587.33, 880.00, 1174.66, 1760.00].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.05);
+            g.gain.setValueAtTime(0.14, ctx.currentTime + idx * 0.05);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.05 + 0.35);
+            osc.connect(g);
+            g.connect(ctx.destination);
+            osc.start(ctx.currentTime + idx * 0.05);
+            osc.stop(ctx.currentTime + idx * 0.05 + 0.35);
+          });
+        },
+        nitroBoost: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(140, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(650, ctx.currentTime + 0.35);
+          g.gain.setValueAtTime(0.2, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.7);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.7);
+        },
+        launchRamp: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(180, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.28);
+          g.gain.setValueAtTime(0.16, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        },
+        victoryFanfare: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, i) => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.12);
+            g.gain.setValueAtTime(0.18, ctx.currentTime + i * 0.12);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.8);
+            osc.connect(g);
+            g.connect(ctx.destination);
+            osc.start(ctx.currentTime + i * 0.12);
+            osc.stop(ctx.currentTime + i * 0.12 + 0.8);
+          });
+        },
+        jump: () => {
+          if (isMuted) return;
+          init();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(260, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(500, ctx.currentTime + 0.12);
+          g.gain.setValueAtTime(0.1, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.12);
+        },
+        toggleMute: () => {
+          isMuted = !isMuted;
+          if (isMuted && engineGain && ctx) engineGain.gain.setValueAtTime(0.0, ctx.currentTime);
+          return isMuted;
+        }
+      };
+    })();
+
+    /* =========================================================================
+       2. SIX SHOWCASE PAVILIONS ALONG THE CIRCULAR LOOP
+       ========================================================================= */
+    const PAVILIONS_DATA = [
+      {
+        id: 0,
+        angleDeg: 0,
+        tag: "PAVILION 01 // MATESH CYBER VILLA",
+        name: "Mathesh's Cyber Villa & Academy Grounds",
+        icon: "fa-house-chimney",
+        color: 0xf59e0b,
+        caption: "Station 1: Academic Track & Cybersecurity Doctrine.",
+        lore: "Mathesh T's modern suburban villa and headquarters. Defensive cybersecurity builder pursuing B.E. in Cyber Security at Sri Shakthi Institute of Engineering and Technology, Coimbatore.",
+        cards: [
+          {
+            title: "Academic Track & Degree",
+            tag: "EDUCATION",
+            issuer: "Sri Shakthi Institute of Engineering & Technology, Coimbatore",
+            desc: "B.E. in Computer Science & Engineering (Cyber Security) • 2024–2028 • GPA: 7.7 / 10.0 • Focus on Network Defense, Cryptography, and Threat Detection."
+          },
+          {
+            title: "Roots & Background",
+            tag: "ORIGIN",
+            issuer: "Ramanathapuram, Tamil Nadu",
+            desc: "Native of Ramanathapuram (2/27S1, Vattan Valasai, Ramanathapuram - 623536). Dedicated to defensive incident response and active cyber operations."
+          },
+          {
+            title: "Defensive Doctrine",
+            tag: "PHILOSOPHY",
+            issuer: "Strategic Mindset",
+            desc: "'To construct an impenetrable defense, you must thoroughly understand the adversary\'s playbook.' Continuous CTF player and security lab builder."
+          }
+        ],
+        actionLink: "mathesh_portfolio_2026.html#about"
+      },
+      {
+        id: 1,
+        angleDeg: 60,
+        tag: "PAVILION 02 // TROPHY ARENA",
+        name: "CTF Championship Stadium & Hall of Valor",
+        icon: "fa-trophy",
+        color: 0xf59e0b,
+        caption: "Station 2: 1st Place Mirage CTF Winner, 2nd Place HACKNEXT '26, 150+ PicoCTF Flags.",
+        lore: "The circular championship colosseum where Mathesh T conquered reverse engineering, binary exploitation, and web challenges against hundreds of collegiate teams.",
+        cards: [
+          {
+            title: "Mirage CTF — 1st Place Champion",
+            tag: "1ST PLACE",
+            issuer: "Amrita Vishwa Vidyapeetham, Chennai",
+            desc: "Captured 1st Place out of top multi-college teams in intense national competition, solving reverse engineering and web exploitation challenges."
+          },
+          {
+            title: "HACKNEXT '26 — 2nd Place Runner-Up",
+            tag: "2ND PLACE",
+            issuer: "SNS College of Technology, Coimbatore",
+            desc: "Awarded 2nd position in state-wide technical hackathon defense challenge, presenting automated threat mitigation algorithms."
+          },
+          {
+            title: "PicoCTF — 150+ Challenges Conquered",
+            tag: "RANKED CTF",
+            issuer: "CyLab Carnegie Mellon University",
+            desc: "Mastered 150+ challenges across Web Exploits, Cryptography (RSA/AES), Reverse Engineering, Forensics, and Binary Exploitation."
+          },
+          {
+            title: "IJCA Research Publication",
+            tag: "PEER REVIEWED",
+            issuer: "Ref: IJCA/4243 • ISSN: 2250-1797 • Impact Factor: 3.12",
+            desc: "Published academic paper on enterprise defensive architectures and automated vulnerability mitigation techniques."
+          },
+          {
+            title: "Lunar CTF — Top 30 Finalist",
+            tag: "STATE FINALIST",
+            issuer: "Kerala State-Level Cyber Contest",
+            desc: "Ranked among top 30 collegiate teams in digital forensics, network packet forensics, and cryptanalysis."
+          },
+          {
+            title: "UNI6CTF 1.0 — Merit Award (Rank 36)",
+            tag: "MERIT",
+            issuer: "Cyber Hunter Warrior Directorate",
+            desc: "Earned Merit ranking 36 in national defense exercises, conducting live forensics investigation on compromised container images."
+          }
+        ],
+        actionLink: "mathesh_portfolio_2026.html#honors"
+      },
+      {
+        id: 2,
+        angleDeg: 120,
+        tag: "PAVILION 03 // TECH FOUNDRY",
+        name: "Innovation Glass Lab & Flagship Projects",
+        icon: "fa-laptop-code",
+        color: 0x0284c7,
+        caption: "Station 3: Flagship systems: mcp-security-copilot, Medical EHR AES-256, and Raw Socket IDS.",
+        lore: "The transparent glass architecture where production security tools are forged. Bridges Model Context Protocol (MCP) AI assistants with Wazuh SIEM telemetry, deep packet inspection, and end-to-end medical cryptography.",
+        cards: [
+          {
+            title: "mcp-security-copilot",
+            tag: "FLAGSHIP AI + SIEM",
+            issuer: "Wazuh SIEM + VirusTotal + Model Context Protocol",
+            desc: "Autonomous SOC Copilot bridging SIEM telemetry, VirusTotal threat intelligence API, and Claude/MCP. Correlates IOCs and generates structured MITRE ATT&CK incident reports."
+          },
+          {
+            title: "Medical Prescription & Secure EHR Report",
+            tag: "CRYPTOGRAPHY",
+            issuer: "AES-256 Symmetric + RSA Key Exchange",
+            desc: "Zero-knowledge health record protection engine combining AES-256 encryption, asymmetric keys, and SHA-256 hashing to safeguard sensitive patient diagnostic reports."
+          },
+          {
+            title: "API Attack Detection & Prevention",
+            tag: "APP DEFENSE",
+            issuer: "Real-Time Microservice Inspector",
+            desc: "Deep packet HTTP/REST inspector engineered to halt SQLi, NoSQLi, Broken Object Level Authorization (BOLA), and volumetric API abuse in real-time."
+          },
+          {
+            title: "Raw Socket Network IDS & Sniffer",
+            tag: "NETWORK DEFENSE",
+            issuer: "Linux Raw Sockets + Python Scapy",
+            desc: "Low-level packet capture engine parsing IPv4, TCP, UDP, and ICMP headers. Detects stealth port scans, SYN flooding, and unauthorized egress payloads."
+          },
+          {
+            title: "SOC Analyst AI Chatbot",
+            tag: "INCIDENT RESPONSE",
+            issuer: "Incident Playbook Automation",
+            desc: "Domain-trained AI assistant for Tier-1 SOC analysts that translates raw syslog/JSON events into actionable triage containment checklists."
+          },
+          {
+            title: "AI Sensitive Data DLP Protector",
+            tag: "DATA PRIVACY",
+            issuer: "Browser Extension Engine",
+            desc: "Client-side DLP extension safeguarding developers by automatically detecting and redacting API keys, private keys, and PII before transmission to LLMs."
+          }
+        ],
+        actionLink: "mathesh_portfolio_2026.html#projects"
+      },
+      {
+        id: 3,
+        angleDeg: 180,
+        tag: "PAVILION 04 // CORPORATE HQ",
+        name: "Corporate District & Field Outposts",
+        icon: "fa-building",
+        color: 0x10b981,
+        caption: "Station 4: 4 verified cybersecurity industry internships.",
+        lore: "Modern glass office towers representing real-world industry experience, enterprise vulnerability scans, web security audits, and SOC telemetry hardening.",
+        cards: [
+          {
+            title: "CodeAlpha — Cybersecurity Intern",
+            tag: "VERIFIED INTERNSHIP",
+            issuer: "Credential ID: CA/DF1/136754",
+            desc: "Performed vulnerability assessments, network penetration testing, digital forensic analysis, and developed custom defense automation scripts."
+          },
+          {
+            title: "BCBuzz — Cybersecurity Intern",
+            tag: "VERIFIED INTERNSHIP",
+            issuer: "Security Operations & Web Testing",
+            desc: "Executed OWASP Top 10 web application assessments, automated security sweeps, and drafted actionable remediation blueprints for engineering teams."
+          },
+          {
+            title: "SkillCraft Technology — Cybersecurity Intern",
+            tag: "VERIFIED INTERNSHIP",
+            issuer: "Threat Analysis & Python Tooling",
+            desc: "Constructed Python security utilities including port scanners, password complexity validators, and packet capture loggers."
+          },
+          {
+            title: "Prodigy Infotech — Cybersecurity Intern",
+            tag: "VERIFIED INTERNSHIP",
+            issuer: "Network Defense & Encryption",
+            desc: "Implemented packet sniffer prototypes, keylogger behavior detectors, and pixel-manipulation steganography decoders."
+          }
+        ],
+        actionLink: "mathesh_portfolio_2026.html#internships"
+      },
+      {
+        id: 4,
+        angleDeg: 240,
+        tag: "PAVILION 05 // SKILL ACADEMY",
+        name: "Cyber Mastery Academy & Skill Sphere",
+        icon: "fa-atom",
+        color: 0x8b5cf6,
+        caption: "Station 5: Wazuh SIEM, Wireshark, Splunk, Python/Scapy, Nmap, Burp Suite, Forensics.",
+        lore: "The specialized training academy displaying Mathesh's deep mastery of enterprise security frameworks, forensic tools, and packet analysis engines.",
+        cards: [
+          {
+            title: "Wazuh SIEM & EDR Operations",
+            tag: "95% PROFICIENCY",
+            issuer: "Host & Log Telemetry",
+            desc: "Custom XML decoders, active-response scripts, file integrity monitoring (FIM), and multi-agent endpoint cluster deployment."
+          },
+          {
+            title: "Network Sniffing & Wireshark",
+            tag: "92% PROFICIENCY",
+            issuer: "Protocol Dissection",
+            desc: "Deep packet inspection, pcap anomaly analysis, TCP stream reconstruction, DNS tunneling discovery, and raw socket scripting."
+          },
+          {
+            title: "VAPT & Penetration Testing",
+            tag: "88% PROFICIENCY",
+            issuer: "Burp Suite, Nmap, Metasploit",
+            desc: "Web application penetration testing, SQLi, XSS, SSRF, authentication bypass, network perimeter vulnerability scanning."
+          },
+          {
+            title: "Digital Forensics & Incident Response",
+            tag: "86% PROFICIENCY",
+            issuer: "Autopsy, Volatility, FTK",
+            desc: "RAM memory extraction, timeline analysis, malware persistence artifact identification, Prefetch/Shimcache investigation."
+          },
+          {
+            title: "Security Automation (Python/Bash)",
+            tag: "90% PROFICIENCY",
+            issuer: "Scripting & Tool Development",
+            desc: "Scapy raw sockets, requests API automation, automated SIEM rule parsers, and cron threat feed synchronization."
+          },
+          {
+            title: "Governance & MITRE ATT&CK",
+            tag: "89% PROFICIENCY",
+            issuer: "Framework Alignment",
+            desc: "Mapping adversary TTPs to MITRE matrices, NIST CSF implementation, and incident handling according to ISO 27001 standards."
+          }
+        ],
+        actionLink: "mathesh_portfolio_2026.html#skills"
+      },
+      {
+        id: 5,
+        angleDeg: 300,
+        tag: "PAVILION 06 // TOWN HALL",
+        name: "Town Hall & Transmission Center",
+        icon: "fa-landmark",
+        color: 0xf59e0b,
+        caption: "Station 6: Connect with Mathesh T on LinkedIn or download official resume.",
+        lore: "The civic transmission center of the loop. Connect directly with Mathesh T for SOC analyst openings, security engineering roles, and CTF collaborations.",
+        cards: [
+          {
+            title: "LinkedIn Executive Profile",
+            tag: "OFFICIAL NETWORK",
+            issuer: "linkedin.com/in/mathesh-t-664112339",
+            desc: "Direct connection point for hiring managers, SOC directors, and collaborative research partnerships."
+          },
+          {
+            title: "Verified PDF Resume & Credentials",
+            tag: "DOWNLOAD READY",
+            issuer: "Mathesh T Cybersecurity Resume",
+            desc: "Comprehensive documentation detailing academic GPA, internship credentials, CTF certificates, and technical stack."
+          },
+          {
+            title: "Direct Transmission & Dispatch",
+            tag: "CONTACT READY",
+            issuer: "Tamil Nadu, India",
+            desc: "Ready for immediate deployment in Security Operations Center (SOC), Incident Response, or Security Engineering positions."
+          }
+        ],
+        actionLink: "https://www.linkedin.com/in/mathesh-t-664112339/"
+      }
+    ];
+
+    /* =========================================================================
+       3. THREE.JS 3D WORLD: CONTINUOUS LOOP, VILLAS, NORMAL ROAMING PEOPLE
+       ========================================================================= */
+    let scene, camera, renderer, clock;
+    let playerCharacter, playerVehicle;
+    let pavilionMeshes = [];
+    let roamingPedestrians = [];
+    let residentialHomes = [];
+
+    // Continuous Loop Constants
+    const LOOP_RADIUS = 68;
+
+    // Navigation & 360 Camera Orbit State
+    let isVehicleMode = false;
+    let cameraMode = 'orbit360'; // 'orbit360', 'firstPerson', 'drone', 'aerial'
+    
+    // =========================================================================
+    // GLOBAL CINEMATIC LIGHT SWEEP INTRO & WELCOME TEXT CONTROLS
+    // =========================================================================
+    let isIntroCinematic = true;
+    let introProgress = 0;
+    const INTRO_DURATION = 3.2;
+
+    function dismissTownWelcome() {
+      const overlay = document.getElementById("town-intro-overlay");
+      if (overlay) {
+        overlay.classList.add("dismissed");
+        setTimeout(() => {
+          overlay.style.display = "none";
+        }, 650);
+      }
+      isIntroCinematic = false;
+      if (typeof TownAudio !== 'undefined' && TownAudio.init) {
+        TownAudio.init();
+      }
+    }
+
+    function replayTownWelcome() {
+      const overlay = document.getElementById("town-intro-overlay");
+      if (!overlay) return;
+      overlay.style.display = "flex";
+      overlay.classList.remove("dismissed");
+
+      const chars = overlay.querySelectorAll('.intro-char');
+      chars.forEach((c, i) => {
+        c.style.animation = 'none';
+        void c.offsetHeight;
+        c.style.animation = `introCharCascade 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + i * 0.04}s forwards`;
+      });
+
+      const beam = overlay.querySelector('.light-sweep-beam');
+      if (beam) {
+        beam.style.animation = 'none';
+        void beam.offsetHeight;
+        beam.style.animation = 'cinematicIntroBeamSweep 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+      }
+
+      isIntroCinematic = true;
+      introProgress = 0;
+      if (typeof TownAudio !== 'undefined' && TownAudio.playIntroSweepChime) {
+        TownAudio.playIntroSweepChime();
+      }
+    }
+
+    window.dismissTownWelcome = dismissTownWelcome;
+    window.replayTownWelcome = replayTownWelcome;
+
+    let isEndlessLoopActive = false;
+    let isAutoSpin = false;
+    let endlessLoopProgress = 0;
+    let isJumping = false;
+    let jumpVelocity = 0;
+    let footstepClock = 0;
+    let activeNearPavilion = null;
+
+    // Dynamic Lighting, Sky & VFX State
+    let ambientLight, sunLight, hemiLight;
+    let currentLightingMood = 'noon'; // 'noon', 'sunset', 'morning'
+    let skyMesh = null;
+    let sunGlowGroup = null;
+    let godRaysGroup = null;
+    let cloudsList = [];
+    let ambientMotes = [];
+    let fountainParticles = [];
+    let carExhaustParticles = [];
+
+    // ULTRA ADVENTURE & QUEST STATE
+    let cyberCores = [];
+    let collectedCoresCount = 0;
+    let playerXP = 0;
+    let isNitroActive = false;
+    let nitroTimer = 0;
+    let nitroCooldown = 0;
+    let stuntRamps = [];
+    let totalStuntsJumped = 0;
+    let companionDrone = null;
+    let skyCitadel = null;
+    let airshipBlimp = null;
+    let patrolDrones = [];
+    let sparkleBursts = [];
+    let carUnderglowMesh = null;
+    let speedlinesCanvas = null;
+    let speedlinesCtx = null;
+    let droneSpeechTimer = 0;
+
+    let playerAngle = 0;
+    let playerRadialOffset = 0;
+    let playerFacing = 0;
+
+    // Free 360 Mouse / Touch Orbit Controls
+    let isPointerDragging = false;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let cameraOrbitYaw = 0.0;    // Horizontal rotation angle around player
+    let cameraOrbitPitch = 0.35; // Vertical pitch angle (radians)
+    let cameraOrbitDist = 7.5;   // Distance from player
+
+    const keys = {
+      forward: false,
+      backward: false,
+      left: false,
+      right: false,
+      shift: false
+    };
+
+    function initRealisticTown() {
+      const canvas = document.getElementById("webgl-canvas");
+      scene = new THREE.Scene();
+
+      // Atmospheric fog
+      scene.background = new THREE.Color(0x7dd3fc);
+      scene.fog = new THREE.FogExp2(0xbae6fd, 0.0028);
+
+      camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 1200);
+      camera.position.set(LOOP_RADIUS + 8, 4.5, 8);
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.25;
+      renderer.outputEncoding = THREE.sRGBEncoding;
+
+      // ENABLE PCF SOFT SHADOWS
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      clock = new THREE.Clock();
+
+      // Sun Directional Light with Soft Shadows
+      sunLight = new THREE.DirectionalLight(0xfffaed, 1.45);
+      sunLight.position.set(130, 210, 110);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      sunLight.shadow.camera.near = 10;
+      sunLight.shadow.camera.far = 450;
+      const d = 115;
+      sunLight.shadow.camera.left = -d;
+      sunLight.shadow.camera.right = d;
+      sunLight.shadow.camera.top = d;
+      sunLight.shadow.camera.bottom = -d;
+      sunLight.shadow.bias = -0.0004;
+      sunLight.shadow.radius = 2.5;
+      scene.add(sunLight);
+
+      // Realistic Hemisphere Light (Sky bounce from top, grass bounce from below)
+      hemiLight = new THREE.HemisphereLight(0x7dd3fc, 0x166534, 0.72);
+      hemiLight.position.set(0, 90, 0);
+      scene.add(hemiLight);
+
+      // Soft Ambient fill
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.42);
+      scene.add(ambientLight);
+
+      // Sky, God-Rays, Distant Mountains & City Skyline
+      createDynamicSkyAndHorizon();
+
+      // 1. Build Continuous Circular Asphalt Roadway, Streetlights & Central Park
+      createCircularRoadwayAndPark();
+
+      // 2. Build Modern Luxury Suburban Villas
+      createResidentialHomes();
+
+      // 3. Build the 6 Showcasing Architectural Pavilions
+      createShowcasePavilions();
+
+      // 4. Build NORMAL PACE Roaming Pedestrians
+      createNormalRoamingPedestrians();
+
+      // 5. Build Player Walking Character & Sports Car
+      createPlayerEntities();
+
+      // 6. Build Atmospheric VFX Systems (Sun motes, water spray, exhaust smoke)
+      createVFXParticleSystems();
+
+      // 7. ULTRA ULTRA ADVENTURE & QUEST SYSTEMS
+      createCyberQuestCores();
+      createStuntJumpRamps();
+      createSkyCitadel();
+      createAirshipCruiser();
+      createPatrolDrones();
+      createCompanionBot();
+      createGiantHolographicBillboards();
+      initSpeedlinesCanvas();
+
+      // Event Listeners (Keyboard, Resize, and 360 Drag Controls)
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keyup', onKeyUp);
+      init360OrbitMouseControls(canvas);
+
+      // Wire up Start Exploration button & dismiss triggers
+      const enterBtn = document.getElementById("btn-enter-town");
+      if (enterBtn) {
+        enterBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          dismissTownWelcome();
+        });
+      }
+
+      window.addEventListener("keydown", (e) => {
+        if (isIntroCinematic && e.code !== 'F12') {
+          dismissTownWelcome();
+        }
+      });
+
+
+      // Start loop
+      animate();
+    }
+
+    /* Dynamic Sky Dome, Radiant Corona Sun, Distant Mountains & Skyline */
+    function createDynamicSkyAndHorizon() {
+      // 1. Giant Atmospheric Gradient Sky Dome (Radius 490)
+      const skyCanvas = document.createElement('canvas');
+      skyCanvas.width = 128;
+      skyCanvas.height = 512;
+      const sCtx = skyCanvas.getContext('2d');
+      const grad = sCtx.createLinearGradient(0, 0, 0, 512);
+      grad.addColorStop(0.0, '#0284c7'); // Zenith deep vibrant azure
+      grad.addColorStop(0.4, '#38bdf8'); // Sunny sky cyan
+      grad.addColorStop(0.72, '#bae6fd'); // Horizon azure
+      grad.addColorStop(0.88, '#fde68a'); // Warm golden-peach horizon haze
+      grad.addColorStop(1.0, '#86efac');  // Soft green blend at ground level
+      sCtx.fillStyle = grad;
+      sCtx.fillRect(0, 0, 128, 512);
+
+      const skyTex = new THREE.CanvasTexture(skyCanvas);
+      const skyGeo = new THREE.SphereGeometry(490, 32, 24);
+      const skyMat = new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide, fog: false });
+      skyMesh = new THREE.Mesh(skyGeo, skyMat);
+      scene.add(skyMesh);
+
+      // 2. Radiant Glowing Sun with Multi-layer Corona Halo
+      sunGlowGroup = new THREE.Group();
+      sunGlowGroup.position.set(160, 220, -160);
+
+      // Sun core
+      const coreGeo = new THREE.SphereGeometry(18, 16, 16);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0xfffbeb, fog: false });
+      const sunCore = new THREE.Mesh(coreGeo, coreMat);
+      sunGlowGroup.add(sunCore);
+
+      // Multi-layer glowing corona discs with additive blending
+      [28, 42, 60].forEach((r, idx) => {
+        const haloGeo = new THREE.PlaneGeometry(r * 2, r * 2);
+        const haloMat = new THREE.MeshBasicMaterial({
+          color: idx === 0 ? 0xfef08a : (idx === 1 ? 0xfbbf24 : 0xf97316),
+          transparent: true,
+          opacity: 0.35 - idx * 0.09,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          fog: false,
+          side: THREE.DoubleSide
+        });
+        const halo = new THREE.Mesh(haloGeo, haloMat);
+        halo.lookAt(0, 0, 0);
+        sunGlowGroup.add(halo);
+      });
+
+      // 3. Volumetric God-Rays / Sunbeams
+      godRaysGroup = new THREE.Group();
+      for (let i = 0; i < 7; i++) {
+        const rayAngle = (i / 7) * Math.PI * 0.5 - Math.PI * 0.25;
+        const rayGeo = new THREE.CylinderGeometry(2, 26, 180, 8, 1, true);
+        const rayMat = new THREE.MeshBasicMaterial({
+          color: 0xfef08a,
+          transparent: true,
+          opacity: 0.08,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          side: THREE.DoubleSide,
+          fog: false
+        });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        ray.position.set(Math.sin(rayAngle) * 40, -90, Math.cos(rayAngle) * 40);
+        ray.rotation.z = 0.25 + rayAngle * 0.2;
+        godRaysGroup.add(ray);
+      }
+      sunGlowGroup.add(godRaysGroup);
+      scene.add(sunGlowGroup);
+
+      // 4. Distant Rolling Green Mountains on Horizon (Radius 250 - 290)
+      const mountainColors = [0x15803d, 0x166534, 0x14532d, 0x334155, 0x1e3a8a];
+      for (let i = 0; i < 34; i++) {
+        const angle = (i / 34) * Math.PI * 2;
+        const mDist = 250 + (i % 3) * 18;
+        const mHeight = 35 + ((i * 7) % 35);
+        const mRadius = 26 + ((i * 5) % 20);
+
+        const mGeo = new THREE.ConeGeometry(mRadius, mHeight, 7);
+        const mMat = new THREE.MeshStandardMaterial({
+          color: mountainColors[i % mountainColors.length],
+          roughness: 0.95,
+          flatShading: true
+        });
+        const mountain = new THREE.Mesh(mGeo, mMat);
+        mountain.position.set(Math.cos(angle) * mDist, mHeight / 2 - 2, Math.sin(angle) * mDist);
+        mountain.rotation.y = i * 0.4;
+        scene.add(mountain);
+      }
+
+      // 5. Distant Modern City Skyline Silhouettes in Mountain Gaps
+      const cityGroup = new THREE.Group();
+      const skyScraperColors = [0x334155, 0x1e293b, 0x475569, 0x0f172a];
+      for (let c = 0; c < 22; c++) {
+        const cAngle = (c / 22) * Math.PI * 2;
+        if (c % 3 === 0 || c % 5 === 0) {
+          const cDist = 275 + (c % 4) * 12;
+          const bW = 10 + (c % 3) * 5;
+          const bH = 50 + (c % 5) * 18;
+          const bD = 10 + ((c * 3) % 4) * 4;
+
+          const bGeo = new THREE.BoxGeometry(bW, bH, bD);
+          const bMat = new THREE.MeshStandardMaterial({
+            color: skyScraperColors[c % skyScraperColors.length],
+            metalness: 0.6,
+            roughness: 0.3
+          });
+          const bld = new THREE.Mesh(bGeo, bMat);
+          bld.position.set(Math.cos(cAngle) * cDist, bH / 2, Math.sin(cAngle) * cDist);
+          bld.rotation.y = cAngle;
+          cityGroup.add(bld);
+
+          const spireGeo = new THREE.CylinderGeometry(0.2, 0.6, 12, 6);
+          const spireMat = new THREE.MeshBasicMaterial({ color: 0x94a3b8 });
+          const spire = new THREE.Mesh(spireGeo, spireMat);
+          spire.position.set(bld.position.x, bH + 6, bld.position.z);
+          cityGroup.add(spire);
+
+          const beaconGeo = new THREE.SphereGeometry(0.8, 8, 8);
+          const beaconMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+          const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+          beacon.position.set(bld.position.x, bH + 12.2, bld.position.z);
+          cityGroup.add(beacon);
+        }
+      }
+      scene.add(cityGroup);
+
+      // 6. Volumetric Layered Drifting Clouds
+      cloudsList = [];
+      for (let i = 0; i < 26; i++) {
+        const cloudGroup = new THREE.Group();
+        const puffs = 4 + Math.floor(Math.random() * 4);
+        for (let p = 0; p < puffs; p++) {
+          const puffGeo = new THREE.SphereGeometry(9 + Math.random() * 7, 8, 8);
+          const puffMat = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            roughness: 0.95,
+            flatShading: true
+          });
+          const puff = new THREE.Mesh(puffGeo, puffMat);
+          puff.position.set((p - puffs / 2) * 8.5, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 7);
+          cloudGroup.add(puff);
+        }
+        cloudGroup.position.set(
+          (Math.random() - 0.5) * 420,
+          85 + Math.random() * 35,
+          (Math.random() - 0.5) * 420
+        );
+        cloudGroup.speedX = 0.04 + Math.random() * 0.05;
+        cloudGroup.speedZ = 0.02 + Math.random() * 0.03;
+        scene.add(cloudGroup);
+        cloudsList.push(cloudGroup);
+      }
+    }
+
+    /* 1. Continuous Circular Asphalt Roadway, Streetlights & Central Park Plaza */
+    function createCircularRoadwayAndPark() {
+      // 1. Lush Terrain Ground with Soft Shadow Acceptance
+      const groundGeo = new THREE.PlaneGeometry(420, 420);
+      const groundMat = new THREE.MeshStandardMaterial({ color: 0x4ade80, roughness: 0.88 });
+      const ground = new THREE.Mesh(groundGeo, groundMat);
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = -0.05;
+      ground.receiveShadow = true;
+      scene.add(ground);
+
+      // 2. CONTINUOUS CIRCULAR ROADWAY (Dark Textured Asphalt Ring)
+      const roadInner = LOOP_RADIUS - 6.5;
+      const roadOuter = LOOP_RADIUS + 6.5;
+      const roadGeo = new THREE.RingGeometry(roadInner, roadOuter, 120);
+      const roadMat = new THREE.MeshStandardMaterial({ color: 0x272e38, roughness: 0.85, metalness: 0.1 });
+      const road = new THREE.Mesh(roadGeo, roadMat);
+      road.rotation.x = -Math.PI / 2;
+      road.position.y = 0.01;
+      road.receiveShadow = true;
+      scene.add(road);
+
+      // Solid White Outer & Inner Edge Lines
+      const edgeOuterGeo = new THREE.RingGeometry(roadOuter - 0.28, roadOuter, 120);
+      const edgeInnerGeo = new THREE.RingGeometry(roadInner, roadInner + 0.28, 120);
+      const whiteLineMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const edgeOuter = new THREE.Mesh(edgeOuterGeo, whiteLineMat);
+      edgeOuter.rotation.x = -Math.PI / 2;
+      edgeOuter.position.y = 0.02;
+      scene.add(edgeOuter);
+
+      const edgeInner = new THREE.Mesh(edgeInnerGeo, whiteLineMat);
+      edgeInner.rotation.x = -Math.PI / 2;
+      edgeInner.position.y = 0.02;
+      scene.add(edgeInner);
+
+      // High-Visibility Segmented Yellow Dashed Center Line (72 distinct dashes around the circle!)
+      const numDashes = 72;
+      const dashGeo = new THREE.PlaneGeometry(0.32, 2.2);
+      const dashMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+      for (let d = 0; d < numDashes; d++) {
+        const dAngle = (d / numDashes) * Math.PI * 2;
+        const dx = Math.cos(dAngle) * LOOP_RADIUS;
+        const dz = Math.sin(dAngle) * LOOP_RADIUS;
+        const dash = new THREE.Mesh(dashGeo, dashMat);
+        dash.rotation.x = -Math.PI / 2;
+        dash.rotation.z = -dAngle;
+        dash.position.set(dx, 0.025, dz);
+        scene.add(dash);
+      }
+
+      // Red & White Grand Prix Beveled Curb Strips
+      [roadInner, roadOuter].forEach((r, isOuter) => {
+        const numCurbSegs = 64;
+        for (let s = 0; s < numCurbSegs; s++) {
+          const sAngle = (s / numCurbSegs) * Math.PI * 2;
+          const curbCol = s % 2 === 0 ? 0xef4444 : 0xffffff;
+          const curbSegGeo = new THREE.RingGeometry(r - 0.45, r + 0.45, 2, 1, sAngle, (Math.PI * 2) / numCurbSegs);
+          const curbSegMat = new THREE.MeshStandardMaterial({ color: curbCol, roughness: 0.7 });
+          const curbSeg = new THREE.Mesh(curbSegGeo, curbSegMat);
+          curbSeg.rotation.x = -Math.PI / 2;
+          curbSeg.position.y = 0.04;
+          curbSeg.receiveShadow = true;
+          scene.add(curbSeg);
+        }
+      });
+
+      // 6 High-Visibility Zebra Crosswalks leading to the 6 Showcase Pavilions
+      PAVILIONS_DATA.forEach((pav) => {
+        const pRad = (pav.angleDeg * Math.PI) / 180;
+        const crosswalkGroup = new THREE.Group();
+        crosswalkGroup.position.set(Math.cos(pRad) * LOOP_RADIUS, 0.026, Math.sin(pRad) * LOOP_RADIUS);
+        crosswalkGroup.rotation.y = -pRad;
+
+        // 7 white zebra stripes across road width
+        for (let s = -3; s <= 3; s++) {
+          const stripeGeo = new THREE.PlaneGeometry(0.6, 9.8);
+          const stripeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+          const stripe = new THREE.Mesh(stripeGeo, stripeMat);
+          stripe.rotation.x = -Math.PI / 2;
+          stripe.position.set(s * 1.1, 0, 0);
+          crosswalkGroup.add(stripe);
+        }
+        scene.add(crosswalkGroup);
+      });
+
+      // 24 Modern Arc Streetlamps along the road outer curb
+      for (let sl = 0; sl < 24; sl++) {
+        const slAngle = (sl / 24) * Math.PI * 2;
+        const slRadius = roadOuter + 1.8;
+        const lampGroup = new THREE.Group();
+        lampGroup.position.set(Math.cos(slAngle) * slRadius, 0, Math.sin(slAngle) * slRadius);
+        lampGroup.rotation.y = -slAngle - Math.PI / 2;
+
+        const poleGeo = new THREE.CylinderGeometry(0.12, 0.16, 6.2, 8);
+        const poleMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8, roughness: 0.2 });
+        const pole = new THREE.Mesh(poleGeo, poleMat);
+        pole.position.y = 3.1;
+        pole.castShadow = true;
+        lampGroup.add(pole);
+
+        const armGeo = new THREE.BoxGeometry(0.12, 0.12, 1.8);
+        const arm = new THREE.Mesh(armGeo, poleMat);
+        arm.position.set(0, 6.0, 0.8);
+        lampGroup.add(arm);
+
+        const headGeo = new THREE.BoxGeometry(0.35, 0.14, 0.6);
+        const headMat = new THREE.MeshStandardMaterial({ color: 0x1e293b });
+        const head = new THREE.Mesh(headGeo, headMat);
+        head.position.set(0, 6.0, 1.6);
+        lampGroup.add(head);
+
+        const lensGeo = new THREE.PlaneGeometry(0.3, 0.55);
+        const lensMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+        const lens = new THREE.Mesh(lensGeo, lensMat);
+        lens.rotation.x = Math.PI / 2;
+        lens.position.set(0, 5.92, 1.6);
+        lampGroup.add(lens);
+
+        scene.add(lampGroup);
+      }
+
+      // 3. Central Town Park Plaza, Stone Pathways & Water Fountain
+      const parkCenter = new THREE.Group();
+
+      const basinGeo = new THREE.CylinderGeometry(11, 11.5, 0.9, 16);
+      const basinMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.35, metalness: 0.1 });
+      const basin = new THREE.Mesh(basinGeo, basinMat);
+      basin.position.y = 0.45;
+      basin.receiveShadow = true;
+      basin.castShadow = true;
+      parkCenter.add(basin);
+
+      const waterGeo = new THREE.CylinderGeometry(10.2, 10.2, 0.8, 24);
+      const waterMat = new THREE.MeshStandardMaterial({
+        color: 0x06b6d4,
+        roughness: 0.08,
+        metalness: 0.2,
+        transparent: true,
+        opacity: 0.88
+      });
+      const water = new THREE.Mesh(waterGeo, waterMat);
+      water.position.y = 0.55;
+      parkCenter.add(water);
+
+      const midBasinGeo = new THREE.CylinderGeometry(5.2, 5.5, 0.6, 16);
+      const midBasin = new THREE.Mesh(midBasinGeo, basinMat);
+      midBasin.position.y = 1.8;
+      midBasin.castShadow = true;
+      midBasin.receiveShadow = true;
+      parkCenter.add(midBasin);
+
+      const pedestalGeo = new THREE.CylinderGeometry(0.8, 1.2, 3.2, 12);
+      const pedestal = new THREE.Mesh(pedestalGeo, basinMat);
+      pedestal.position.y = 2.4;
+      pedestal.castShadow = true;
+      parkCenter.add(pedestal);
+
+      scene.add(parkCenter);
+
+      // Radial Stone Cobblestone Walkways from Central Park to Road
+      for (let p = 0; p < 6; p++) {
+        const pAngle = (p / 6) * Math.PI * 2;
+        const pathGeo = new THREE.PlaneGeometry(3.6, roadInner - 12);
+        const pathMat = new THREE.MeshStandardMaterial({ color: 0xcfd8dc, roughness: 0.8 });
+        const path = new THREE.Mesh(pathGeo, pathMat);
+        path.rotation.x = -Math.PI / 2;
+        path.rotation.z = -pAngle;
+        const pMid = (12 + roadInner) / 2;
+        path.position.set(Math.cos(pAngle) * pMid, 0.015, Math.sin(pAngle) * pMid);
+        path.receiveShadow = true;
+        scene.add(path);
+      }
+
+      // Rich Variety of Trees & Flora around Central Park
+      for (let i = 0; i < 28; i++) {
+        const angle = (i / 28) * Math.PI * 2;
+        const rad = 21 + (i % 3) * 8.5;
+        const treeType = i % 4; // 0: Oak, 1: Sakura Pink, 2: Italian Cypress, 3: Palm
+        const tree = createRichBotanicalTree(treeType);
+        tree.position.set(Math.cos(angle) * rad, 0, Math.sin(angle) * rad);
+        scene.add(tree);
+      }
+
+      // Colorful Flower Beds Ring around Fountain Plaza
+      for (let f = 0; f < 36; f++) {
+        const fAngle = (f / 36) * Math.PI * 2;
+        const fRad = 13.8 + (f % 2) * 1.5;
+        const flowerCols = [0xef4444, 0xf59e0b, 0xec4899, 0x8b5cf6, 0xffffff];
+        const flowerGeo = new THREE.SphereGeometry(0.35, 6, 6);
+        const flowerMat = new THREE.MeshStandardMaterial({ color: flowerCols[f % flowerCols.length], roughness: 0.6 });
+        const flower = new THREE.Mesh(flowerGeo, flowerMat);
+        flower.position.set(Math.cos(fAngle) * fRad, 0.35, Math.sin(fAngle) * fRad);
+        scene.add(flower);
+      }
+
+      // Modern Park Benches (6 benches)
+      for (let b = 0; b < 6; b++) {
+        const bAngle = (b / 6) * Math.PI * 2 + 0.35;
+        const bRad = 15.5;
+        const benchGroup = new THREE.Group();
+        benchGroup.position.set(Math.cos(bAngle) * bRad, 0, Math.sin(bAngle) * bRad);
+        benchGroup.rotation.y = -bAngle - Math.PI / 2;
+
+        const seatGeo = new THREE.BoxGeometry(2.4, 0.1, 0.6);
+        const seatMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.6 });
+        const seat = new THREE.Mesh(seatGeo, seatMat);
+        seat.position.y = 0.5;
+        seat.castShadow = true;
+        benchGroup.add(seat);
+
+        const backGeo = new THREE.BoxGeometry(2.4, 0.5, 0.08);
+        const back = new THREE.Mesh(backGeo, seatMat);
+        back.position.set(0, 0.85, -0.28);
+        benchGroup.add(back);
+
+        [[-1.0, -0.2], [1.0, -0.2], [-1.0, 0.2], [1.0, 0.2]].forEach(([lx, lz]) => {
+          const legGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.5, 6);
+          const legMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.8 });
+          const leg = new THREE.Mesh(legGeo, legMat);
+          leg.position.set(lx, 0.25, lz);
+          benchGroup.add(leg);
+        });
+
+        scene.add(benchGroup);
+      }
+    }
+
+    /* 2. Modern Luxury Suburban Villas */
+    function createResidentialHomes() {
+      for (let i = 0; i < 12; i++) {
+        const angle = ((i + 0.5) / 12) * Math.PI * 2;
+        const homeRadius = LOOP_RADIUS + 20 + (i % 2) * 5;
+
+        const homeGroup = new THREE.Group();
+        homeGroup.position.set(Math.cos(angle) * homeRadius, 0, Math.sin(angle) * homeRadius);
+        homeGroup.rotation.y = -angle - Math.PI / 2;
+
+        // Ground Patio / Garden
+        const lawnGeo = new THREE.BoxGeometry(15, 0.18, 14);
+        const lawnMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, roughness: 0.8 });
+        const lawn = new THREE.Mesh(lawnGeo, lawnMat);
+        lawn.position.y = 0.09;
+        lawn.receiveShadow = true;
+        homeGroup.add(lawn);
+
+        // Ground Floor Main Box (White Stucco or Sandstone)
+        const wallColors = [0xffffff, 0xfef9c3, 0xe0f2fe, 0xfce7f3, 0xf0fdf4];
+        const wallMat = new THREE.MeshStandardMaterial({ color: wallColors[i % wallColors.length], roughness: 0.5 });
+        const groundFloorGeo = new THREE.BoxGeometry(9.2, 4.4, 7.8);
+        const groundFloor = new THREE.Mesh(groundFloorGeo, wallMat);
+        groundFloor.position.y = 2.2;
+        groundFloor.castShadow = true;
+        groundFloor.receiveShadow = true;
+        homeGroup.add(groundFloor);
+
+        // Second Floor Upper Box (Offset Architecture)
+        const upperGeo = new THREE.BoxGeometry(7.6, 3.8, 6.8);
+        const upperMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.4 });
+        const upperFloor = new THREE.Mesh(upperGeo, upperMat);
+        upperFloor.position.set(0.6, 6.0, -0.4);
+        upperFloor.castShadow = true;
+        upperFloor.receiveShadow = true;
+        homeGroup.add(upperFloor);
+
+        // Terracotta or Slate Pitched Roof
+        const roofGeo = new THREE.ConeGeometry(6.6, 2.8, 4);
+        const roofMat = new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0xd97706 : 0x0f172a, roughness: 0.5 });
+        const roof = new THREE.Mesh(roofGeo, roofMat);
+        roof.rotation.y = Math.PI / 4;
+        roof.position.set(0.6, 8.8, -0.4);
+        roof.castShadow = true;
+        homeGroup.add(roof);
+
+        // Rooftop Solar Photovoltaic Panels
+        const solarGeo = new THREE.PlaneGeometry(3.2, 1.8);
+        const solarMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, metalness: 0.9, roughness: 0.1 });
+        const solar = new THREE.Mesh(solarGeo, solarMat);
+        solar.rotation.x = -Math.PI / 3;
+        solar.position.set(0.6, 9.2, 1.6);
+        homeGroup.add(solar);
+
+        // Front Entrance Wooden Door
+        const doorGeo = new THREE.PlaneGeometry(1.6, 2.8);
+        const doorMat = new THREE.MeshStandardMaterial({ color: 0x5c3a21, roughness: 0.6 });
+        const door = new THREE.Mesh(doorGeo, doorMat);
+        door.position.set(-1.2, 1.4, 3.92);
+        homeGroup.add(door);
+
+        // Warm Porch Light Sconce
+        const sconceGeo = new THREE.SphereGeometry(0.18, 8, 8);
+        const sconceMat = new THREE.MeshBasicMaterial({ color: 0xfde047 });
+        const sconce = new THREE.Mesh(sconceGeo, sconceMat);
+        sconce.position.set(-0.2, 2.8, 3.94);
+        homeGroup.add(sconce);
+
+        // Panoramic Floor-to-Ceiling Windows
+        const winMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, metalness: 0.8, roughness: 0.1, transparent: true, opacity: 0.85 });
+        const largeWinGeo = new THREE.PlaneGeometry(3.6, 2.4);
+        const largeWin = new THREE.Mesh(largeWinGeo, winMat);
+        largeWin.position.set(2.2, 2.2, 3.92);
+        homeGroup.add(largeWin);
+
+        // Upper Floor Balcony with Glass Railing
+        const balconyGeo = new THREE.BoxGeometry(4.2, 0.2, 1.6);
+        const balcony = new THREE.Mesh(balconyGeo, upperMat);
+        balcony.position.set(0.6, 4.3, 3.5);
+        homeGroup.add(balcony);
+
+        const glassRailingGeo = new THREE.PlaneGeometry(4.0, 1.0);
+        const glassRailingMat = new THREE.MeshStandardMaterial({ color: 0xbae6fd, transparent: true, opacity: 0.65, roughness: 0.1 });
+        const glassRailing = new THREE.Mesh(glassRailingGeo, glassRailingMat);
+        glassRailing.position.set(0.6, 4.9, 4.28);
+        homeGroup.add(glassRailing);
+
+        // 4 LUXURY VILLAS HAVE PRIVATE SWIMMING POOLS (Villas 0, 3, 6, 9)
+        if (i % 3 === 0) {
+          const poolDeckGeo = new THREE.BoxGeometry(5.8, 0.2, 4.8);
+          const poolDeckMat = new THREE.MeshStandardMaterial({ color: 0xcfd8dc, roughness: 0.4 });
+          const poolDeck = new THREE.Mesh(poolDeckGeo, poolDeckMat);
+          poolDeck.position.set(5.8, 0.12, 1.2);
+          poolDeck.receiveShadow = true;
+          homeGroup.add(poolDeck);
+
+          const poolWaterGeo = new THREE.PlaneGeometry(4.8, 3.8);
+          const poolWaterMat = new THREE.MeshStandardMaterial({
+            color: 0x06b6d4,
+            metalness: 0.3,
+            roughness: 0.05,
+            transparent: true,
+            opacity: 0.88
+          });
+          const poolWater = new THREE.Mesh(poolWaterGeo, poolWaterMat);
+          poolWater.rotation.x = -Math.PI / 2;
+          poolWater.position.set(5.8, 0.24, 1.2);
+          homeGroup.add(poolWater);
+
+          const loungerGeo = new THREE.BoxGeometry(0.8, 0.3, 1.6);
+          const loungerMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+          const lounger = new THREE.Mesh(loungerGeo, loungerMat);
+          lounger.position.set(4.2, 0.35, 1.2);
+          homeGroup.add(lounger);
+        }
+
+        // Driveway with Parked Sports Roadster
+        const driveGeo = new THREE.PlaneGeometry(3.6, 5.2);
+        const driveMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.7 });
+        const drive = new THREE.Mesh(driveGeo, driveMat);
+        drive.rotation.x = -Math.PI / 2;
+        drive.position.set(-4.5, 0.1, 4.2);
+        drive.receiveShadow = true;
+        homeGroup.add(drive);
+
+        const parkedCar = new THREE.Group();
+        parkedCar.position.set(-4.5, 0.45, 4.2);
+        const pcBodyGeo = new THREE.BoxGeometry(1.8, 0.5, 3.2);
+        const pcColors = [0xef4444, 0x3b82f6, 0x10b981, 0x8b5cf6, 0xf59e0b];
+        const pcBodyMat = new THREE.MeshStandardMaterial({ color: pcColors[i % pcColors.length], metalness: 0.8, roughness: 0.2 });
+        const pcBody = new THREE.Mesh(pcBodyGeo, pcBodyMat);
+        pcBody.castShadow = true;
+        parkedCar.add(pcBody);
+        homeGroup.add(parkedCar);
+
+        scene.add(homeGroup);
+        residentialHomes.push(homeGroup);
+      }
+    }
+
+    /* 3. The 6 Showcase Architectural Pavilions */
+    function createShowcasePavilions() {
+      PAVILIONS_DATA.forEach((pav, idx) => {
+        const radAngle = (pav.angleDeg * Math.PI) / 180;
+        const pavRadius = LOOP_RADIUS + 11;
+
+        const group = new THREE.Group();
+        group.position.set(Math.cos(radAngle) * pavRadius, 0, Math.sin(radAngle) * pavRadius);
+        group.rotation.y = -radAngle - Math.PI / 2;
+        group.userData = { pavilionIndex: idx, name: pav.name };
+
+        // Hexagonal High-Tech Glass & Chrome Platform
+        const padGeo = new THREE.CylinderGeometry(6.5, 7.0, 0.45, 6);
+        const padMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.25, metalness: 0.7 });
+        const pad = new THREE.Mesh(padGeo, padMat);
+        pad.position.y = 0.22;
+        pad.receiveShadow = true;
+        pad.castShadow = true;
+        group.add(pad);
+
+        // Glowing Cyber Rim Ring
+        const ringGeo = new THREE.RingGeometry(5.2, 5.6, 32);
+        const ringMat = new THREE.MeshBasicMaterial({ color: pav.color, side: THREE.DoubleSide });
+        const cyberRing = new THREE.Mesh(ringGeo, ringMat);
+        cyberRing.rotation.x = -Math.PI / 2;
+        cyberRing.position.y = 0.46;
+        group.add(cyberRing);
+
+        // High-Tech Cyber Pedestal with Emissive Grid Lines
+        const pedGeo = new THREE.CylinderGeometry(1.6, 2.0, 1.2, 8);
+        const pedMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9, roughness: 0.2 });
+        const pedestal = new THREE.Mesh(pedGeo, pedMat);
+        pedestal.position.y = 1.0;
+        pedestal.castShadow = true;
+        group.add(pedestal);
+
+        // Frosted Glass & Chrome Canopy
+        const canopyGeo = new THREE.CylinderGeometry(6.2, 6.2, 0.35, 6);
+        const canopyMat = new THREE.MeshStandardMaterial({
+          color: 0x1e293b,
+          metalness: 0.85,
+          roughness: 0.15,
+          transparent: true,
+          opacity: 0.92
+        });
+        const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+        canopy.position.y = 6.2;
+        canopy.castShadow = true;
+        group.add(canopy);
+
+        // Neon Glow Trim along Canopy Perimeter
+        const neonTrimGeo = new THREE.RingGeometry(6.1, 6.35, 6);
+        const neonTrimMat = new THREE.MeshBasicMaterial({ color: pav.color, side: THREE.DoubleSide });
+        const neonTrim = new THREE.Mesh(neonTrimGeo, neonTrimMat);
+        neonTrim.rotation.x = -Math.PI / 2;
+        neonTrim.position.y = 6.38;
+        group.add(neonTrim);
+
+        // 6 Slender Polished Chrome Columns
+        for (let colIdx = 0; colIdx < 6; colIdx++) {
+          const cAng = (colIdx / 6) * Math.PI * 2;
+          const colGeo = new THREE.CylinderGeometry(0.14, 0.14, 5.8, 12);
+          const colMat = new THREE.MeshStandardMaterial({ color: 0xcfd8dc, metalness: 0.95, roughness: 0.05 });
+          const column = new THREE.Mesh(colGeo, colMat);
+          column.position.set(Math.cos(cAng) * 5.4, 3.1, Math.sin(cAng) * 5.4);
+          column.castShadow = true;
+          group.add(column);
+        }
+
+        // Ascending Vertical Laser / Light Pillar Beam
+        const beamGeo = new THREE.CylinderGeometry(0.2, 0.6, 28, 12, 1, true);
+        const beamMat = new THREE.MeshBasicMaterial({
+          color: pav.color,
+          transparent: true,
+          opacity: 0.22,
+          blending: THREE.AdditiveBlending,
+          side: THREE.DoubleSide,
+          depthWrite: false
+        });
+        const beam = new THREE.Mesh(beamGeo, beamMat);
+        beam.position.y = 15;
+        group.add(beam);
+
+        // Rotating Iconic Monument
+        let monGeo;
+        if (idx === 0) monGeo = new THREE.BoxGeometry(2.0, 2.6, 2.0);
+        else if (idx === 1) monGeo = new THREE.OctahedronGeometry(1.8, 0);
+        else if (idx === 2) monGeo = new THREE.DodecahedronGeometry(1.6, 0);
+        else if (idx === 3) monGeo = new THREE.CylinderGeometry(0.6, 1.8, 2.5, 8);
+        else if (idx === 4) monGeo = new THREE.IcosahedronGeometry(1.7, 0);
+        else monGeo = new THREE.TorusGeometry(1.8, 0.45, 16, 32);
+
+        const monMat = new THREE.MeshStandardMaterial({
+          color: pav.color,
+          emissive: pav.color,
+          emissiveIntensity: 0.45,
+          metalness: 0.75,
+          roughness: 0.15
+        });
+        const monument = new THREE.Mesh(monGeo, monMat);
+        monument.position.y = 3.2;
+        monument.castShadow = true;
+        group.add(monument);
+        group.monument = monument;
+
+        // Floating Tilted Holographic Orbit Rings around Monument
+        const orbitRingGeo = new THREE.TorusGeometry(2.6, 0.06, 8, 36);
+        const orbitRingMat = new THREE.MeshBasicMaterial({ color: pav.color, transparent: true, opacity: 0.75 });
+        const orbitRing = new THREE.Mesh(orbitRingGeo, orbitRingMat);
+        orbitRing.position.y = 3.2;
+        orbitRing.rotation.x = Math.PI / 3;
+        group.add(orbitRing);
+        group.orbitRing = orbitRing;
+
+        // High-Res Neon Cyber Signboard
+        const signCanvas = document.createElement('canvas');
+        signCanvas.width = 512;
+        signCanvas.height = 140;
+        const sCtx = signCanvas.getContext('2d');
+        sCtx.fillStyle = '#0f172a';
+        sCtx.fillRect(0, 0, 512, 140);
+        sCtx.strokeStyle = '#' + pav.color.toString(16).padStart(6, '0');
+        sCtx.lineWidth = 8;
+        sCtx.strokeRect(4, 4, 504, 132);
+        sCtx.fillStyle = '#' + pav.color.toString(16).padStart(6, '0');
+        sCtx.font = 'bold 36px "Orbitron", sans-serif';
+        sCtx.textAlign = 'center';
+        sCtx.fillText(`PAVILION 0${idx + 1} // ${pav.tag}`, 256, 52);
+        sCtx.fillStyle = '#ffffff';
+        sCtx.font = 'bold 26px "Rajdhani", monospace';
+        sCtx.fillText(pav.name.substring(0, 26).toUpperCase(), 256, 102);
+
+        const signTex = new THREE.CanvasTexture(signCanvas);
+        const signGeo = new THREE.PlaneGeometry(6.4, 1.7);
+        const signMat = new THREE.MeshBasicMaterial({ map: signTex, side: THREE.DoubleSide });
+        const signMesh = new THREE.Mesh(signGeo, signMat);
+        signMesh.position.set(0, 7.2, 0);
+        group.add(signMesh);
+
+        scene.add(group);
+        pavilionMeshes.push(group);
+      });
+    }
+
+    /* 4. NORMAL REALISTIC PEDESTRIANS (WALKING IN ROAD LANES FACING FORWARD) */
+    function createNormalRoamingPedestrians() {
+      const clothesColors = [0xef4444, 0x3b82f6, 0x10b981, 0xf59e0b, 0xec4899, 0x8b5cf6, 0x0284c7];
+
+      for (let i = 0; i < 16; i++) {
+        const ped = new THREE.Group();
+        const col = clothesColors[i % clothesColors.length];
+
+        // Head
+        const hGeo = new THREE.SphereGeometry(0.22, 12, 12);
+        const hMat = new THREE.MeshStandardMaterial({ color: 0xfbcfe8 });
+        const h = new THREE.Mesh(hGeo, hMat);
+        h.position.y = 1.6;
+        h.castShadow = true;
+        ped.add(h);
+
+        // Eyes & Face on -Z (front of pedestrian)
+        const eyeMat = new THREE.MeshBasicMaterial({ color: 0x111827 });
+        [-0.07, 0.07].forEach(ex => {
+          const eyeGeo = new THREE.PlaneGeometry(0.045, 0.045);
+          const eye = new THREE.Mesh(eyeGeo, eyeMat);
+          eye.position.set(ex, 1.63, -0.225);
+          ped.add(eye);
+        });
+
+        // Hair / Cap with front visor pointing -Z
+        const hairGeo = new THREE.BoxGeometry(0.32, 0.12, 0.36);
+        const hairMat = new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x111827 : 0x78350f });
+        const hair = new THREE.Mesh(hairGeo, hairMat);
+        hair.position.set(0, 1.76, -0.04);
+        hair.castShadow = true;
+        ped.add(hair);
+
+        const brimGeo = new THREE.BoxGeometry(0.28, 0.04, 0.14);
+        const brim = new THREE.Mesh(brimGeo, hairMat);
+        brim.position.set(0, 1.72, -0.25);
+        ped.add(brim);
+
+        // Torso / Clothes
+        const tGeo = new THREE.CylinderGeometry(0.24, 0.22, 0.75, 8);
+        const tMat = new THREE.MeshStandardMaterial({ color: col, roughness: 0.8 });
+        const t = new THREE.Mesh(tGeo, tMat);
+        t.position.y = 1.05;
+        t.castShadow = true;
+        ped.add(t);
+
+        // Legs (swing along Z axis)
+        ped.leftLeg = createTownLimb(0.1, 0.65, 0x1e293b);
+        ped.leftLeg.position.set(-0.12, 0.65, 0);
+        ped.add(ped.leftLeg);
+
+        ped.rightLeg = createTownLimb(0.1, 0.65, 0x1e293b);
+        ped.rightLeg.position.set(0.12, 0.65, 0);
+        ped.add(ped.rightLeg);
+
+        // Arms (swing along Z axis)
+        ped.leftArm = createTownLimb(0.09, 0.55, col);
+        ped.leftArm.position.set(-0.28, 1.25, 0);
+        ped.add(ped.leftArm);
+
+        ped.rightArm = createTownLimb(0.09, 0.55, col);
+        ped.rightArm.position.set(0.28, 1.25, 0);
+        ped.add(ped.rightArm);
+
+        // WALKING DIRECTLY IN THE ROAD LANES
+        ped.orbitAngle = (i / 16) * Math.PI * 2;
+        const laneDist = (i % 3 === 0) ? -2.8 : ((i % 3 === 1) ? 2.8 : 0.0);
+        ped.orbitRadius = LOOP_RADIUS + laneDist;
+        ped.walkSpeed = 0.00055 + (i % 3) * 0.0001;
+        ped.direction = (i % 2 === 0) ? 1 : -1;
+
+        scene.add(ped);
+        roamingPedestrians.push(ped);
+      }
+    }
+
+    function createTownLimb(r, len, colorHex) {
+      const g = new THREE.Group();
+      const geo = new THREE.CylinderGeometry(r, r, len, 8);
+      const mat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.7 });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.y = -len / 2;
+      mesh.castShadow = true;
+      g.add(mesh);
+      return g;
+    }
+
+    /* Botanical Trees (Oaks, Sakura Cherry Blossoms, Cypresses, Palms) */
+    function createRichBotanicalTree(type) {
+      const tree = new THREE.Group();
+      if (type === 1) {
+        // Japanese Cherry Blossom (Sakura Pink)
+        const trunkGeo = new THREE.CylinderGeometry(0.25, 0.38, 3.8, 8);
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.9 });
+        const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+        trunk.position.y = 1.9;
+        trunk.castShadow = true;
+        tree.add(trunk);
+
+        const pinkCanopyColors = [0xf472b6, 0xfb7185, 0xfbcfe8];
+        for (let p = 0; p < 5; p++) {
+          const sGeo = new THREE.SphereGeometry(1.4 + (p % 2) * 0.3, 8, 8);
+          const sMat = new THREE.MeshStandardMaterial({
+            color: pinkCanopyColors[p % pinkCanopyColors.length],
+            flatShading: true,
+            roughness: 0.7
+          });
+          const foliage = new THREE.Mesh(sGeo, sMat);
+          foliage.position.set(((p % 3) - 1) * 0.9, 3.8 + (p > 2 ? 0.9 : 0), ((p % 2) - 0.5) * 1.0);
+          foliage.castShadow = true;
+          tree.add(foliage);
+        }
+      } else if (type === 2) {
+        // Italian Cypress (Tall Slender Conical Evergreen)
+        const trunkGeo = new THREE.CylinderGeometry(0.18, 0.25, 1.8, 6);
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x3f2e1e, roughness: 0.9 });
+        const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+        trunk.position.y = 0.9;
+        trunk.castShadow = true;
+        tree.add(trunk);
+
+        const cypGeo = new THREE.ConeGeometry(1.1, 6.2, 8);
+        const cypMat = new THREE.MeshStandardMaterial({ color: 0x14532d, flatShading: true, roughness: 0.8 });
+        const cyp = new THREE.Mesh(cypGeo, cypMat);
+        cyp.position.y = 4.2;
+        cyp.castShadow = true;
+        tree.add(cyp);
+      } else if (type === 3) {
+        // Tropical Palm Tree
+        const trunkGeo = new THREE.CylinderGeometry(0.22, 0.32, 5.2, 7);
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.85 });
+        const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+        trunk.position.y = 2.6;
+        trunk.rotation.z = 0.08;
+        trunk.castShadow = true;
+        tree.add(trunk);
+
+        for (let f = 0; f < 6; f++) {
+          const fAngle = (f / 6) * Math.PI * 2;
+          const frondGeo = new THREE.ConeGeometry(0.8, 3.2, 4);
+          const frondMat = new THREE.MeshStandardMaterial({ color: 0x16a34a, flatShading: true });
+          const frond = new THREE.Mesh(frondGeo, frondMat);
+          frond.position.set(Math.sin(fAngle) * 1.5, 5.0, Math.cos(fAngle) * 1.5);
+          frond.rotation.x = Math.PI / 3;
+          frond.rotation.y = fAngle;
+          frond.castShadow = true;
+          tree.add(frond);
+        }
+      } else {
+        // Lush Tiered Oak Tree
+        const trunkGeo = new THREE.CylinderGeometry(0.28, 0.42, 3.6, 8);
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5c3a21, roughness: 0.9 });
+        const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+        trunk.position.y = 1.8;
+        trunk.castShadow = true;
+        tree.add(trunk);
+
+        const oakCols = [0x15803d, 0x166534, 0x22c55e];
+        for (let c = 0; c < 4; c++) {
+          const sGeo = new THREE.SphereGeometry(1.6 + (c % 2) * 0.4, 8, 8);
+          const sMat = new THREE.MeshStandardMaterial({ color: oakCols[c % oakCols.length], flatShading: true, roughness: 0.8 });
+          const clus = new THREE.Mesh(sGeo, sMat);
+          clus.position.set((c === 1 ? -0.8 : (c === 2 ? 0.8 : 0)), 3.8 + (c === 3 ? 1.0 : 0), (c === 0 ? 0.6 : -0.4));
+          clus.castShadow = true;
+          tree.add(clus);
+        }
+      }
+      return tree;
+    }
+
+    function createTownTree() {
+      return createRichBotanicalTree(0);
+    }
+
+    /* 5. Player Walking Character & Sports Car */
+    function createPlayerEntities() {
+      // WALKING CHARACTER
+      playerCharacter = new THREE.Group();
+
+      const hGeo = new THREE.SphereGeometry(0.25, 16, 16);
+      const hMat = new THREE.MeshStandardMaterial({ color: 0xfbcfe8 });
+      const head = new THREE.Mesh(hGeo, hMat);
+      head.position.y = 1.65;
+      head.castShadow = true;
+      playerCharacter.add(head);
+
+      const hairGeo = new THREE.BoxGeometry(0.36, 0.16, 0.36);
+      const hairMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b });
+      const hair = new THREE.Mesh(hairGeo, hairMat);
+      hair.position.y = 1.8;
+      hair.castShadow = true;
+      playerCharacter.add(hair);
+
+      const bodyGeo = new THREE.BoxGeometry(0.55, 0.72, 0.35);
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.6 });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.y = 1.05;
+      body.castShadow = true;
+      playerCharacter.add(body);
+
+      playerCharacter.leftLeg = createTownLimb(0.12, 0.65, 0x1e293b);
+      playerCharacter.leftLeg.position.set(-0.16, 0.65, 0);
+      playerCharacter.add(playerCharacter.leftLeg);
+
+      playerCharacter.rightLeg = createTownLimb(0.12, 0.65, 0x1e293b);
+      playerCharacter.rightLeg.position.set(0.16, 0.65, 0);
+      playerCharacter.add(playerCharacter.rightLeg);
+
+      playerCharacter.leftArm = createTownLimb(0.1, 0.55, 0x0284c7);
+      playerCharacter.leftArm.position.set(-0.35, 1.25, 0);
+      playerCharacter.add(playerCharacter.leftArm);
+
+      playerCharacter.rightArm = createTownLimb(0.1, 0.55, 0x0284c7);
+      playerCharacter.rightArm.position.set(0.35, 1.25, 0);
+      playerCharacter.add(playerCharacter.rightArm);
+
+      // Face features on -Z
+      const pEyeMat = new THREE.MeshBasicMaterial({ color: 0x111827 });
+      [-0.08, 0.08].forEach(ex => {
+        const eyeGeo = new THREE.PlaneGeometry(0.05, 0.05);
+        const eye = new THREE.Mesh(eyeGeo, pEyeMat);
+        eye.position.set(ex, 1.68, -0.255);
+        playerCharacter.add(eye);
+      });
+
+      const capBrimGeo = new THREE.BoxGeometry(0.34, 0.05, 0.16);
+      const capBrimMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b });
+      const capBrim = new THREE.Mesh(capBrimGeo, capBrimMat);
+      capBrim.position.set(0, 1.78, -0.26);
+      playerCharacter.add(capBrim);
+
+      // Backpack on +Z
+      const packGeo = new THREE.BoxGeometry(0.42, 0.52, 0.22);
+      const packMat = new THREE.MeshStandardMaterial({ color: 0x1e293b });
+      const pack = new THREE.Mesh(packGeo, packMat);
+      pack.position.set(0, 1.1, 0.28);
+      pack.castShadow = true;
+      playerCharacter.add(pack);
+
+      playerCharacter.position.set(LOOP_RADIUS, 0, 0);
+      scene.add(playerCharacter);
+
+      // SPORTS CAR (Amber Gold)
+      playerVehicle = new THREE.Group();
+
+      const carBodyGeo = new THREE.BoxGeometry(2.1, 0.6, 4.3);
+      const carBodyMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.6, roughness: 0.2 });
+      const carBody = new THREE.Mesh(carBodyGeo, carBodyMat);
+      carBody.position.y = 0.55;
+      carBody.castShadow = true;
+      playerVehicle.add(carBody);
+
+      const cabGeo = new THREE.BoxGeometry(1.6, 0.55, 2.1);
+      const cabMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.8 });
+      const cab = new THREE.Mesh(cabGeo, cabMat);
+      cab.position.set(0, 1.05, -0.2);
+      cab.castShadow = true;
+      playerVehicle.add(cab);
+
+      // Headlights & Tail Lights
+      const hlGeo = new THREE.PlaneGeometry(0.4, 0.2);
+      const hlMat = new THREE.MeshBasicMaterial({ color: 0xfffbeb });
+      [-0.7, 0.7].forEach(hx => {
+        const hl = new THREE.Mesh(hlGeo, hlMat);
+        hl.position.set(hx, 0.55, -2.16);
+        playerVehicle.add(hl);
+      });
+
+      const tlMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      [-0.7, 0.7].forEach(tx => {
+        const tl = new THREE.Mesh(hlGeo, tlMat);
+        tl.position.set(tx, 0.55, 2.16);
+        tl.rotation.y = Math.PI;
+        playerVehicle.add(tl);
+      });
+
+      playerVehicle.wheels = [];
+      [
+        { x: -1.05, y: 0.35, z: -1.3 },
+        { x: 1.05, y: 0.35, z: -1.3 },
+        { x: -1.05, y: 0.35, z: 1.3 },
+        { x: 1.05, y: 0.35, z: 1.3 }
+      ].forEach(wp => {
+        const wGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.28, 16);
+        const wMat = new THREE.MeshStandardMaterial({ color: 0x111827 });
+        const wheel = new THREE.Mesh(wGeo, wMat);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(wp.x, wp.y, wp.z);
+        wheel.castShadow = true;
+        playerVehicle.add(wheel);
+        playerVehicle.wheels.push(wheel);
+      });
+
+      playerVehicle.visible = false;
+      scene.add(playerVehicle);
+    }
+
+    /* 6. Atmospheric VFX Particle Systems (Sun motes, water spray, exhaust smoke) */
+    function createVFXParticleSystems() {
+      ambientMotes = [];
+      const moteGeo = new THREE.SphereGeometry(0.12, 6, 6);
+      const moteMat = new THREE.MeshBasicMaterial({
+        color: 0xfef08a,
+        transparent: true,
+        opacity: 0.65,
+        blending: THREE.AdditiveBlending
+      });
+      for (let i = 0; i < 150; i++) {
+        const mote = new THREE.Mesh(moteGeo, moteMat);
+        const mAngle = Math.random() * Math.PI * 2;
+        const mRad = 15 + Math.random() * 85;
+        mote.position.set(Math.cos(mAngle) * mRad, 1.0 + Math.random() * 12, Math.sin(mAngle) * mRad);
+        mote.baseY = mote.position.y;
+        mote.speedY = 0.5 + Math.random() * 0.8;
+        mote.floatPhase = Math.random() * Math.PI * 2;
+        scene.add(mote);
+        ambientMotes.push(mote);
+      }
+
+      fountainParticles = [];
+      const dropGeo = new THREE.SphereGeometry(0.14, 6, 6);
+      const dropMat = new THREE.MeshBasicMaterial({
+        color: 0xbae6fd,
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending
+      });
+      for (let f = 0; f < 48; f++) {
+        const drop = new THREE.Mesh(dropGeo, dropMat);
+        const angle = (f / 48) * Math.PI * 2;
+        drop.userData = {
+          angle: angle,
+          vx: Math.cos(angle) * (0.04 + Math.random() * 0.05),
+          vy: 0.22 + Math.random() * 0.12,
+          vz: Math.sin(angle) * (0.04 + Math.random() * 0.05),
+          life: Math.random()
+        };
+        drop.position.set(0, 3.8, 0);
+        scene.add(drop);
+        fountainParticles.push(drop);
+      }
+
+      carExhaustParticles = [];
+      const exhGeo = new THREE.SphereGeometry(0.2, 6, 6);
+      const exhMat = new THREE.MeshBasicMaterial({
+        color: 0x94a3b8,
+        transparent: true,
+        opacity: 0.45
+      });
+      for (let e = 0; e < 24; e++) {
+        const exh = new THREE.Mesh(exhGeo, exhMat);
+        exh.visible = false;
+        exh.userData = { life: 0, maxLife: 1.0, vx: 0, vy: 0, vz: 0 };
+        scene.add(exh);
+        carExhaustParticles.push(exh);
+      }
+    }
+
+    function updateVFXParticleSystems(delta) {
+      const time = clock.getElapsedTime();
+
+      // 1. Drifting Clouds
+      cloudsList.forEach((cloud) => {
+        cloud.position.x += cloud.speedX;
+        cloud.position.z += cloud.speedZ;
+        if (cloud.position.x > 220) cloud.position.x = -220;
+        if (cloud.position.z > 220) cloud.position.z = -220;
+      });
+
+      // 2. Sky Citadel Orbiting Rings & Hover
+      if (skyCitadel) {
+        skyCitadel.rotation.y += 0.003;
+        skyCitadel.position.y = 110 + Math.sin(time * 0.8) * 3;
+        if (skyCitadel.rings) {
+          skyCitadel.rings[0].rotation.z += 0.015;
+          skyCitadel.rings[1].rotation.x += 0.012;
+        }
+      }
+
+      // 3. Airship Blimp Sky Circuit
+      if (airshipBlimp) {
+        const bAng = time * 0.05;
+        airshipBlimp.position.x = Math.cos(bAng) * 160;
+        airshipBlimp.position.z = Math.sin(bAng) * 160;
+        airshipBlimp.rotation.y = -bAng + Math.PI / 2;
+      }
+
+      // 4. Autonomous Patrol Drones
+      patrolDrones.forEach((d) => {
+        d.orbitAngle += d.orbitSpeed;
+        d.position.x = Math.cos(d.orbitAngle) * d.orbitRadius;
+        d.position.z = Math.sin(d.orbitAngle) * d.orbitRadius;
+        d.position.y = d.altitude + Math.sin(time * 2 + d.orbitRadius) * 2;
+        d.rotation.y = -d.orbitAngle - Math.PI / 2;
+      });
+
+      // 5. Companion Drone "CYBER-BOT 3000" Smooth Follow
+      if (companionDrone) {
+        const targetObj = isVehicleMode ? playerVehicle : playerCharacter;
+        const tPos = targetObj.position;
+        const idealX = tPos.x - Math.sin(playerFacing - 0.5) * 3.2;
+        const idealZ = tPos.z - Math.cos(playerFacing - 0.5) * 3.2;
+        const idealY = tPos.y + 2.8 + Math.sin(time * 3.5) * 0.35;
+
+        companionDrone.position.lerp(new THREE.Vector3(idealX, idealY, idealZ), 0.08);
+        companionDrone.rotation.y = playerFacing;
+
+        // Position companion speech bubble near screen position
+        const bubble = document.getElementById("drone-speech-bubble");
+        if (bubble && bubble.style.display === "block") {
+          const pVec = companionDrone.position.clone();
+          pVec.y += 0.8;
+          pVec.project(camera);
+          const bx = (pVec.x * 0.5 + 0.5) * window.innerWidth;
+          const by = (-(pVec.y * 0.5) + 0.5) * window.innerHeight;
+          bubble.style.left = `${Math.min(window.innerWidth - 220, Math.max(20, bx))}px`;
+          bubble.style.top = `${Math.min(window.innerHeight - 80, Math.max(60, by))}px`;
+        }
+      }
+
+      // 6. Floating Cyber Quest Cores Bobbing & Spinning
+      cyberCores.forEach((c) => {
+        if (!c.collected) {
+          c.gem.rotation.y += 0.035;
+          c.gem.rotation.x += 0.018;
+          c.ring.rotation.z += 0.025;
+          c.mesh.position.y = c.baseY + Math.sin(time * 3.0 + c.bobPhase) * 0.28;
+        }
+      });
+
+      // 7. Stunt Jump Ramp Arrow Pulsing
+      stuntRamps.forEach((r, idx) => {
+        if (r.arrow) {
+          r.arrow.scale.setScalar(1.0 + Math.sin(time * 4.0 + idx) * 0.12);
+        }
+      });
+
+      // 8. Sparkle Bursts Animation
+      for (let i = sparkleBursts.length - 1; i >= 0; i--) {
+        const p = sparkleBursts[i];
+        p.userData.life += delta;
+        p.position.x += p.userData.vx;
+        p.position.y += p.userData.vy;
+        p.position.z += p.userData.vz;
+        p.scale.subScalar(delta * 0.7);
+        if (p.userData.life > 0.8 || p.scale.x <= 0) {
+          scene.remove(p);
+          sparkleBursts.splice(i, 1);
+        }
+      }
+
+      // 9. Fullscreen Hyperspace Warp Speedlines Animation
+      if (speedlinesCtx && speedlinesCanvas) {
+        speedlinesCtx.clearRect(0, 0, speedlinesCanvas.width, speedlinesCanvas.height);
+        if (isNitroActive) {
+          const w = speedlinesCanvas.width;
+          const h = speedlinesCanvas.height;
+          const cx = w / 2;
+          const cy = h / 2;
+          speedlinesCtx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+          speedlinesCtx.lineWidth = 2.5;
+
+          for (let l = 0; l < 45; l++) {
+            const angle = Math.random() * Math.PI * 2;
+            const rStart = 150 + Math.random() * 120;
+            const rEnd = rStart + 180 + Math.random() * 250;
+            speedlinesCtx.beginPath();
+            speedlinesCtx.moveTo(cx + Math.cos(angle) * rStart, cy + Math.sin(angle) * rStart);
+            speedlinesCtx.lineTo(cx + Math.cos(angle) * rEnd, cy + Math.sin(angle) * rEnd);
+            speedlinesCtx.stroke();
+          }
+        }
+      }
+
+      // 10. Ambient Sun Motes
+      ambientMotes.forEach((mote) => {
+        mote.position.y = mote.baseY + Math.sin(time * mote.speedY + mote.floatPhase) * 1.2;
+        mote.position.x += Math.sin(time * 0.5 + mote.floatPhase) * 0.015;
+      });
+
+      // 11. Fountain Water Droplets
+      fountainParticles.forEach((drop) => {
+        const u = drop.userData;
+        u.life += 0.025;
+        drop.position.x += u.vx;
+        drop.position.y += u.vy - 0.009 * (u.life * 25);
+        drop.position.z += u.vz;
+
+        if (drop.position.y < 0.6 || u.life > 1.2) {
+          drop.position.set(0, 3.8, 0);
+          u.life = 0;
+          const newAng = Math.random() * Math.PI * 2;
+          const spd = 0.035 + Math.random() * 0.05;
+          u.vx = Math.cos(newAng) * spd;
+          u.vy = 0.22 + Math.random() * 0.1;
+          u.vz = Math.sin(newAng) * spd;
+        }
+      });
+
+      // 12. Car Exhaust Smoke & Nitro Fire Jets
+      if (isVehicleMode && (keys.forward || keys.backward || isEndlessLoopActive || isNitroActive)) {
+        const pObj = playerVehicle;
+        const rearOffset = 2.2;
+        const rx = pObj.position.x + Math.sin(playerFacing) * rearOffset;
+        const rz = pObj.position.z + Math.cos(playerFacing) * rearOffset;
+
+        const inactivePuff = carExhaustParticles.find(p => !p.visible);
+        if (inactivePuff) {
+          inactivePuff.visible = true;
+          inactivePuff.position.set(rx + (Math.random() - 0.5) * 0.4, 0.45, rz + (Math.random() - 0.5) * 0.4);
+          inactivePuff.scale.setScalar(isNitroActive ? 0.75 : 0.4);
+          inactivePuff.material.color.setHex(isNitroActive ? (Math.random() > 0.5 ? 0x06b6d4 : 0xf97316) : 0x94a3b8);
+          inactivePuff.userData.life = 0;
+          inactivePuff.userData.vx = (Math.random() - 0.5) * 0.04;
+          inactivePuff.userData.vy = 0.03 + Math.random() * 0.04;
+          inactivePuff.userData.vz = (Math.random() - 0.5) * 0.04;
+        }
+      }
+
+      carExhaustParticles.forEach((p) => {
+        if (p.visible) {
+          p.userData.life += delta * (isNitroActive ? 3.5 : 2.2);
+          p.position.x += p.userData.vx;
+          p.position.y += p.userData.vy;
+          p.position.z += p.userData.vz;
+          p.scale.addScalar(delta * 0.9);
+          if (p.userData.life >= 1.0) {
+            p.visible = false;
+          }
+        }
+      });
+    }
+
+
+    /* =========================================================================
+       ULTRA ULTRA ADVENTURE & QUEST BUILDERS
+       ========================================================================= */
+
+    /* 1. 15 Collectible CTF Cyber Data Cores */
+    function createCyberQuestCores() {
+      cyberCores = [];
+
+      const coreLocations = [
+        // 6 at Showcase Pavilions
+        { angleDeg: 0, rOffset: 7.5, name: "SIEM Threat Intelligence Core", tag: "SOC WA-01" },
+        { angleDeg: 60, rOffset: 7.5, name: "Mirage CTF Champion Token", tag: "CTF #1 GOLD" },
+        { angleDeg: 120, rOffset: 7.5, name: "Network Forensic Artifact", tag: "PCAP-99" },
+        { angleDeg: 180, rOffset: 7.5, name: "Endpoint Defense Protocol", tag: "EDR-SHIELD" },
+        { angleDeg: 240, rOffset: 7.5, name: "Incident Response Playbook", tag: "IR-MATRIX" },
+        { angleDeg: 300, rOffset: 7.5, name: "Sri Shakthi Academic Beacon", tag: "ENG-DEPT" },
+
+        // 3 on Highway High-Speed Boulevard
+        { angleDeg: 30, rOffset: 0, name: "Boulevard Speed Relic", tag: "NITRO-CORE" },
+        { angleDeg: 150, rOffset: 0, name: "Asphalt Cyber Gem", tag: "LANE-TOKEN" },
+        { angleDeg: 270, rOffset: 0, name: "Grand Prix Data Crystal", tag: "CIRCUIT-GEM" },
+
+        // 2 in Central Park & Water Fountain Plaza
+        { angleDeg: 90, rOffset: -45, name: "Central Park Aqua Shard", tag: "PARK-GEM" },
+        { angleDeg: 210, rOffset: -42, name: "Sakura Blossom Prism", tag: "FLORA-GEM" },
+
+        // 2 at Luxury Suburban Villa Pools
+        { angleDeg: 45, rOffset: 24, name: "Villa Palm Oasis Core", tag: "POOL-LUX" },
+        { angleDeg: 225, rOffset: 24, name: "Skyline Villa Diamond", tag: "TERRACE-GEM" },
+
+        // 2 at Stunt Jump Ramp Apexes
+        { angleDeg: 180, rOffset: -1.5, name: "Sky Stunt Aerial Crystal", tag: "APEX-AIR" },
+        { angleDeg: 300, rOffset: 1.5, name: "Mega Launch Stunt Relic", tag: "LAUNCH-X" }
+      ];
+
+      coreLocations.forEach((loc, idx) => {
+        const group = new THREE.Group();
+        const rad = (loc.angleDeg * Math.PI) / 180;
+        const totalR = LOOP_RADIUS + loc.rOffset;
+        const cx = Math.cos(rad) * totalR;
+        const cz = Math.sin(rad) * totalR;
+        const cy = 1.6;
+
+        group.position.set(cx, cy, cz);
+
+        // Faceted Glowing Gem
+        const gemGeo = idx % 2 === 0 ? new THREE.OctahedronGeometry(0.85, 0) : new THREE.DodecahedronGeometry(0.75, 0);
+        const gemCol = (idx % 3 === 0) ? 0x38bdf8 : ((idx % 3 === 1) ? 0xf59e0b : 0x10b981);
+        const gemMat = new THREE.MeshStandardMaterial({
+          color: gemCol,
+          emissive: gemCol,
+          emissiveIntensity: 0.85,
+          metalness: 0.9,
+          roughness: 0.1
+        });
+        const gemMesh = new THREE.Mesh(gemGeo, gemMat);
+        group.add(gemMesh);
+
+        // Orbiting Neon Ring
+        const ringGeo = new THREE.TorusGeometry(1.35, 0.05, 8, 24);
+        const ringMat = new THREE.MeshBasicMaterial({ color: gemCol });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.rotation.x = Math.PI / 3;
+        group.add(ringMesh);
+
+        // Soft Point Light
+        const pLight = new THREE.PointLight(gemCol, 1.2, 8);
+        group.add(pLight);
+
+        scene.add(group);
+        cyberCores.push({
+          mesh: group,
+          gem: gemMesh,
+          ring: ringMesh,
+          x: cx,
+          y: cy,
+          z: cz,
+          collected: false,
+          name: loc.name,
+          tag: loc.tag,
+          color: gemCol,
+          baseY: cy,
+          bobPhase: idx * 0.45
+        });
+      });
+    }
+
+    /* 2. Acrobatic Stunt Jump Ramps */
+    function createStuntJumpRamps() {
+      stuntRamps = [];
+      const rampAngles = [60, 180, 300];
+
+      rampAngles.forEach((angDeg, idx) => {
+        const rad = (angDeg * Math.PI) / 180;
+        const rampGroup = new THREE.Group();
+        const rx = Math.cos(rad) * LOOP_RADIUS;
+        const rz = Math.sin(rad) * LOOP_RADIUS;
+
+        rampGroup.position.set(rx, 0, rz);
+        rampGroup.rotation.y = Math.PI - rad;
+
+        // Sloped Ramp Wedge Geometry
+        const rampShape = new THREE.Shape();
+        rampShape.moveTo(0, 0);
+        rampShape.lineTo(0, 1.8);
+        rampShape.lineTo(6.5, 0);
+        rampShape.closePath();
+
+        const extrudeSettings = { depth: 5.4, bevelEnabled: false };
+        const rampGeo = new THREE.ExtrudeGeometry(rampShape, extrudeSettings);
+        const rampMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 });
+        const rampMesh = new THREE.Mesh(rampGeo, rampMat);
+        rampMesh.rotation.y = Math.PI / 2;
+        rampMesh.position.set(2.7, 0, -3.2);
+        rampMesh.castShadow = true;
+        rampMesh.receiveShadow = true;
+        rampGroup.add(rampMesh);
+
+        // Flashing Neon Arrow Striping on Ramp Surface
+        const arrowGeo = new THREE.PlaneGeometry(1.2, 4.2);
+        const arrowMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide });
+        const arrow = new THREE.Mesh(arrowGeo, arrowMat);
+        arrow.rotation.x = -Math.PI / 2 + 0.27;
+        arrow.position.set(0, 0.95, 0.2);
+        rampGroup.add(arrow);
+
+        scene.add(rampGroup);
+        stuntRamps.push({ group: rampGroup, x: rx, z: rz, arrow: arrow });
+      });
+    }
+
+    /* 3. Anti-Gravity Floating Sky Citadel (y = 110m) */
+    function createSkyCitadel() {
+      skyCitadel = new THREE.Group();
+      skyCitadel.position.set(0, 110, 0);
+
+      // Inverted Jagged Crystal Rock Base
+      const rockGeo = new THREE.ConeGeometry(38, 45, 8);
+      const rockMat = new THREE.MeshStandardMaterial({
+        color: 0x1e293b,
+        metalness: 0.8,
+        roughness: 0.4,
+        flatShading: true
+      });
+      const rock = new THREE.Mesh(rockGeo, rockMat);
+      rock.rotation.x = Math.PI;
+      rock.position.y = -22.5;
+      skyCitadel.add(rock);
+
+      // Upper Floating Platform
+      const platGeo = new THREE.CylinderGeometry(42, 38, 4, 8);
+      const platMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.9, roughness: 0.1 });
+      const plat = new THREE.Mesh(platGeo, platMat);
+      skyCitadel.add(plat);
+
+      // Glowing Cyan Neon Rim
+      const rimGeo = new THREE.RingGeometry(38, 42.5, 8);
+      const rimMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, side: THREE.DoubleSide });
+      const rim = new THREE.Mesh(rimGeo, rimMat);
+      rim.rotation.x = -Math.PI / 2;
+      rim.position.y = 2.05;
+      skyCitadel.add(rim);
+
+      // 5 Towering Futuristic Crystal Spire Obelisks
+      for (let s = 0; s < 5; s++) {
+        const sAng = (s / 5) * Math.PI * 2;
+        const sDist = s === 0 ? 0 : 22;
+        const sH = s === 0 ? 32 : 18;
+        const spireGeo = new THREE.ConeGeometry(3.5, sH, 6);
+        const spireMat = new THREE.MeshStandardMaterial({
+          color: 0x0284c7,
+          emissive: 0x06b6d4,
+          emissiveIntensity: 0.6,
+          metalness: 0.8
+        });
+        const spire = new THREE.Mesh(spireGeo, spireMat);
+        spire.position.set(Math.cos(sAng) * sDist, sH / 2 + 2, Math.sin(sAng) * sDist);
+        skyCitadel.add(spire);
+      }
+
+      // 2 Giant Orbiting Energy Rings around Citadel
+      skyCitadel.rings = [];
+      [52, 62].forEach((rad, idx) => {
+        const oGeo = new THREE.TorusGeometry(rad, 0.7, 8, 36);
+        const oMat = new THREE.MeshBasicMaterial({
+          color: idx === 0 ? 0x06b6d4 : 0xf59e0b,
+          transparent: true,
+          opacity: 0.75
+        });
+        const oRing = new THREE.Mesh(oGeo, oMat);
+        oRing.rotation.x = Math.PI / 3 + idx * 0.4;
+        skyCitadel.add(oRing);
+        skyCitadel.rings.push(oRing);
+      });
+
+      scene.add(skyCitadel);
+    }
+
+    /* 4. Majestic Airship Cruiser / Sky Blimp */
+    function createAirshipCruiser() {
+      airshipBlimp = new THREE.Group();
+      airshipBlimp.position.set(0, 85, -140);
+
+      // Airship Hull (Stretched Ellipsoid)
+      const hullGeo = new THREE.SphereGeometry(12, 16, 16);
+      hullGeo.scale(1.2, 1.0, 3.2);
+      const hullMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.4, roughness: 0.3 });
+      const hull = new THREE.Mesh(hullGeo, hullMat);
+      airshipBlimp.add(hull);
+
+      // Cyan Accent Stripe
+      const stripeGeo = new THREE.CylinderGeometry(12.1, 12.1, 1.8, 16);
+      const stripeMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+      const stripe = new THREE.Mesh(stripeGeo, stripeMat);
+      stripe.rotation.x = Math.PI / 2;
+      airshipBlimp.add(stripe);
+
+      // Gondola Cabin Underneath
+      const gonGeo = new THREE.BoxGeometry(4.2, 2.4, 14);
+      const gonMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5 });
+      const gon = new THREE.Mesh(gonGeo, gonMat);
+      gon.position.y = -13;
+      airshipBlimp.add(gon);
+
+      // Glowing LED Signboard
+      const ledCanvas = document.createElement('canvas');
+      ledCanvas.width = 1024;
+      ledCanvas.height = 160;
+      const lCtx = ledCanvas.getContext('2d');
+      lCtx.fillStyle = '#0284c7';
+      lCtx.fillRect(0, 0, 1024, 160);
+      lCtx.fillStyle = '#f8fafc';
+      lCtx.font = 'bold 52px "Orbitron", sans-serif';
+      lCtx.textAlign = 'center';
+      lCtx.fillText('MATHESH T // TOP CYBER DEFENDER // 2026 TOUR', 512, 100);
+
+      const ledTex = new THREE.CanvasTexture(ledCanvas);
+      const ledGeo = new THREE.PlaneGeometry(32, 5.0);
+      const ledMat = new THREE.MeshBasicMaterial({ map: ledTex, side: THREE.DoubleSide });
+      const ledMesh = new THREE.Mesh(ledGeo, ledMat);
+      ledMesh.position.set(13.2, 0, 0);
+      ledMesh.rotation.y = Math.PI / 2;
+      airshipBlimp.add(ledMesh);
+
+      scene.add(airshipBlimp);
+    }
+
+    /* 5. Autonomous Patrol Drones */
+    function createPatrolDrones() {
+      patrolDrones = [];
+      for (let p = 0; p < 3; p++) {
+        const drone = new THREE.Group();
+        const bodyGeo = new THREE.BoxGeometry(2.4, 0.6, 2.4);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9, roughness: 0.2 });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        drone.add(body);
+
+        // 4 Rotor Pods
+        [[-1.4, -1.4], [1.4, -1.4], [-1.4, 1.4], [1.4, 1.4]].forEach(([rx, rz]) => {
+          const rGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 8);
+          const rMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+          const rMesh = new THREE.Mesh(rGeo, rMat);
+          rMesh.position.set(rx, 0.2, rz);
+          drone.add(rMesh);
+        });
+
+        // Searchlight Cone
+        const spotGeo = new THREE.CylinderGeometry(0.1, 4.2, 18, 12, 1, true);
+        const spotMat = new THREE.MeshBasicMaterial({
+          color: 0x38bdf8,
+          transparent: true,
+          opacity: 0.18,
+          blending: THREE.AdditiveBlending,
+          side: THREE.DoubleSide,
+          depthWrite: false
+        });
+        const spot = new THREE.Mesh(spotGeo, spotMat);
+        spot.position.y = -9;
+        drone.add(spot);
+
+        drone.orbitRadius = 140 + p * 35;
+        drone.orbitSpeed = 0.003 + p * 0.0015;
+        drone.orbitAngle = (p / 3) * Math.PI * 2;
+        drone.altitude = 45 + p * 12;
+
+        scene.add(drone);
+        patrolDrones.push(drone);
+      }
+    }
+
+    /* 6. AI Companion Drone: "CYBER-BOT 3000" */
+    function createCompanionBot() {
+      companionDrone = new THREE.Group();
+
+      const chassisGeo = new THREE.SphereGeometry(0.45, 16, 16);
+      chassisGeo.scale(1.2, 0.8, 1.0);
+      const chassisMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.8, roughness: 0.2 });
+      const chassis = new THREE.Mesh(chassisGeo, chassisMat);
+      companionDrone.add(chassis);
+
+      // Glowing Cyan Visor Eye
+      const eyeGeo = new THREE.PlaneGeometry(0.5, 0.2);
+      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0, 0.05, -0.48);
+      companionDrone.add(eye);
+
+      // Anti-Gravity Twin Thruster Pods
+      [-0.55, 0.55].forEach(tx => {
+        const tGeo = new THREE.CylinderGeometry(0.12, 0.16, 0.5, 8);
+        const tMat = new THREE.MeshStandardMaterial({ color: 0x334155 });
+        const thruster = new THREE.Mesh(tGeo, tMat);
+        thruster.position.set(tx, -0.1, 0);
+        companionDrone.add(thruster);
+
+        const glowGeo = new THREE.SphereGeometry(0.12, 8, 8);
+        const glowMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+        const glow = new THREE.Mesh(glowGeo, glowMat);
+        glow.position.set(tx, -0.36, 0);
+        companionDrone.add(glow);
+      });
+
+      // Downward Halo Spotlight
+      const beamGeo = new THREE.CylinderGeometry(0.1, 1.5, 4.5, 8, 1, true);
+      const beamMat = new THREE.MeshBasicMaterial({
+        color: 0x06b6d4,
+        transparent: true,
+        opacity: 0.15,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const beam = new THREE.Mesh(beamGeo, beamMat);
+      beam.position.y = -2.25;
+      companionDrone.add(beam);
+
+      companionDrone.position.set(0, 3, 0);
+      scene.add(companionDrone);
+    }
+
+    /* 7. Giant Mountain Holographic Billboards */
+    function createGiantHolographicBillboards() {
+      const billboardConfigs = [
+        {
+          angleDeg: 35,
+          dist: 220,
+          h: 42,
+          title: "MIRAGE CTF CHAMPION",
+          sub: "#1 NATIONAL CYBER DEFENDER // SOC MASTER"
+        },
+        {
+          angleDeg: 215,
+          dist: 230,
+          h: 42,
+          title: "ENTERPRISE SOC ARCHITECT",
+          sub: "WAZUH SIEM // NETWORK THREAT HUNTING"
+        }
+      ];
+
+      billboardConfigs.forEach((cfg) => {
+        const bGroup = new THREE.Group();
+        const rad = (cfg.angleDeg * Math.PI) / 180;
+        bGroup.position.set(Math.cos(rad) * cfg.dist, cfg.h, Math.sin(rad) * cfg.dist);
+        bGroup.lookAt(0, cfg.h, 0);
+
+        const c = document.createElement('canvas');
+        c.width = 1024;
+        c.height = 340;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.fillRect(0, 0, 1024, 340);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(8, 8, 1008, 324);
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = 'bold 54px "Orbitron", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(cfg.title, 512, 130);
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 36px "Rajdhani", monospace';
+        ctx.fillText(cfg.sub, 512, 220);
+
+        const tex = new THREE.CanvasTexture(c);
+        const geo = new THREE.PlaneGeometry(48, 16);
+        const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.88, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(geo, mat);
+        bGroup.add(mesh);
+
+        scene.add(bGroup);
+      });
+    }
+
+    /* 8. Speedlines Canvas Setup */
+    function initSpeedlinesCanvas() {
+      speedlinesCanvas = document.getElementById("speedlines-canvas");
+      if (speedlinesCanvas) {
+        speedlinesCtx = speedlinesCanvas.getContext("2d");
+        speedlinesCanvas.width = window.innerWidth;
+        speedlinesCanvas.height = window.innerHeight;
+      }
+    }
+
+    /* Atmospheric Lighting & Mood Mode Controller */
+    function toggleLightingMood() {
+      const moods = ['noon', 'sunset', 'twilight', 'morning'];
+      const nextIdx = (moods.indexOf(currentLightingMood) + 1) % moods.length;
+      setLightingMood(moods[nextIdx]);
+    }
+
+    function setLightingMood(mood) {
+      currentLightingMood = mood;
+      const lbl = document.getElementById("lighting-lbl");
+
+      if (mood === 'noon') {
+        if (lbl) lbl.textContent = "DAY NOON";
+        scene.background.setHex(0x7dd3fc);
+        scene.fog.color.setHex(0xbae6fd);
+        if (sunLight) {
+          sunLight.color.setHex(0xfffaed);
+          sunLight.intensity = 1.45;
+          sunLight.position.set(130, 210, 110);
+        }
+        if (hemiLight) {
+          hemiLight.color.setHex(0x7dd3fc);
+          hemiLight.groundColor.setHex(0x166534);
+          hemiLight.intensity = 0.72;
+        }
+        renderer.toneMappingExposure = 1.25;
+      } else if (mood === 'sunset') {
+        if (lbl) lbl.textContent = "GOLDEN HOUR";
+        scene.background.setHex(0xfda4af);
+        scene.fog.color.setHex(0xfecdd3);
+        if (sunLight) {
+          sunLight.color.setHex(0xf59e0b);
+          sunLight.intensity = 1.65;
+          sunLight.position.set(220, 80, -180);
+        }
+        if (hemiLight) {
+          hemiLight.color.setHex(0xfb7185);
+          hemiLight.groundColor.setHex(0x854d0e);
+          hemiLight.intensity = 0.85;
+        }
+        renderer.toneMappingExposure = 1.35;
+            } else if (mood === 'twilight') {
+        if (lbl) lbl.textContent = "CYBER TWILIGHT";
+        scene.background.setHex(0x1e1b4b);
+        scene.fog.color.setHex(0x312e81);
+        if (sunLight) {
+          sunLight.color.setHex(0xec4899);
+          sunLight.intensity = 1.1;
+          sunLight.position.set(180, 70, -160);
+        }
+        if (hemiLight) {
+          hemiLight.color.setHex(0x818cf8);
+          hemiLight.groundColor.setHex(0x4338ca);
+          hemiLight.intensity = 0.85;
+        }
+        renderer.toneMappingExposure = 1.35;
+      } else if (mood === 'morning') {
+        if (lbl) lbl.textContent = "CRISP MORNING";
+        scene.background.setHex(0xa7f3d0);
+        scene.fog.color.setHex(0xccfbf1);
+        if (sunLight) {
+          sunLight.color.setHex(0xfef08a);
+          sunLight.intensity = 1.35;
+          sunLight.position.set(-150, 160, 150);
+        }
+        if (hemiLight) {
+          hemiLight.color.setHex(0x38bdf8);
+          hemiLight.groundColor.setHex(0x15803d);
+          hemiLight.intensity = 0.68;
+        }
+        renderer.toneMappingExposure = 1.22;
+      }
+    }
+
+    /* =========================================================================
+       5. 360° MOUSE & TOUCH ORBIT CONTROLS
+       ========================================================================= */
+    function init360OrbitMouseControls(canvas) {
+      canvas.addEventListener('mousedown', (e) => {
+        isPointerDragging = true;
+        pointerStartX = e.clientX;
+        pointerStartY = e.clientY;
+      });
+
+      window.addEventListener('mouseup', () => {
+        isPointerDragging = false;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isPointerDragging) return;
+        const dx = e.clientX - pointerStartX;
+        const dy = e.clientY - pointerStartY;
+        pointerStartX = e.clientX;
+        pointerStartY = e.clientY;
+
+        // Smooth 360 horizontal yaw & vertical pitch
+        cameraOrbitYaw -= dx * 0.008;
+        cameraOrbitPitch = Math.max(0.08, Math.min(1.25, cameraOrbitPitch + dy * 0.006));
+      });
+
+      // Dynamic Scroll Wheel Zoom, Elevation & Drone Crane
+      window.addEventListener('wheel', (e) => {
+        // Delta adjustment
+        const delta = e.deltaY;
+        cameraOrbitDist = Math.max(3.2, Math.min(38.0, cameraOrbitDist + delta * 0.022));
+
+        // Dynamically scale pitch with distance so pulling back elevates to a panoramic drone angle
+        const distRatio = (cameraOrbitDist - 3.2) / (38.0 - 3.2);
+        cameraOrbitPitch = 0.12 + distRatio * 0.72;
+
+        // Update holographic scroll HUD
+        const scrollHud = document.getElementById('scroll-hud-widget');
+        const scrollVal = document.getElementById('scroll-hud-val');
+        if (scrollHud && scrollVal) {
+          const altMeters = (cameraOrbitDist * Math.sin(cameraOrbitPitch) + 1.5).toFixed(1);
+          const zoomX = (24.0 / cameraOrbitDist).toFixed(1);
+          const viewLabel = cameraOrbitDist > 25 ? 'AERIAL DRONE' : (cameraOrbitDist < 5.5 ? 'CLOSE PURSUIT' : 'ORBIT CRANE');
+          scrollVal.textContent = `ELEVATION: ${altMeters}m | ZOOM: ${zoomX}X | ${viewLabel}`;
+          scrollHud.classList.add('active');
+
+          clearTimeout(scrollHudTimeout);
+          scrollHudTimeout = setTimeout(() => {
+            scrollHud.classList.remove('active');
+          }, 1400);
+        }
+      }, { passive: true });
+
+      // Touch Drag Controls for mobile/trackpad
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isPointerDragging = true;
+          pointerStartX = e.touches[0].clientX;
+          pointerStartY = e.touches[0].clientY;
+        }
+      });
+
+      window.addEventListener('touchend', () => {
+        isPointerDragging = false;
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isPointerDragging || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - pointerStartX;
+        const dy = e.touches[0].clientY - pointerStartY;
+        pointerStartX = e.touches[0].clientX;
+        pointerStartY = e.touches[0].clientY;
+
+        cameraOrbitYaw -= dx * 0.008;
+        cameraOrbitPitch = Math.max(0.08, Math.min(1.25, cameraOrbitPitch + dy * 0.006));
+      });
+    }
+
+    /* =========================================================================
+       6. MOVEMENT & CONTINUOUS LOOP ENGINE
+       ========================================================================= */
+    function updateMovement(delta) {
+      // 1. NITRO BOOST HANDLING
+      let speedMult = 1.0;
+      if (isNitroActive) {
+        speedMult = 2.3;
+        nitroTimer -= delta;
+        if (nitroTimer <= 0) {
+          isNitroActive = false;
+          camera.fov = 52;
+          camera.updateProjectionMatrix();
+        } else {
+          // Camera warp effect & shake
+          camera.fov = 52 + Math.sin(nitroTimer * 6) * 12;
+          camera.updateProjectionMatrix();
+        }
+      }
+
+      if (nitroCooldown > 0) {
+        nitroCooldown -= delta;
+        const btn = document.getElementById("btn-action-nitro");
+        if (btn) {
+          const pct = Math.max(0, Math.floor((nitroCooldown / 5.0) * 100));
+          document.getElementById("nitro-btn-lbl").textContent = pct > 0 ? `${pct}%` : "NITRO";
+        }
+      }
+
+      if (isEndlessLoopActive) {
+        // CONTINUOUS ENDLESS LOOP TOUR
+        endlessLoopProgress += (isVehicleMode ? 0.005 : 0.0028) * speedMult;
+        playerAngle = endlessLoopProgress;
+        playerRadialOffset = 0;
+
+        const posX = Math.cos(playerAngle) * LOOP_RADIUS;
+        const posZ = Math.sin(playerAngle) * LOOP_RADIUS;
+        playerFacing = Math.PI - playerAngle;
+
+        const targetObj = isVehicleMode ? playerVehicle : playerCharacter;
+        targetObj.position.set(posX, isVehicleMode ? 0.4 : 0.0, posZ);
+        targetObj.rotation.y = playerFacing;
+
+        if (isVehicleMode) {
+          TownAudio.updateCarPitch(0.45 * speedMult);
+        } else {
+          const anim = clock.getElapsedTime() * 4.2 * speedMult;
+          playerCharacter.leftLeg.rotation.x = Math.sin(anim) * 0.6;
+          playerCharacter.rightLeg.rotation.x = -Math.sin(anim) * 0.6;
+          playerCharacter.leftArm.rotation.x = -Math.sin(anim) * 0.5;
+          playerCharacter.rightArm.rotation.x = Math.sin(anim) * 0.5;
+          TownAudio.stopCar();
+        }
+
+      } else {
+        // FREE ROAM CONTROLS AROUND CIRCULAR BOULEVARD
+        const baseSpeed = isVehicleMode ? 0.65 : (keys.shift ? 0.38 : 0.22);
+        const speed = baseSpeed * speedMult;
+        let isMoving = false;
+
+        if (keys.forward) {
+          playerAngle += (speed / LOOP_RADIUS);
+          isMoving = true;
+        }
+        if (keys.backward) {
+          playerAngle -= (speed / LOOP_RADIUS) * 0.6;
+          isMoving = true;
+        }
+        if (keys.left) {
+          playerRadialOffset = Math.max(-10, playerRadialOffset - 0.22 * speedMult);
+        }
+        if (keys.right) {
+          playerRadialOffset = Math.min(10, playerRadialOffset + 0.22 * speedMult);
+        }
+
+        const targetObj = isVehicleMode ? playerVehicle : playerCharacter;
+
+        // Jump physics for both vehicle and walking character
+        if (isJumping) {
+          jumpVelocity -= 0.016;
+          targetObj.position.y += jumpVelocity;
+          if (targetObj.position.y <= (isVehicleMode ? 0.4 : 0.0)) {
+            targetObj.position.y = (isVehicleMode ? 0.4 : 0.0);
+            isJumping = false;
+          }
+        }
+
+        while (playerAngle > Math.PI * 2) playerAngle -= Math.PI * 2;
+        while (playerAngle < 0) playerAngle += Math.PI * 2;
+
+        const currentR = LOOP_RADIUS + playerRadialOffset;
+        const posX = Math.cos(playerAngle) * currentR;
+        const posZ = Math.sin(playerAngle) * currentR;
+        playerFacing = Math.PI - playerAngle;
+
+        targetObj.position.set(posX, targetObj.position.y, posZ);
+        targetObj.rotation.y = playerFacing;
+
+        if (isMoving && !isVehicleMode && !isJumping) {
+          const anim = clock.getElapsedTime() * (keys.shift || isNitroActive ? 6.5 : 4.0);
+          playerCharacter.leftLeg.rotation.x = Math.sin(anim) * 0.6;
+          playerCharacter.rightLeg.rotation.x = -Math.sin(anim) * 0.6;
+          playerCharacter.leftArm.rotation.x = -Math.sin(anim) * 0.5;
+          playerCharacter.rightArm.rotation.x = Math.sin(anim) * 0.5;
+
+          footstepClock += delta;
+          if (footstepClock > 0.35) {
+            TownAudio.footstep();
+            footstepClock = 0;
+          }
+        } else if (!isMoving && !isVehicleMode && !isJumping) {
+          playerCharacter.leftLeg.rotation.x = 0;
+          playerCharacter.rightLeg.rotation.x = 0;
+          playerCharacter.leftArm.rotation.x = 0;
+          playerCharacter.rightArm.rotation.x = 0;
+        }
+
+        if (isVehicleMode) {
+          if (isMoving) {
+            const rotSpeed = 0.25 * speedMult;
+            playerVehicle.wheels.forEach(w => w.rotation.x += rotSpeed);
+            TownAudio.updateCarPitch((speed / 0.65) * (keys.forward ? 1 : 0.5));
+          } else {
+            TownAudio.stopCar();
+          }
+        }
+      }
+
+      const activePos = (isVehicleMode ? playerVehicle : playerCharacter).position;
+
+      // 2. CHECK STUNT JUMP RAMPS COLLISION
+      stuntRamps.forEach((ramp) => {
+        const dx = activePos.x - ramp.x;
+        const dz = activePos.z - ramp.z;
+        const dist = Math.sqrt(dx * dx + dz * dz);
+        if (dist < 4.2 && !isJumping) {
+          isJumping = true;
+          jumpVelocity = 0.48; // Launch into the air!
+          totalStuntsJumped++;
+          TownAudio.launchRamp();
+          showDroneSpeech("Epic Stunt Launch! 360 Air Time!");
+        }
+      });
+
+      // 3. CHECK CYBER DATA CORES COLLISION (Quest Pickups)
+      cyberCores.forEach((core, idx) => {
+        if (!core.collected) {
+          const dx = activePos.x - core.x;
+          const dz = activePos.z - core.z;
+          const dist = Math.sqrt(dx * dx + dz * dz);
+          if (dist < 3.2) {
+            // COLLECT DATA CORE!
+            core.collected = true;
+            core.mesh.visible = false;
+            collectedCoresCount++;
+            playerXP += 100;
+
+            TownAudio.pickupOrb();
+            triggerSparkleBurst(core.x, core.y, core.z, core.color);
+            showQuestToast(core.name, core.tag);
+            updateQuestHUD();
+
+            if (collectedCoresCount === 15) {
+              triggerVictoryCelebration();
+            }
+          }
+        }
+      });
+
+      // Pavilion Proximity Check
+      checkPavilionProximity();
+    }
+
+    /* Trigger Nitro Turbo Boost (F) */
+    function triggerNitroBoost() {
+      if (nitroCooldown > 0) return;
+      isNitroActive = true;
+      nitroTimer = 3.5;
+      nitroCooldown = 5.0;
+      TownAudio.nitroBoost();
+      showDroneSpeech("NITRO TURBO ENGAGED! Full speed!");
+    }
+
+    /* Quest Notifications & Progression Updates */
+    function showQuestToast(title, subtitle) {
+      const toast = document.getElementById("quest-pickup-toast");
+      if (!toast) return;
+      document.getElementById("toast-title").textContent = `+100 XP // ${subtitle}`;
+      document.getElementById("toast-subtitle").textContent = title;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function updateQuestHUD() {
+      const cntEl = document.getElementById("quest-cores-cnt");
+      const xpEl = document.getElementById("quest-xp-lbl");
+      const barEl = document.getElementById("quest-progress-bar");
+      const rankEl = document.getElementById("quest-rank-lbl");
+
+      if (cntEl) cntEl.textContent = collectedCoresCount;
+      if (xpEl) xpEl.textContent = `+${playerXP} XP`;
+      if (barEl) barEl.style.width = `${Math.floor((collectedCoresCount / 15) * 100)}%`;
+
+      const ranks = [
+        "RECON SCOUT",
+        "SECURITY SPECIALIST",
+        "SOC INVESTIGATOR",
+        "CYBER DEFENDER",
+        "THREAT HUNTER",
+        "LEGENDARY SOC TITAN"
+      ];
+      const rIdx = Math.min(ranks.length - 1, Math.floor((collectedCoresCount / 15) * ranks.length));
+      if (rankEl) rankEl.textContent = ranks[rIdx];
+    }
+
+    function triggerSparkleBurst(x, y, z, color) {
+      for (let s = 0; s < 25; s++) {
+        const sGeo = new THREE.SphereGeometry(0.12, 4, 4);
+        const sMat = new THREE.MeshBasicMaterial({ color: color, blending: THREE.AdditiveBlending });
+        const p = new THREE.Mesh(sGeo, sMat);
+        p.position.set(x, y, z);
+        p.userData = {
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: 0.15 + Math.random() * 0.25,
+          vz: (Math.random() - 0.5) * 0.35,
+          life: 0
+        };
+        scene.add(p);
+        sparkleBursts.push(p);
+      }
+    }
+
+    function triggerVictoryCelebration() {
+      TownAudio.victoryFanfare();
+      const modal = document.getElementById("quest-victory-modal");
+      if (modal) modal.style.display = "flex";
+      const stuntsEl = document.getElementById("v-stunts-cnt");
+      if (stuntsEl) stuntsEl.textContent = totalStuntsJumped;
+
+      // Confetti Sparkle Fireworks
+      for (let f = 0; f < 6; f++) {
+        setTimeout(() => {
+          const targetObj = isVehicleMode ? playerVehicle : playerCharacter;
+          triggerSparkleBurst(targetObj.position.x + (Math.random() - 0.5) * 20, 8, targetObj.position.z + (Math.random() - 0.5) * 20, 0xf59e0b);
+        }, f * 350);
+      }
+    }
+
+    function showDroneSpeech(msg) {
+      const bubble = document.getElementById("drone-speech-bubble");
+      const txt = document.getElementById("drone-speech-txt");
+      if (!bubble || !txt) return;
+      txt.textContent = msg;
+      bubble.style.display = "block";
+      clearTimeout(droneSpeechTimer);
+      droneSpeechTimer = setTimeout(() => {
+        bubble.style.display = "none";
+      }, 3500);
+    }
+
+
+    /* =========================================================================
+       CORE ENGINE RUNTIME LOOPS & CAMERA SYSTEMS
+       ========================================================================= */
+
+    /* Normal Pace Pedestrians Update */
+    function updateRoamingPedestrians() {
+      const anim = clock.getElapsedTime() * 3.6;
+      roamingPedestrians.forEach((ped, idx) => {
+        ped.orbitAngle += ped.walkSpeed * ped.direction;
+        const px = Math.cos(ped.orbitAngle) * ped.orbitRadius;
+        const pz = Math.sin(ped.orbitAngle) * ped.orbitRadius;
+        ped.position.set(px, 0, pz);
+
+        // MATHEMATICALLY EXACT FORWARD ROAD HEADING:
+        // When direction > 0: faces Math.PI - ped.orbitAngle
+        // When direction < 0: faces -ped.orbitAngle
+        ped.rotation.y = ped.direction > 0 ? (Math.PI - ped.orbitAngle) : (-ped.orbitAngle);
+
+        // Relaxed natural limb swing along road direction
+        ped.leftLeg.rotation.x = Math.sin(anim + idx) * 0.45;
+        ped.rightLeg.rotation.x = -Math.sin(anim + idx) * 0.45;
+        ped.leftArm.rotation.x = -Math.sin(anim + idx) * 0.4;
+        ped.rightArm.rotation.x = Math.sin(anim + idx) * 0.4;
+      });
+    }
+
+    /* Pavilion Proximity Check */
+    function checkPavilionProximity() {
+      const currentR = LOOP_RADIUS + playerRadialOffset;
+      const px = Math.cos(playerAngle) * currentR;
+      const pz = Math.sin(playerAngle) * currentR;
+
+      let nearestDist = 9999;
+      let nearestIdx = 0;
+
+      PAVILIONS_DATA.forEach((pav, idx) => {
+        const radAngle = (pav.angleDeg * Math.PI) / 180;
+        const pavX = Math.cos(radAngle) * (LOOP_RADIUS + 11);
+        const pavZ = Math.sin(radAngle) * (LOOP_RADIUS + 11);
+
+        const d = Math.sqrt(Math.pow(px - pavX, 2) + Math.pow(pz - pavZ, 2));
+        if (d < nearestDist) {
+          nearestDist = d;
+          nearestIdx = idx;
+        }
+      });
+
+      const banner = document.getElementById("town-inspect-banner");
+      const nameLbl = document.getElementById("proximity-pavilion-name");
+
+      if (nearestDist < 18.0) {
+        activeNearPavilion = nearestIdx;
+        if (banner) banner.style.display = "flex";
+        if (nameLbl) nameLbl.textContent = `0${nearestIdx + 1}: ${PAVILIONS_DATA[nearestIdx].name}`;
+
+        document.querySelectorAll(".pavilion-chip-btn").forEach((chip, cIdx) => {
+          chip.classList.toggle("active", cIdx === nearestIdx);
+        });
+      } else {
+        activeNearPavilion = null;
+        if (banner) banner.style.display = "none";
+      }
+    }
+
+    /* FREE 360 ORBIT CAMERA UPDATE */
+    function updateCamera() {
+      const targetObj = isVehicleMode ? playerVehicle : playerCharacter;
+      const targetPos = targetObj.position;
+
+      // Cinematic fly-in swooping down from sky
+      if (isIntroCinematic) {
+        introProgress += 0.009;
+        const ease = Math.min(1.0, 1.0 - Math.pow(1.0 - Math.min(1.0, introProgress), 3));
+        
+        const startX = targetPos.x + 36;
+        const startY = targetPos.y + 32;
+        const startZ = targetPos.z + 36;
+
+        const effectiveDist = isVehicleMode ? cameraOrbitDist * 1.25 : cameraOrbitDist;
+        const hDist = effectiveDist * Math.cos(cameraOrbitPitch);
+        const vDist = effectiveDist * Math.sin(cameraOrbitPitch) + (isVehicleMode ? 1.0 : 1.2);
+        const totalYaw = playerFacing + cameraOrbitYaw;
+
+        const endX = targetPos.x + Math.sin(totalYaw) * hDist;
+        const endY = targetPos.y + vDist;
+        const endZ = targetPos.z + Math.cos(totalYaw) * hDist;
+
+        camera.position.x = startX + (endX - startX) * ease;
+        camera.position.y = startY + (endY - startY) * ease;
+        camera.position.z = startZ + (endZ - startZ) * ease;
+
+        camera.lookAt(targetPos.x, targetPos.y + (isVehicleMode ? 1.0 : 1.3), targetPos.z);
+        return;
+      }
+
+      if (isAutoSpin) {
+        cameraOrbitYaw += 0.006;
+      }
+
+      if (cameraMode === 'orbit360') {
+        const effectiveDist = isVehicleMode ? cameraOrbitDist * 1.25 : cameraOrbitDist;
+        const hDist = effectiveDist * Math.cos(cameraOrbitPitch);
+        const vDist = effectiveDist * Math.sin(cameraOrbitPitch) + (isVehicleMode ? 1.0 : 1.2);
+        const totalYaw = playerFacing + cameraOrbitYaw;
+
+        const camX = targetPos.x + Math.sin(totalYaw) * hDist;
+        const camY = targetPos.y + vDist;
+        const camZ = targetPos.z + Math.cos(totalYaw) * hDist;
+
+        camera.position.lerp(new THREE.Vector3(camX, camY, camZ), 0.12);
+        camera.lookAt(targetPos.x, targetPos.y + (isVehicleMode ? 1.0 : 1.3), targetPos.z);
+
+      } else if (cameraMode === 'firstPerson') {
+        camera.position.set(targetPos.x, targetPos.y + 1.65, targetPos.z);
+        camera.lookAt(targetPos.x - Math.sin(playerFacing) * 15, targetPos.y + 1.55, targetPos.z - Math.cos(playerFacing) * 15);
+
+      } else if (cameraMode === 'drone') {
+        const droneDist = 18;
+        const droneYaw = playerFacing + cameraOrbitYaw + 0.3;
+        const cX = targetPos.x + Math.sin(droneYaw) * droneDist;
+        const cY = targetPos.y + 12;
+        const cZ = targetPos.z + Math.cos(droneYaw) * droneDist;
+        camera.position.lerp(new THREE.Vector3(cX, cY, cZ), 0.08);
+        camera.lookAt(targetPos.x, targetPos.y + 1.0, targetPos.z);
+
+      } else if (cameraMode === 'aerial') {
+        camera.position.lerp(new THREE.Vector3(targetPos.x, 70, targetPos.z + 0.1), 0.1);
+        camera.lookAt(targetPos.x, 0, targetPos.z);
+      }
+    }
+
+    function cycleCameraMode() {
+      const modes = ['orbit360', 'firstPerson', 'drone', 'aerial'];
+      const labels = { 'orbit360': 'CHASE', 'firstPerson': 'FIRST-PERSON', 'drone': 'DRONE CAM', 'aerial': 'AERIAL' };
+      const curIdx = modes.indexOf(cameraMode);
+      cameraMode = modes[(curIdx + 1) % modes.length];
+
+      const lbl = document.getElementById("cam-view-lbl");
+      if (lbl) lbl.textContent = labels[cameraMode];
+    }
+
+    /* Circular Loop Radar Canvas with Cores & Stunt Ramps */
+    function drawLoopRadar() {
+      const cv = document.getElementById("loop-radar-canvas");
+      if (!cv) return;
+      const ctx = cv.getContext("2d");
+      const w = cv.width;
+      const h = cv.height;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 54, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 54, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Draw 6 Showcase Pavilions on Radar
+      PAVILIONS_DATA.forEach((pav, idx) => {
+        const radAngle = (pav.angleDeg * Math.PI) / 180;
+        const sx = cx + Math.cos(radAngle) * 62;
+        const sy = cy + Math.sin(radAngle) * 62;
+
+        ctx.fillStyle = idx === activeNearPavilion ? '#f59e0b' : '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(sx, sy, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(`P${idx+1}`, sx + 5, sy + 3);
+      });
+
+      // Draw Collectible CTF Cores on Radar
+      cyberCores.forEach((c) => {
+        if (!c.collected) {
+          const radX = cx + (c.x / 115) * (w * 0.44);
+          const radY = cy + (c.z / 115) * (h * 0.44);
+          ctx.fillStyle = '#' + c.color.toString(16).padStart(6, '0');
+          ctx.beginPath();
+          ctx.arc(radX, radY, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      // Draw Stunt Ramps on Radar
+      stuntRamps.forEach((r) => {
+        const radX = cx + (r.x / 115) * (w * 0.44);
+        const radY = cy + (r.z / 115) * (h * 0.44);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(radX - 2.5, radY - 2.5, 5, 5);
+      });
+
+      // Draw Player Position & Direction Arrow
+      const pX = cx + Math.cos(playerAngle) * 54;
+      const pY = cy + Math.sin(playerAngle) * 54;
+
+      ctx.save();
+      ctx.translate(pX, pY);
+      ctx.rotate(playerAngle + Math.PI / 2);
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.moveTo(0, -6);
+      ctx.lineTo(5, 5);
+      ctx.lineTo(0, 2);
+      ctx.lineTo(-5, 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /* Main 3D Render Loop */
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+
+      // Rotate Showcase Monuments & Holographic Rings
+      pavilionMeshes.forEach((mesh, idx) => {
+        if (mesh.monument) {
+          mesh.monument.rotation.y += 0.02;
+          mesh.monument.position.y = 3.2 + Math.sin(clock.getElapsedTime() * 2.5 + idx) * 0.2;
+        }
+        if (mesh.orbitRing) {
+          mesh.orbitRing.rotation.z += 0.03;
+          mesh.orbitRing.rotation.y += 0.015;
+        }
+      });
+
+      // Update movement
+      updateMovement(delta);
+
+      // Update normal pace pedestrians
+      updateRoamingPedestrians();
+
+      // Update VFX Particle Systems
+      updateVFXParticleSystems(delta);
+
+      // Update 360 orbit camera
+      updateCamera();
+
+      // Draw loop radar
+      drawLoopRadar();
+
+      renderer.render(scene, camera);
+    }
+
+    /* =========================================================================
+       7. MODAL BRIEFINGS & PAVILION DETAILS
+       ========================================================================= */
+    function openPavilionModal(index) {
+      if (index === undefined || index === null) index = activeNearPavilion || 0;
+      const pav = PAVILIONS_DATA[index];
+      TownAudio.pavilionChime();
+
+      document.getElementById("modal-tag-txt").textContent = pav.tag;
+      document.getElementById("modal-title").textContent = pav.name;
+      document.getElementById("modal-icon-box").innerHTML = `<i class="fas ${pav.icon}"></i>`;
+      document.getElementById("modal-subtitle").textContent = pav.caption;
+      document.getElementById("modal-lore").textContent = pav.lore;
+
+      const container = document.getElementById("modal-cards-container");
+      container.innerHTML = "";
+
+      pav.cards.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "pavilion-card";
+        div.innerHTML = `
+          <div class="card-top-row">
+            <span class="card-title">${c.title}</span>
+            <span class="card-tag">${c.tag}</span>
+          </div>
+          <div class="card-issuer"><i class="fas fa-certificate"></i> ${c.issuer}</div>
+          <div class="card-desc">${c.desc}</div>
+        `;
+        container.appendChild(div);
+      });
+
+      const linkBtn = document.getElementById("modal-link-btn");
+      linkBtn.onclick = () => {
+        TownAudio.pavilionChime();
+        window.open(pav.actionLink, '_blank');
+      };
+
+      document.getElementById("town-modal").classList.add("open");
+    }
+
+    function closePavilionModal() {
+      TownAudio.pavilionChime();
+      document.getElementById("town-modal").classList.remove("open");
+    }
+
+    function warpToPavilion(index) {
+      const pav = PAVILIONS_DATA[index];
+      playerAngle = (pav.angleDeg * Math.PI) / 180;
+      playerRadialOffset = 0;
+      endlessLoopProgress = playerAngle;
+
+      TownAudio.pavilionChime();
+      setTimeout(() => openPavilionModal(index), 350);
+    }
+
+    /* Toggle Infinite Endless Tour Loop */
+    function toggleEndlessLoop() {
+      isEndlessLoopActive = !isEndlessLoopActive;
+      const btn = document.getElementById("btn-toggle-endless");
+      const lbl = document.getElementById("tour-lbl");
+      const statusTag = document.getElementById("mode-status-tag");
+
+      if (isEndlessLoopActive) {
+        TownAudio.pavilionChime();
+        btn.classList.add("active");
+        lbl.textContent = "STOP TOUR LOOP";
+        statusTag.textContent = "INFINITE TOUR ACTIVE";
+      } else {
+        btn.classList.remove("active");
+        lbl.textContent = "INFINITE TOUR LOOP";
+        statusTag.textContent = "360° FREE LOOK";
+      }
+    }
+
+    /* Toggle 360 Auto Spin */
+    function toggleAutoSpin() {
+      isAutoSpin = !isAutoSpin;
+      const btn = document.getElementById("btn-toggle-spin");
+      btn.classList.toggle("active", isAutoSpin);
+      document.getElementById("spin-lbl").textContent = isAutoSpin ? "SPINNING 360°" : "AUTO-SPIN 360°";
+      TownAudio.pavilionChime();
+    }
+
+    /* Toggle Vehicle vs Foot Walk */
+    function toggleVehicle() {
+      isVehicleMode = !isVehicleMode;
+      TownAudio.pavilionChime();
+
+      const lbl = document.getElementById("veh-lbl");
+      if (isVehicleMode) {
+        playerCharacter.visible = false;
+        playerVehicle.visible = true;
+        lbl.textContent = "ON FOOT";
+      } else {
+        playerVehicle.visible = false;
+        playerCharacter.visible = true;
+        lbl.textContent = "RIDE CAR";
+      }
+    }
+
+    /* Jump */
+    function doJump() {
+      if (!isJumping && !isVehicleMode) {
+        isJumping = true;
+        jumpVelocity = 0.28;
+        TownAudio.jump();
+      }
+    }
+
+    /* Keyboard Handlers */
+    function onKeyDown(e) {
+      if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') keys.forward = true;
+      if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') keys.backward = true;
+      if (e.key === 'a' || e.key === 'A' || e.key === 'ArrowLeft') keys.left = true;
+      if (e.key === 'd' || e.key === 'D' || e.key === 'ArrowRight') keys.right = true;
+      if (e.key === 'Shift') keys.shift = true;
+
+      if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        if (activeNearPavilion !== null) openPavilionModal(activeNearPavilion);
+        else doJump();
+      }
+
+      if (e.key === 't' || e.key === 'T') toggleEndlessLoop();
+      if (e.key === 'r' || e.key === 'R') toggleAutoSpin();
+      if (e.key === 'v' || e.key === 'V') toggleVehicle();
+      if (e.key === 'l' || e.key === 'L') toggleLightingMood();
+      if (e.key === 'c' || e.key === 'C') {
+        cycleCameraMode();
+      }
+
+      if (e.key === 'Escape') closePavilionModal();
+
+      if (e.key >= '1' && e.key <= '6') {
+        warpToPavilion(parseInt(e.key) - 1);
+      }
+    }
+
+    function onKeyUp(e) {
+      if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') keys.forward = false;
+      if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') keys.backward = false;
+      if (e.key === 'a' || e.key === 'A' || e.key === 'ArrowLeft') keys.left = false;
+      if (e.key === 'd' || e.key === 'D' || e.key === 'ArrowRight') keys.right = false;
+      if (e.key === 'Shift') keys.shift = false;
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    /* Virtual Controls Binding */
+    function bindVirtualControls() {
+      const bind = (id, keyName) => {
+        const btn = document.getElementById(id);
+        const start = (e) => { e.preventDefault(); keys[keyName] = true; btn.classList.add("pressed"); };
+        const end = (e) => { e.preventDefault(); keys[keyName] = false; btn.classList.remove("pressed"); };
+
+        btn.addEventListener('mousedown', start);
+        btn.addEventListener('mouseup', end);
+        btn.addEventListener('mouseleave', end);
+        btn.addEventListener('touchstart', start);
+        btn.addEventListener('touchend', end);
+      };
+
+      bind('pad-up', 'forward');
+      bind('pad-down', 'backward');
+      bind('pad-left', 'left');
+      bind('pad-right', 'right');
+    }
+
+    /* DOM Initialization */
+    document.addEventListener("DOMContentLoaded", () => {
+      initRealisticTown();
+      bindVirtualControls();
+
+      // Pavilion Dock Chips
+      document.querySelectorAll(".pavilion-chip-btn").forEach(chip => {
+        chip.addEventListener("click", () => {
+          const idx = parseInt(chip.getAttribute("data-pavilion"));
+          warpToPavilion(idx);
+        });
+      });
+
+      // Open Pavilion Prompt
+      document.getElementById("btn-open-pavilion").addEventListener("click", () => {
+        if (activeNearPavilion !== null) openPavilionModal(activeNearPavilion);
+      });
+
+      // Endless Tour Button
+      document.getElementById("btn-toggle-endless").addEventListener("click", toggleEndlessLoop);
+
+      // Auto-Spin 360 Button
+      document.getElementById("btn-toggle-spin").addEventListener("click", toggleAutoSpin);
+
+      // Camera Toggle Button
+      document.getElementById("btn-action-view").addEventListener("click", cycleCameraMode);
+      const btnNitro = document.getElementById("btn-action-nitro");
+      if (btnNitro) btnNitro.addEventListener("click", triggerNitroBoost);
+      const btnCloseVic = document.getElementById("btn-close-victory");
+      if (btnCloseVic) btnCloseVic.addEventListener("click", () => {
+        document.getElementById("quest-victory-modal").style.display = "none";
+      });
+      const btnLight = document.getElementById("btn-toggle-lighting");
+      if (btnLight) btnLight.addEventListener("click", toggleLightingMood);
+
+      // Vehicle Toggle Button
+      document.getElementById("btn-toggle-vehicle").addEventListener("click", toggleVehicle);
+
+      // Jump Button
+      document.getElementById("btn-action-jump").addEventListener("click", doJump);
+
+      // Sprint Toggle Button
+      document.getElementById("btn-action-sprint").addEventListener("click", () => {
+        keys.shift = !keys.shift;
+        document.getElementById("btn-action-sprint").classList.toggle("active", keys.shift);
+      });
+
+      // Audio Toggle
+      document.getElementById("btn-toggle-audio").addEventListener("click", () => {
+        const muted = TownAudio.toggleMute();
+        document.getElementById("audio-lbl").textContent = muted ? "AUDIO OFF" : "AUDIO ON";
+        const icon = document.querySelector("#btn-toggle-audio i");
+        icon.className = muted ? "fas fa-volume-xmark" : "fas fa-volume-high";
+      });
+
+      // Modal Close
+      document.getElementById("modal-close-btn").addEventListener("click", closePavilionModal);
+      document.getElementById("modal-dismiss-btn").addEventListener("click", closePavilionModal);
+    });
+  </script>
+
+  <!-- FLOATING QUEST TOAST -->
+  <div id="quest-pickup-toast" class="quest-toast">
+    <i class="fas fa-gem quest-toast-icon"></i>
+    <div class="quest-toast-meta">
+      <b id="toast-title">+100 XP // DATA CORE DECRYPTED</b>
+      <span id="toast-subtitle">Security intelligence token captured!</span>
+    </div>
+  </div>
+
+  <!-- QUEST VICTORY CELEBRATION MODAL -->
+  <div id="quest-victory-modal" class="town-modal-backdrop" style="display:none;">
+    <div class="quest-victory-box">
+      <div class="victory-trophy"><i class="fas fa-trophy"></i></div>
+      <h2>CYBER TITAN UNLOCKED!</h2>
+      <p>Congratulations! You discovered and decrypted all 15 Cybersecurity Data Cores across the 3D world!</p>
+      <div class="victory-stats-grid">
+        <div class="v-stat-item">
+          <span>TOTAL XP</span>
+          <b id="v-total-xp">1,500 XP</b>
+        </div>
+        <div class="v-stat-item">
+          <span>RANK</span>
+          <b style="color:#f59e0b;">SOC TITAN</b>
+        </div>
+        <div class="v-stat-item">
+          <span>STUNTS</span>
+          <b id="v-stunts-cnt">0</b>
+        </div>
+      </div>
+      <button id="btn-close-victory" class="btn-hud-control btn-endless-tour" style="width:100%; justify-content:center; padding:12px 20px;">
+        <i class="fas fa-play"></i> CONTINUE CYBER TOUR
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>

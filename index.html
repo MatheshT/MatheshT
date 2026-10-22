@@ -19,21 +19,37 @@
 
   <style>
     :root {
-      --bg-base: #030712;
-      --bg-card: rgba(15, 23, 42, 0.75);
-      --bg-card-hover: rgba(30, 41, 59, 0.85);
-      --border-card: rgba(56, 189, 248, 0.18);
-      --border-card-hover: rgba(56, 189, 248, 0.45);
-      --border-accent: rgba(0, 240, 255, 0.4);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-subtle: #64748b;
-      --accent-cyan: #00f0ff;
-      --accent-sky: #38bdf8;
-      --accent-emerald: #10b981;
-      --accent-blue: #3b82f6;
-      --accent-purple: #a855f7;
-      --accent-gold: #f59e0b;
+      --bg-base: #0b0704; /* Deep Molten Charcoal */
+      --bg-card: rgba(26, 16, 12, 0.74);
+      --bg-card-hover: rgba(45, 26, 18, 0.88);
+      --border-card: rgba(255, 107, 53, 0.22);
+      --border-card-hover: rgba(255, 122, 69, 0.65);
+      --border-accent: rgba(255, 209, 102, 0.6);
+
+      /* =========================================================================
+         USER DESIGN SYSTEM TEXT COLOR SYSTEM
+         ========================================================================= */
+      --color-main-heading: #F5F5F5;    /* Main headings: Soft White */
+      --color-normal-p: #D4D4D8;        /* Normal paragraphs: Light Gray */
+      --color-secondary-text: #A1A1AA;  /* Secondary text: Muted Gray */
+      --color-highlight: #FF6B35;       /* Highlighted words: Ember Orange */
+      --color-special-kw: #FFD166;      /* Special keywords: Warm Yellow */
+      --color-hover-text: #FF9F68;      /* Hover text: Light Orange */
+      --color-link: #FF7A45;            /* Links: Bright Orange */
+
+      /* Semantic tokens */
+      --text-main: var(--color-main-heading);
+      --text-body: var(--color-normal-p);
+      --text-muted: var(--color-secondary-text);
+      --text-subtle: #71717A;
+      --accent-ember: var(--color-highlight);
+      --accent-amber: var(--color-special-kw);
+      --accent-gold: var(--color-special-kw);
+      --accent-cyan: var(--color-link);
+      --accent-sky: var(--color-hover-text);
+      --accent-emerald: var(--color-special-kw);
+      --accent-blue: var(--color-link);
+      --accent-purple: #c2410c;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -42,6 +58,126 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    
+    /* =========================================================================
+       EXPLICIT TYPOGRAPHY COLOR HIERARCHY
+       ========================================================================= */
+    /* 1. Main Headings: Soft White #F5F5F5 */
+    h1, h2, h3, h4, h5, h6,
+    .hero-headline,
+    .section-headline,
+    .brand-title,
+    .honor-card-title,
+    .proj-title,
+    .about-card-panel h3,
+    .intern-name,
+    .skill-cat-header,
+    .trait-name,
+    .inst-name,
+    .modal-title,
+    .inspector-title-row {
+      color: var(--color-main-heading) !important;
+    }
+
+    /* 2. Normal Paragraphs: Light Gray #D4D4D8 */
+    p,
+    .hero-bio-lead,
+    .proj-desc,
+    .about-text-p,
+    .honor-card-summary,
+    .intern-desc,
+    .inspector-desc,
+    .trait-desc,
+    .section-subtitle {
+      color: var(--color-normal-p) !important;
+    }
+
+    /* 3. Secondary Text: Muted Gray #A1A1AA */
+    .text-secondary,
+    .text-muted,
+    .stat-label,
+    .brand-subtitle,
+    .inst-detail,
+    .honor-card-issuer,
+    .intern-role,
+    .intern-id-tag,
+    .honor-category-lbl,
+    .academic-table th,
+    .footer-copy,
+    .hud-interaction-hint,
+    .proj-tag-badge,
+    small {
+      color: var(--color-secondary-text) !important;
+    }
+
+    /* 4. Highlighted Words: Ember Orange #FF6B35 */
+    strong,
+    b,
+    mark,
+    .highlight,
+    .word-highlight,
+    .highlight-ember,
+    .hero-bio-lead strong,
+    .about-text-p strong,
+    .proj-desc strong,
+    .honor-card-summary strong,
+    .brand-title span,
+    .skill-chip.highlight {
+      color: var(--color-highlight) !important;
+      font-weight: 600;
+    }
+
+    /* 5. Special Keywords: Warm Yellow #FFD166 */
+    code,
+    kbd,
+    .keyword,
+    .special-keyword,
+    .stat-number,
+    .rank-order-pill.gold,
+    .rank-order-pill,
+    .inst-score,
+    .badge-adventure-pulse,
+    .hero-meta-badge,
+    .inspector-category-badge,
+    .proj-type-tag,
+    .intern-verified-badge,
+    .hud-title-tag {
+      color: var(--color-special-kw) !important;
+    }
+
+    /* 6. Links: Bright Orange #FF7A45 */
+    a,
+    .link,
+    .btn-link,
+    .nav-links a,
+    .footer-links-row a,
+    .btn-github-view,
+    .btn-verify-linkedin,
+    .inspector-link-btn,
+    .proj-footer-link a,
+    .honor-card-actions a {
+      color: var(--color-link);
+      text-decoration: none;
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+    }
+
+    /* 7. Hover Text: Light Orange #FF9F68 */
+    a:hover,
+    button:hover,
+    .nav-links a:hover,
+    .footer-links-row a:hover,
+    .btn-github-view:hover,
+    .btn-verify-linkedin:hover,
+    .btn-exec-outline:hover,
+    .honor-pill-btn:hover,
+    .honor-pill-btn.active,
+    .interactive-hover:hover,
+    .proj-tag-badge:hover,
+    .btn-tool-icon:hover {
+      color: var(--color-hover-text) !important;
+      text-shadow: 0 0 10px rgba(255, 159, 104, 0.45);
     }
 
     html, body {
@@ -56,8 +192,8 @@
     /* Clean cyber grid background - No dizzying particle noise */
     body {
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(234, 88, 12, 0.14) 0%, transparent 50%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
@@ -107,7 +243,7 @@
     .brand-symbol {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(16, 185, 129, 0.2));
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 88, 12, 0.25));
       border: 1px solid var(--accent-cyan);
       border-radius: 8px;
       display: flex;
@@ -159,9 +295,9 @@
       gap: 12px;
     }
     .btn-exec-primary {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: #fff;
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: linear-gradient(135deg, var(--color-highlight), var(--color-link));
+      color: #fff !important;
+      border: 1px solid rgba(255, 209, 102, 0.4);
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 13px;
@@ -171,7 +307,7 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 0 16px rgba(2, 132, 199, 0.25);
+      box-shadow: 0 0 16px rgba(255, 107, 53, 0.3);
       transition: all 0.2s ease;
     }
     .btn-exec-primary:hover {
@@ -201,6 +337,45 @@
       border-color: var(--accent-sky);
       color: var(--accent-sky);
       transform: translateY(-1px);
+    }
+
+    .btn-exec-adventure {
+      background: linear-gradient(135deg, #7928ca 0%, #d946ef 50%, #00f0ff 100%);
+      background-size: 200% auto;
+      color: #fff !important;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(121, 40, 202, 0.4), 0 0 10px rgba(0, 240, 255, 0.3);
+      transition: all 0.25s ease;
+      animation: adventurePulseGlow 3s ease infinite alternate;
+    }
+    @keyframes adventurePulseGlow {
+      0% { box-shadow: 0 0 16px rgba(121, 40, 202, 0.4); }
+      100% { box-shadow: 0 0 26px rgba(0, 240, 255, 0.65), 0 0 10px rgba(217, 70, 239, 0.4); }
+    }
+    .btn-exec-adventure:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 32px rgba(217, 70, 239, 0.75), 0 0 20px rgba(0, 240, 255, 0.7);
+      border-color: #fff;
+    }
+    .badge-adventure-pulse {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #fff;
     }
 
     /* Main Container */
@@ -252,17 +427,73 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
+    /* =========================================================================
+       CINEMATIC SPLIT TEXT REVEAL FOR LANDING PAGE HEADING
+       ========================================================================= */
     .hero-headline {
-      font-size: 44px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 16px;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      color: var(--color-main-heading) !important;
+      perspective: 1200px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      margin-right: 0.28em;
+      white-space: nowrap;
+      line-height: 1.25;
+      padding-bottom: 2px;
+    }
+
+    .split-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(115%) rotateX(-50deg);
+      transform-origin: 50% 100%;
+      filter: blur(5px);
+      animation: splitCharCinematicReveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform, opacity, filter;
+      backface-visibility: hidden;
+      color: var(--color-main-heading) !important;
+    }
+
+    .split-word.gradient-text .split-char {
+      background: linear-gradient(135deg, var(--color-highlight) 0%, var(--color-link) 35%, var(--color-hover-text) 70%, var(--color-special-kw) 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 16px rgba(255, 107, 53, 0.35));
+    }
+
+    @keyframes splitCharCinematicReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(115%) rotateX(-50deg);
+        filter: blur(5px);
+      }
+      65% {
+        opacity: 1;
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+        filter: blur(0);
+      }
     }
     .hero-headline .gradient-text {
-      background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #10b981 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background: linear-gradient(135deg, var(--color-highlight) 0%, var(--color-link) 35%, var(--color-hover-text) 70%, var(--color-special-kw) 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.4));
     }
 
     .hero-bio-lead {
@@ -1022,24 +1253,704 @@
       font-size: 12.5px;
       color: var(--text-subtle);
     }
+  
+    /* =========================================================================
+       CUSTOM CYBER CURSOR & PARTICLE TRAIL STYLES
+       ========================================================================= */
+    body, a, button, input, select, textarea {
+      cursor: none !important;
+    }
+
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      background: var(--color-link);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease, background-color 0.2s ease;
+      box-shadow: 0 0 10px var(--color-link), 0 0 20px rgba(255, 122, 69, 0.7);
+    }
+
+    #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(255, 122, 69, 0.65);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  height 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  border-color 0.25s ease, 
+                  background-color 0.25s ease,
+                  box-shadow 0.25s ease;
+    }
+
+    #cursor-ring.cursor-hover {
+      width: 58px;
+      height: 58px;
+      border-color: var(--accent-gold);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.5), inset 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+
+    #cursor-ring.cursor-active {
+      transform: translate(-50%, -50%) scale(0.85);
+      background: rgba(0, 240, 255, 0.25);
+    }
+
+    /* Fullscreen Cursor Particle Trail Canvas */
+    #cursor-trail-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99997;
+    }
+
+    /* Fullscreen Interactive Background Cyber Network Particles */
+    #bg-particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =========================================================================
+       REVEAL ON HOVER (FLASHLIGHT SPOTLIGHT) & 3D PARALLAX TILT
+       ========================================================================= */
+    .project-card-exec,
+    .honor-card-box,
+    .about-card-panel,
+    .internship-card,
+    .skill-cat-card,
+    .trait-chip-card,
+    .hero-stats-panel {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Dynamic Flashlight Reveal Mask */
+    .project-card-exec::before,
+    .honor-card-box::before,
+    .about-card-panel::before,
+    .internship-card::before,
+    .skill-cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.15), transparent 75%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .project-card-exec:hover::before,
+    .honor-card-box:hover::before,
+    .about-card-panel:hover::before,
+    .internship-card:hover::before,
+    .skill-cat-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Specular Reflection Glare on Tilt */
+    .project-card-exec::after,
+    .honor-card-box::after,
+    .about-card-panel::after,
+    .internship-card::after,
+    .skill-cat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      background: radial-gradient(240px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .project-card-exec:hover::after,
+    .honor-card-box:hover::after,
+    .about-card-panel:hover::after,
+    .internship-card:hover::after,
+    .skill-cat-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Touch fallback */
+    @media (hover: none) and (pointer: coarse) {
+      body, a, button, input, select, textarea {
+        cursor: auto !important;
+      }
+      #cursor-dot, #cursor-ring, #cursor-trail-canvas {
+        display: none !important;
+      }
+    }
+
+
+    /* =========================================================================
+       FUTURISTIC GLASSMORPHISM BACKGROUND & CONTAINERS
+       ========================================================================= */
+    :root {
+      --glass-bg: rgba(26, 16, 12, 0.74);
+      --glass-border: rgba(245, 158, 11, 0.26);
+      --glass-border-hover: rgba(249, 115, 22, 0.75);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(254, 215, 170, 0.15);
+      --glass-shadow-hover: 0 14px 44px 0 rgba(249, 115, 22, 0.35), inset 0 1px 2px 0 rgba(254, 215, 170, 0.3);
+      --glass-blur: blur(24px) saturate(200%);
+    }
+
+    header.site-header {
+      background: rgba(3, 7, 18, 0.75) !important;
+      backdrop-filter: var(--glass-blur) !important;
+      -webkit-backdrop-filter: var(--glass-blur) !important;
+      border-bottom: 1px solid var(--glass-border) !important;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-card-exec,
+    .honor-card-box,
+    .about-card-panel,
+    .internship-card,
+    .skill-cat-card,
+    .trait-chip-card,
+    .hero-stats-panel,
+    .stage-3d-wrapper,
+    .stage-detail-inspector,
+    .resume-modal-box {
+      background: var(--glass-bg) !important;
+      backdrop-filter: var(--glass-blur) !important;
+      -webkit-backdrop-filter: var(--glass-blur) !important;
+      border: 1px solid var(--glass-border) !important;
+      box-shadow: var(--glass-shadow) !important;
+    }
+
+    .project-card-exec:hover,
+    .honor-card-box:hover,
+    .about-card-panel:hover,
+    .internship-card:hover,
+    .skill-cat-card:hover {
+      border-color: var(--glass-border-hover) !important;
+      box-shadow: var(--glass-shadow-hover) !important;
+    }
+
+    /* =========================================================================
+       ANIMATED UNDERLINE FOR NAVIGATION LINKS
+       ========================================================================= */
+    .nav-links a {
+      position: relative;
+      padding: 6px 0;
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-link), var(--color-hover-text), var(--color-special-kw));
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--color-link);
+      transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-hover-text) !important;
+      text-shadow: 0 0 12px rgba(255, 159, 104, 0.6);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* =========================================================================
+       SPLIT TEXT REVEAL FOR LANDING PAGE HEADING
+       ========================================================================= */
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      margin-right: 0.26em;
+    }
+
+    .split-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(115%) rotateX(-65deg);
+      filter: blur(8px);
+      animation: splitCharReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform, opacity, filter;
+    }
+
+    @keyframes splitCharReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(115%) rotateX(-65deg);
+        filter: blur(8px);
+      }
+      70% {
+        filter: blur(0);
+        text-shadow: 0 0 20px var(--accent-cyan);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+        filter: blur(0);
+      }
+    }
+
+    /* =========================================================================
+       MOUSE SPOTLIGHT TEXT & 3D EXTRUDED EFFECTS TEXT
+       ========================================================================= */
+    .spotlight-text-target {
+      position: relative;
+      display: inline-block;
+      --text-spot-x: 50%;
+      --text-spot-y: 50%;
+      --spot-radius: 140px;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.2s ease-out;
+    }
+
+    
+
+    
+
+    /* 3D Extruded Text Shadow */
+    .text-3d-extruded {
+      text-shadow: 
+        0 1px 0 rgba(245, 158, 11, 0.85),
+        0 2px 0 rgba(217, 119, 6, 0.75),
+        0 3px 0 rgba(180, 83, 9, 0.65),
+        0 4px 0 rgba(154, 52, 18, 0.55),
+        0 7px 2px rgba(0, 0, 0, 0.6),
+        0 12px 28px rgba(245, 158, 11, 0.45);
+      transform-style: preserve-3d;
+    }
+
+    .text-3d-interactive-wrap {
+      perspective: 900px;
+      display: inline-block;
+    }
+
+    /* SCRAMBLE GLYPH STYLING */
+    .scramble-glyph {
+      color: var(--accent-cyan) !important;
+      text-shadow: 0 0 10px var(--accent-cyan), 0 0 18px var(--accent-sky) !important;
+      font-family: var(--font-mono) !important;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+
+    /* =========================================================================
+       SCROLL EFFECTS & SPECULAR LIGHT SWEEP GLARE
+       ========================================================================= */
+    #scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      width: 0%;
+      background: linear-gradient(90deg, #FF6B35 0%, #FF7A45 35%, #FF9F68 70%, #FFD166 100%);
+      z-index: 999999;
+      box-shadow: 0 0 10px #FF6B35, 0 0 18px #FFD166;
+      transition: width 0.08s ease-out;
+      pointer-events: none;
+    }
+
+    /* Card specular light sweep on scroll entry */
+    .card-specular-sweep {
+      position: relative;
+      overflow: hidden;
+    }
+    .card-specular-sweep::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 40%;
+      height: 220%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 209, 102, 0.0) 30%,
+        rgba(255, 209, 102, 0.35) 48%,
+        rgba(255, 255, 255, 0.65) 50%,
+        rgba(255, 209, 102, 0.35) 52%,
+        transparent 75%
+      );
+      transform: rotate(25deg) translate(-120%, -120%);
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+    }
+    .card-specular-sweep.swept::after {
+      animation: cardGlintSweep 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes cardGlintSweep {
+      0% {
+        transform: rotate(25deg) translate(-120%, -120%);
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      100% {
+        transform: rotate(25deg) translate(280%, 280%);
+        opacity: 0;
+      }
+    }
+
+    /* Radiant light sweep on Enter 3D Town button */
+    .btn-exec-adventure {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-exec-adventure::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: skewX(-25deg);
+      animation: btnLightSweepSheen 3.2s infinite;
+      pointer-events: none;
+    }
+    @keyframes btnLightSweepSheen {
+      0%, 40% { left: -100%; }
+      70%, 100% { left: 200%; }
+    }
+
+  
+    /* =========================================================================
+       CINEMATIC LIGHT SWEEP INTRO FOR CLASSIC PORTFOLIO
+       ========================================================================= */
+    .portfolio-intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 50%, rgba(11, 7, 4, 0.88) 0%, rgba(3, 7, 18, 0.98) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s;
+      pointer-events: auto;
+    }
+
+    .portfolio-intro-overlay.dismissed {
+      opacity: 0 !important;
+      transform: scale(1.06) !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+
+    .portfolio-light-sweep-beam {
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 48%;
+      height: 220%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 107, 53, 0.15) 25%,
+        rgba(255, 209, 102, 0.7) 48%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(255, 209, 102, 0.7) 52%,
+        rgba(255, 122, 69, 0.18) 75%,
+        transparent 100%
+      );
+      transform: rotate(28deg);
+      filter: blur(8px);
+      pointer-events: none;
+      animation: portfolioBeamSweepAnim 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      box-shadow: 0 0 70px rgba(255, 209, 102, 0.7);
+    }
+
+    .portfolio-light-sweep-flare {
+      position: absolute;
+      width: 100vw;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.8), #fff, rgba(255, 209, 102, 0.8), transparent);
+      box-shadow: 0 0 30px #FFD166, 0 0 60px #FF6B35;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) scaleX(0);
+      pointer-events: none;
+      animation: flareSweepExpandPort 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    @keyframes portfolioBeamSweepAnim {
+      0% { transform: translate(-100%, -100%) rotate(28deg); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translate(260%, 260%) rotate(28deg); opacity: 0; }
+    }
+
+    @keyframes flareSweepExpandPort {
+      0% { transform: translateY(-50%) scaleX(0); opacity: 0; }
+      40% { transform: translateY(-50%) scaleX(1); opacity: 1; }
+      100% { transform: translateY(-50%) scaleX(1); opacity: 0; }
+    }
+
+    .portfolio-intro-container {
+      position: relative;
+      z-index: 10;
+      max-width: 820px;
+      padding: 30px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portfolio-intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 209, 102, 0.12);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #FFD166;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(255, 209, 102, 0.2);
+    }
+
+    .portfolio-intro-title {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: #F5F5F5;
+      margin-bottom: 14px;
+      perspective: 1000px;
+    }
+
+    .p-intro-word {
+      display: inline-block;
+      white-space: nowrap;
+      margin: 0 0.14em;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .p-intro-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(115%) rotateX(-50deg);
+      transform-origin: 50% 100%;
+      filter: blur(6px);
+      animation: pIntroCharReveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      color: #F5F5F5;
+    }
+
+    .p-intro-word.p-intro-grad .p-intro-char {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF7A45 35%, #FF9F68 70%, #FFD166 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.6));
+    }
+
+    @keyframes pIntroCharReveal {
+      0% { opacity: 0; transform: translateY(115%) rotateX(-50deg); filter: blur(6px); }
+      60% { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0deg); filter: blur(0); }
+    }
+
+    .portfolio-intro-lead {
+      font-family: var(--font-mono);
+      font-size: clamp(12px, 1.6vw, 14px);
+      color: #A1A1AA;
+      letter-spacing: 0.12em;
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    .portfolio-intro-loader-track {
+      width: 280px;
+      height: 3px;
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .portfolio-intro-loader-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #FF6B35, #FF7A45, #FFD166);
+      box-shadow: 0 0 10px #FF6B35;
+      animation: loaderBarSweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes loaderBarSweep {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .portfolio-intro-credentials {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .portfolio-intro-credentials span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #D4D4D8;
+    }
+
+    .portfolio-intro-credentials span i {
+      color: #FFD166;
+    }
+
+    .btn-enter-portfolio {
+      background: linear-gradient(135deg, #FF6B35, #FF7A45);
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      color: #fff !important;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.45);
+      transition: all 0.25s ease;
+      position: relative;
+      z-index: 100;
+    }
+
+    .btn-enter-portfolio:hover {
+      background: linear-gradient(135deg, #e0531c, #eb642f);
+      border-color: #FFD166;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 28px rgba(255, 122, 69, 0.65);
+    }
+
   </style>
 </head>
 <body>
+  <div id="scroll-progress-bar"></div>
+
+  <!-- CINEMATIC LIGHT SWEEP INTRO FOR CLASSIC PORTFOLIO -->
+  <div id="portfolio-intro-overlay" class="portfolio-intro-overlay">
+    <div class="portfolio-light-sweep-beam"></div>
+    <div class="portfolio-light-sweep-flare"></div>
+
+    <div class="portfolio-intro-container">
+      <div class="portfolio-intro-badge">
+        <i class="fas fa-shield-halved"></i> <span>SECURITY ARCHITECTURE // DEFENSIVE COPILOT</span>
+      </div>
+
+      <h1 class="portfolio-intro-title">
+        <span class="p-intro-word"><span class="p-intro-char" style="animation-delay: 0.08s;">M</span><span class="p-intro-char" style="animation-delay: 0.12s;">A</span><span class="p-intro-char" style="animation-delay: 0.16s;">T</span><span class="p-intro-char" style="animation-delay: 0.20s;">H</span><span class="p-intro-char" style="animation-delay: 0.24s;">E</span><span class="p-intro-char" style="animation-delay: 0.28s;">S</span><span class="p-intro-char" style="animation-delay: 0.32s;">H</span></span>
+        <span class="p-intro-word p-intro-grad"><span class="p-intro-char" style="animation-delay: 0.40s;">T</span></span>
+      </h1>
+
+      <div class="portfolio-intro-lead">
+        DEFENSIVE CYBERSECURITY &bull; SOC OPERATIONS &bull; AI SECURITY COPILOT
+      </div>
+
+      <div class="portfolio-intro-loader-track">
+        <div class="portfolio-intro-loader-bar"></div>
+      </div>
+
+      <div class="portfolio-intro-credentials">
+        <span><i class="fas fa-trophy"></i> Mirage CTF Champion</span>
+        <span><i class="fas fa-terminal"></i> 150+ PicoCTF</span>
+        <span><i class="fas fa-graduation-cap"></i> B.E. Cyber Security</span>
+      </div>
+
+      <button id="btn-enter-portfolio" class="btn-enter-portfolio" onclick="dismissPortfolioIntro()">
+        <span>ENTER PORTFOLIO</span> <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- CUSTOM CYBER CURSOR & PARTICLE TRAIL CANVAS -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <canvas id="cursor-trail-canvas"></canvas>
+
+  <!-- INTERACTIVE CYBER NETWORK PARTICLES BACKGROUND -->
+  <canvas id="bg-particles-canvas"></canvas>
+
+
 
   <!-- ======================================================================
        HEADER / NAVBAR
        ====================================================================== -->
   <header class="site-header">
     <div class="nav-container">
-      <a href="#hero" class="brand-logo">
-        <div class="brand-symbol"><i class="fas fa-shield-halved"></i></div>
+      <a href="#hero" class="brand-logo" data-parallax-depth="0.04">
+        <div class="brand-symbol" data-parallax-depth="0.06"><i class="fas fa-shield-halved"></i></div>
         <div>
-          <div class="brand-title">MATHESH <span>T</span></div>
+          <div class="brand-title scramble-target" data-text="MATHESH T">MATHESH <span>T</span></div>
           <div class="brand-subtitle">CYBERSECURITY // SOC ANALYST</div>
         </div>
       </a>
 
       <ul class="nav-links">
+          <li><a href="mathesh_3d_adventure.html" style="color: var(--accent-cyan); font-weight: 700;"><i class="fas fa-arrows-spin"></i> 3D Infinite Loop Town <span style="font-size: 9px; padding: 1px 5px; background: rgba(255, 184, 0, 0.2); border: 1px solid #FFD166; color: #FFD166; border-radius: 4px; margin-left: 2px;">ENDLESS 360°</span></a></li>
         <li><a href="#hero"><i class="fas fa-cube"></i> 3D Details Hub</a></li>
         <li><a href="#honors"><i class="fas fa-trophy"></i> Ranked Honors</a></li>
         <li><a href="#about"><i class="fas fa-user-shield"></i> About Me</a></li>
@@ -1049,6 +1960,13 @@
       </ul>
 
       <div class="nav-action-btns">
+          <a href="mathesh_3d_adventure.html" class="btn-exec-adventure" title="Launch Concept 3D Animation & Adventure Portfolio">
+            <i class="fas fa-gamepad"></i> <span>3D Loop Town Tour</span>
+            <span class="badge-adventure-pulse" style="background:#000; color:#FFD166;">ENDLESS 3D</span>
+          </a>
+        <button id="nav-replay-intro-btn" class="btn-exec-outline" onclick="replayPortfolioIntro()" title="Replay Cinematic Light Sweep Intro">
+          <i class="fas fa-film"></i> <span>Intro</span>
+        </button>
         <button id="nav-open-resume-btn" class="btn-exec-outline">
           <i class="fas fa-file-pdf"></i> <span>View Resume</span>
         </button>
@@ -1074,14 +1992,22 @@
         </div>
 
         <h1 class="hero-headline">
-          Defensive Cybersecurity & <span class="gradient-text">SOC Operations.</span>
+          <span class="split-word"><span class="split-char" style="animation-delay: 0.05s;">D</span><span class="split-char" style="animation-delay: 0.09s;">e</span><span class="split-char" style="animation-delay: 0.13s;">f</span><span class="split-char" style="animation-delay: 0.16s;">e</span><span class="split-char" style="animation-delay: 0.20s;">n</span><span class="split-char" style="animation-delay: 0.24s;">s</span><span class="split-char" style="animation-delay: 0.28s;">i</span><span class="split-char" style="animation-delay: 0.32s;">v</span><span class="split-char" style="animation-delay: 0.35s;">e</span></span>
+          <span class="split-word"><span class="split-char" style="animation-delay: 0.45s;">C</span><span class="split-char" style="animation-delay: 0.49s;">y</span><span class="split-char" style="animation-delay: 0.53s;">b</span><span class="split-char" style="animation-delay: 0.57s;">e</span><span class="split-char" style="animation-delay: 0.60s;">r</span><span class="split-char" style="animation-delay: 0.64s;">s</span><span class="split-char" style="animation-delay: 0.68s;">e</span><span class="split-char" style="animation-delay: 0.72s;">c</span><span class="split-char" style="animation-delay: 0.76s;">u</span><span class="split-char" style="animation-delay: 0.79s;">r</span><span class="split-char" style="animation-delay: 0.83s;">i</span><span class="split-char" style="animation-delay: 0.87s;">t</span><span class="split-char" style="animation-delay: 0.91s;">y</span></span>
+          <span class="split-word"><span class="split-char" style="animation-delay: 1.01s;">&amp;</span></span>
+          <span class="split-word gradient-text"><span class="split-char" style="animation-delay: 1.10s;">S</span><span class="split-char" style="animation-delay: 1.14s;">O</span><span class="split-char" style="animation-delay: 1.18s;">C</span></span>
+          <span class="split-word gradient-text"><span class="split-char" style="animation-delay: 1.28s;">O</span><span class="split-char" style="animation-delay: 1.32s;">p</span><span class="split-char" style="animation-delay: 1.35s;">e</span><span class="split-char" style="animation-delay: 1.39s;">r</span><span class="split-char" style="animation-delay: 1.43s;">a</span><span class="split-char" style="animation-delay: 1.47s;">t</span><span class="split-char" style="animation-delay: 1.51s;">i</span><span class="split-char" style="animation-delay: 1.54s;">o</span><span class="split-char" style="animation-delay: 1.58s;">n</span><span class="split-char" style="animation-delay: 1.62s;">s</span><span class="split-char" style="animation-delay: 1.66s;">.</span></span>
         </h1>
 
         <p class="hero-bio-lead">
-          I am <strong>Mathesh T</strong>, a Cybersecurity Specialist and defensive builder pursuing <strong>B.E. in Cyber Security at Sri Shakthi Institute of Engineering & Technology, Coimbatore (GPA: 7.7 / 10)</strong>. Champion of <strong>Mirage CTF</strong>, solver of <strong>150+ PicoCTF challenges</strong>, published author in <strong>IJCA</strong>, and creator of <strong>mcp-security-copilot</strong> connecting Wazuh SIEM with VirusTotal threat intelligence.
+          I am <strong  data-text="Mathesh T">Mathesh T</strong>, a Cybersecurity Specialist and defensive builder pursuing <strong>B.E. in Cyber Security at Sri Shakthi Institute of Engineering & Technology, Coimbatore (GPA: 7.7 / 10)</strong>. Champion of <strong>Mirage CTF</strong>, solver of <strong>150+ PicoCTF challenges</strong>, published author in <strong>IJCA</strong>, and creator of <strong>mcp-security-copilot</strong> connecting Wazuh SIEM with VirusTotal threat intelligence.
         </p>
 
         <div class="hero-buttons-row">
+          <a href="mathesh_3d_adventure.html" class="btn-exec-adventure" style="font-size: 13.5px; padding: 10px 20px;">
+            <i class="fas fa-gamepad"></i> <span>Enter 3D Infinite Loop Town</span>
+            <span class="badge-adventure-pulse" style="background:#000; color:#FFD166;">360° NEVER ENDING</span>
+          </a>
           <a href="#honors" class="btn-exec-primary">
             <i class="fas fa-medal"></i> <span>Ranked Honors & Certs</span>
           </a>
@@ -1119,7 +2045,12 @@
         <div class="stage-3d-wrapper">
           <div class="stage-header-hud">
             <span class="hud-title-tag"><i class="fas fa-cube"></i> 3D DETAIL EXPLORER // MATHESH T</span>
-            <span class="hud-interaction-hint"><i class="fas fa-hand-pointer"></i> DRAG 360° OR CLICK CARDS</span>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <a href="mathesh_3d_adventure.html" style="color: var(--accent-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 240, 255, 0.12); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(0, 240, 255, 0.35); font-size: 11px; transition: all 0.2s ease;">
+                <i class="fas fa-gamepad"></i> <span>Full 3D Infinite Loop Tour &rarr;</span>
+              </a>
+              <span class="hud-interaction-hint"><i class="fas fa-hand-pointer"></i> DRAG 360° OR CLICK CARDS</span>
+            </div>
           </div>
 
           <!-- Three.js 3D Canvas -->
@@ -1168,7 +2099,7 @@
          ====================================================================== -->
     <section id="honors" class="portfolio-section">
       <div class="section-eyebrow"><i class="fas fa-medal"></i> COMPETITIVE EXCELLENCE</div>
-      <h2 class="section-headline">Ranked Honors & Certified Credentials</h2>
+      <h2 class="section-headline scramble-target">Ranked Honors & Certified Credentials</h2>
       <p class="section-subtitle">
         Arranged in winning priority order from national CTF championships to peer-reviewed research and industry internships. Click "Verify on LinkedIn" on any card for official credential verification.
       </p>
@@ -1399,7 +2330,7 @@
          ====================================================================== -->
     <section id="about" class="portfolio-section">
       <div class="section-eyebrow"><i class="fas fa-id-card"></i> BIOGRAPHY & IDENTITY</div>
-      <h2 class="section-headline">Academic Foundation & Strategic Mindset</h2>
+      <h2 class="section-headline scramble-target">Academic Foundation & Strategic Mindset</h2>
       <p class="section-subtitle">
         Deep dive into my personal background, formal academic milestones from Ramanathapuram to Coimbatore, and strategic thinking traits.
       </p>
@@ -1504,7 +2435,7 @@
          ====================================================================== -->
     <section id="projects" class="portfolio-section">
       <div class="section-eyebrow"><i class="fas fa-code-fork"></i> REPOSITORIES & ARCHITECTURE</div>
-      <h2 class="section-headline">Flagship Security Engineering Projects</h2>
+      <h2 class="section-headline scramble-target">Flagship Security Engineering Projects</h2>
       <p class="section-subtitle">
         Production-ready repositories built with Python, Wazuh SIEM, Cryptography, Raw Sockets, and Browser Security APIs.
       </p>
@@ -1687,7 +2618,7 @@
          ====================================================================== -->
     <section id="internships" class="portfolio-section">
       <div class="section-eyebrow"><i class="fas fa-briefcase"></i> INDUSTRY EXPERIENCE</div>
-      <h2 class="section-headline">Verified Cybersecurity Internships</h2>
+      <h2 class="section-headline scramble-target">Verified Cybersecurity Internships</h2>
       <p class="section-subtitle">
         Hands-on enterprise security operations, security tooling, vulnerability assessment, and threat hunting practice.
       </p>
@@ -1752,7 +2683,7 @@
          ====================================================================== -->
     <section id="skills" class="portfolio-section">
       <div class="section-eyebrow"><i class="fas fa-terminal"></i> TOOLING & EXPERTISE</div>
-      <h2 class="section-headline">Defensive & Offensive Arsenal</h2>
+      <h2 class="section-headline scramble-target">Defensive & Offensive Arsenal</h2>
       <p class="section-subtitle">
         Curated toolsets and technical frameworks utilized in competitive CTFs, SIEM engineering, and vulnerability assessments.
       </p>
@@ -1816,7 +2747,7 @@
          ====================================================================== -->
     <section id="contact" class="portfolio-section" style="margin-bottom: 20px;">
       <div class="section-eyebrow"><i class="fas fa-envelope"></i> DIRECT COMMUNICATIONS</div>
-      <h2 class="section-headline">Let's Connect & Secure the Frontier</h2>
+      <h2 class="section-headline scramble-target">Let's Connect & Secure the Frontier</h2>
       <p class="section-subtitle">
         I am actively seeking cybersecurity internships, SOC analyst roles, and collaborative CTF / security research projects.
       </p>
@@ -1970,13 +2901,13 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const cyanLight = new THREE.PointLight(0x00f0ff, 2.2, 30);
-    cyanLight.position.set(5, 5, 5);
-    scene.add(cyanLight);
+    const emberLight = new THREE.PointLight(0xf59e0b, 2.6, 30);
+    emberLight.position.set(5, 5, 5);
+    scene.add(emberLight);
 
-    const emeraldLight = new THREE.PointLight(0x10b981, 2.0, 30);
-    emeraldLight.position.set(-5, -4, 4);
-    scene.add(emeraldLight);
+    const flameLight = new THREE.PointLight(0xea580c, 2.2, 30);
+    flameLight.position.set(-5, -4, 4);
+    scene.add(flameLight);
 
     // Central 3D Cyber Core Group
     const centerGroup = new THREE.Group();
@@ -1984,12 +2915,12 @@
     // Central Sphere with glowing emissive
     const coreGeo = new THREE.SphereGeometry(1.0, 32, 32);
     const coreMat = new THREE.MeshPhongMaterial({
-      color: 0x0284c7,
-      emissive: 0x0369a1,
-      specular: 0x00f0ff,
-      shininess: 90,
+      color: 0xd97706,
+      emissive: 0xb45309,
+      specular: 0xfef08a,
+      shininess: 95,
       transparent: true,
-      opacity: 0.88
+      opacity: 0.92
     });
     const coreSphere = new THREE.Mesh(coreGeo, coreMat);
     centerGroup.add(coreSphere);
@@ -1997,7 +2928,7 @@
     // Inner wireframe icosahedron
     const wireGeo = new THREE.IcosahedronGeometry(1.35, 1);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
+      color: 0xf59e0b,
       wireframe: true,
       transparent: true,
       opacity: 0.35
@@ -2007,12 +2938,12 @@
 
     // Glowing orbital rings
     const ring1Geo = new THREE.TorusGeometry(1.9, 0.02, 16, 80);
-    const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.6 });
+    const ring1Mat = new THREE.MeshBasicMaterial({ color: 0xf97316, transparent: true, opacity: 0.7 });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
     centerGroup.add(ring1);
 
     const ring2Geo = new THREE.TorusGeometry(2.3, 0.015, 16, 80);
-    const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.5 });
+    const ring2Mat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.65 });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
     ring2.rotation.x = Math.PI / 3;
     centerGroup.add(ring2);
@@ -2338,12 +3269,353 @@
       camera.position.set(0, 0, 7.8);
     });
 
-    // Main 3D Animation Loop
+    // ========================================================================
+    // 1. CUSTOM MOUSE CURSOR & CURSOR PARTICLE TRAIL SYSTEM 🖱️
+    // ========================================================================
+    const cursorDot = document.getElementById("cursor-dot");
+    const cursorRing = document.getElementById("cursor-ring");
+    const trailCanvas = document.getElementById("cursor-trail-canvas");
+    const trailCtx = trailCanvas ? trailCanvas.getContext("2d") : null;
+
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    let cursorParticles = [];
+
+    function initCustomCursorAndTrail() {
+      if (!trailCanvas || !trailCtx) return;
+      trailCanvas.width = window.innerWidth;
+      trailCanvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursorDot) {
+          cursorDot.style.left = `${mouseX}px`;
+          cursorDot.style.top = `${mouseY}px`;
+        }
+
+        // Emit sparkling micro-particles as cursor travels
+        for (let i = 0; i < 3; i++) {
+          const colors = ['#FF6B35', '#FF7A45', '#FF9F68', '#FFD166', '#F5F5F5'];
+          cursorParticles.push({
+            x: mouseX + (Math.random() - 0.5) * 8,
+            y: mouseY + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 1.6,
+            vy: (Math.random() - 0.5) * 1.6 - 0.4,
+            size: 2.0 + Math.random() * 2.6,
+            alpha: 0.95,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            decay: 0.032 + Math.random() * 0.025
+          });
+        }
+      });
+
+      // Hover snap detectors on interactive targets
+      const targets = document.querySelectorAll(`
+        a, button, input, select, textarea,
+        .project-card-exec, .honor-card-box, .about-card-panel,
+        .internship-card, .skill-cat-card, .trait-chip-card,
+        .btn-3d-mode, .btn-exec-adventure
+      `);
+
+      targets.forEach(el => {
+        el.addEventListener("mouseenter", () => {
+          if (cursorRing) cursorRing.classList.add("cursor-hover");
+        });
+        el.addEventListener("mouseleave", () => {
+          if (cursorRing) cursorRing.classList.remove("cursor-hover");
+        });
+      });
+
+      window.addEventListener("mousedown", () => {
+        if (cursorRing) cursorRing.classList.add("cursor-active");
+      });
+      window.addEventListener("mouseup", () => {
+        if (cursorRing) cursorRing.classList.remove("cursor-active");
+      });
+    }
+
+    function animateCursorTrail() {
+      requestAnimationFrame(animateCursorTrail);
+
+      // Smooth lag lerp for cursor ring
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      if (cursorRing) {
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+      }
+
+      // Draw Sparkling Particle Trail
+      if (trailCtx && trailCanvas) {
+        trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+        for (let i = cursorParticles.length - 1; i >= 0; i--) {
+          const p = cursorParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= p.decay;
+          p.size *= 0.96;
+
+          if (p.alpha <= 0 || p.size <= 0.2) {
+            cursorParticles.splice(i, 1);
+            continue;
+          }
+
+          trailCtx.save();
+          trailCtx.globalAlpha = p.alpha;
+          trailCtx.fillStyle = p.color;
+          trailCtx.shadowColor = p.color;
+          trailCtx.shadowBlur = 10;
+          trailCtx.beginPath();
+          trailCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          trailCtx.fill();
+          trailCtx.restore();
+        }
+      }
+    }
+
+    initCustomCursorAndTrail();
+    animateCursorTrail();
+
+    // ========================================================================
+    // 2. REVEAL ON HOVER (FLASHLIGHT SPOTLIGHT) & 3D MOUSE PARALLAX TILT
+    // ========================================================================
+    function initCardHoverAndTilt() {
+      const cards = document.querySelectorAll(`
+        .project-card-exec,
+        .honor-card-box,
+        .about-card-panel,
+        .internship-card,
+        .skill-cat-card,
+        .trait-chip-card,
+        .hero-stats-panel
+      `);
+
+      cards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          // Set CSS variables for radial reveal flashlight
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          // 3D Perspective Tilt Parallax
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -8.5;
+          const rotateY = ((x - centerX) / centerX) * 8.5;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px) scale3d(1.018, 1.018, 1.018)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale3d(1, 1, 1)";
+        });
+      });
+
+      // Multi-Plane Depth Parallax on Floating UI Elements
+      const depthElements = document.querySelectorAll("[data-parallax-depth]");
+      window.addEventListener("mousemove", (e) => {
+        const normX = (e.clientX / window.innerWidth) - 0.5;
+        const normY = (e.clientY / window.innerHeight) - 0.5;
+
+        depthElements.forEach(el => {
+          const depth = parseFloat(el.getAttribute("data-parallax-depth")) || 0.05;
+          const tx = normX * depth * 55;
+          const ty = normY * depth * 55;
+          el.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0)`;
+        });
+      });
+    }
+
+    initCardHoverAndTilt();
+
+    // ========================================================================
+    // 3. INTERACTIVE CYBER BACKGROUND PARTICLES & NEURAL NETWORK 🌌
+    // ========================================================================
+    function initBackgroundParticles() {
+      const bgCanvas = document.getElementById("bg-particles-canvas");
+      if (!bgCanvas) return;
+      const ctx = bgCanvas.getContext("2d");
+      let w = (bgCanvas.width = window.innerWidth);
+      let h = (bgCanvas.height = window.innerHeight);
+
+      window.addEventListener("resize", () => {
+        w = bgCanvas.width = window.innerWidth;
+        h = bgCanvas.height = window.innerHeight;
+      });
+
+      const nodeCount = 75;
+      const nodes = [];
+      const colors = ['#FF6B35', '#FF7A45', '#FF9F68', '#FFD166'];
+
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          radius: 1.5 + Math.random() * 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          pulse: Math.random() * Math.PI * 2
+        });
+      }
+
+      function renderNodes() {
+        requestAnimationFrame(renderNodes);
+        ctx.clearRect(0, 0, w, h);
+
+        const time = Date.now() * 0.0015;
+
+        // Ambient Bokeh Light Orbs
+        const orbs = [
+          { x: w * 0.2 + Math.sin(time * 0.5) * 60, y: h * 0.3 + Math.cos(time * 0.5) * 50, r: 240, color: 'rgba(245, 158, 11, 0.06)' },
+          { x: w * 0.8 - Math.sin(time * 0.4) * 80, y: h * 0.7 - Math.cos(time * 0.4) * 60, r: 280, color: 'rgba(249, 115, 22, 0.05)' },
+          { x: w * 0.5 + Math.cos(time * 0.3) * 70, y: h * 0.9 + Math.sin(time * 0.3) * 40, r: 220, color: 'rgba(234, 88, 12, 0.04)' }
+        ];
+        orbs.forEach(orb => {
+          const grad = ctx.createRadialGradient(orb.x, orb.y, 10, orb.x, orb.y, orb.r);
+          grad.addColorStop(0, orb.color);
+          grad.addColorStop(1, 'transparent');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Update & Draw Nodes
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          n.x += n.vx;
+          n.y += n.vy;
+
+          if (n.x < 0) n.x = w;
+          if (n.x > w) n.x = 0;
+          if (n.y < 0) n.y = h;
+          if (n.y > h) n.y = 0;
+
+          // Mouse attraction / laser connection
+          const dmx = mouseX - n.x;
+          const dmy = mouseY - n.y;
+          const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
+          if (mouseDist < 140) {
+            ctx.strokeStyle = `rgba(245, 158, 11, ${(1 - mouseDist / 140) * 0.75})`;
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+
+            const force = (1 - mouseDist / 140) * 0.8;
+            n.x -= (dmx / mouseDist) * force;
+            n.y -= (dmy / mouseDist) * force;
+          }
+
+          // Inter-node connections
+          for (let j = i + 1; j < nodes.length; j++) {
+            const n2 = nodes[j];
+            const dx = n2.x - n.x;
+            const dy = n2.y - n.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 110) {
+              const alpha = (1 - dist / 110) * 0.22;
+              ctx.strokeStyle = `rgba(249, 115, 22, ${alpha * 1.2})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(n.x, n.y);
+              ctx.lineTo(n2.x, n2.y);
+              ctx.stroke();
+            }
+          }
+
+          // Node Circle
+          const currentRadius = n.radius + Math.sin(time * 3 + n.pulse) * 0.4;
+          ctx.fillStyle = n.color;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, Math.max(0.8, currentRadius), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      renderNodes();
+    }
+
+    initBackgroundParticles();
+
+    // Section Scroll Tracker to highlight cards in 3D Stage
+    const sectionMapping = [
+      { id: 'honors', cardIndex: 0 },
+      { id: 'about', cardIndex: 7 },
+      { id: 'projects', cardIndex: 2 },
+      { id: 'internships', cardIndex: 3 },
+      { id: 'skills', cardIndex: 5 },
+      { id: 'contact', cardIndex: 4 }
+    ];
+
+    let lastHighlightedCard = -1;
+    function checkScrollSection() {
+      const scrollMiddle = window.scrollY + window.innerHeight * 0.45;
+      for (const item of sectionMapping) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const top = el.offsetTop;
+          const bottom = top + el.offsetHeight;
+          if (scrollMiddle >= top && scrollMiddle <= bottom) {
+            if (lastHighlightedCard !== item.cardIndex) {
+              lastHighlightedCard = item.cardIndex;
+              const targetCard = cardMeshes[item.cardIndex];
+              if (targetCard) {
+                updateInspectorHUD(targetCard.userData);
+              }
+            }
+            break;
+          }
+        }
+      }
+    }
+    window.addEventListener("scroll", checkScrollSection, { passive: true });
+
+
+        // Main 3D Animation Loop
     let clock = new THREE.Clock();
     function animate3D() {
       requestAnimationFrame(animate3D);
       const delta = clock.getDelta();
       const elapsed = clock.getElapsedTime();
+
+      // SCROLL-DRIVEN 3D ANIMATION & FLIGHT DEPTH
+      const scrollY = window.scrollY || window.pageYOffset;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const scrollRatio = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+      if (!isDragging) {
+        // Scroll-driven scene rotation & camera tilt
+        const scrollRotY = scrollRatio * Math.PI * 4.5;
+        const scrollRotX = Math.sin(scrollRatio * Math.PI * 2.5) * 0.35;
+        targetRotY = (autoRotate ? targetRotY : scrollRotY);
+        targetRotX = scrollRotX;
+
+        // Camera flight along scroll path
+        const targetCamY = Math.sin(scrollRatio * Math.PI * 2) * 1.4;
+        const targetCamZ = 7.8 - Math.sin(scrollRatio * Math.PI) * 1.5;
+        camera.position.y += (targetCamY - camera.position.y) * 0.06;
+        camera.position.z += (targetCamZ - camera.position.z) * 0.06;
+
+        // Dynamic 3D wireframe core expansion on scroll
+        const coreExpansion = 1.0 + Math.sin(scrollRatio * Math.PI * 6) * 0.22;
+        wireCore.scale.set(coreExpansion, coreExpansion, coreExpansion);
+
+        // Orbital rings spin with scroll velocity
+        ring1.rotation.z += 0.008 + scrollRatio * 0.02;
+        ring2.rotation.y -= 0.006 + scrollRatio * 0.02;
+      }
 
       // Smooth camera / scene rotation interpolation
       cardsOrbitGroup.rotation.y += (targetRotY - cardsOrbitGroup.rotation.y) * 0.08;
@@ -2382,6 +3654,244 @@
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     });
+  
+    // ========================================================================
+    // 4. MOUSE SPOTLIGHT TEXT & 3D TEXT TILT PARALLAX
+    // ========================================================================
+    function initMouseSpotlightText() {
+      const spotlightElements = document.querySelectorAll(".spotlight-text-target");
+      spotlightElements.forEach((el) => {
+        if (!el.getAttribute("data-text")) {
+          el.setAttribute("data-text", el.innerText.trim());
+        }
+
+        el.addEventListener("mousemove", (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          el.style.setProperty("--text-spot-x", `${x}px`);
+          el.style.setProperty("--text-spot-y", `${y}px`);
+
+          // 3D Text Perspective Tilt
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotX = ((y - centerY) / centerY) * -5.5;
+          const rotY = ((x - centerX) / centerX) * 5.5;
+          el.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(6px)`;
+        });
+
+        el.addEventListener("mouseleave", () => {
+          el.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+        });
+      });
+    }
+
+    initMouseSpotlightText();
+
+    // ========================================================================
+    // 5. CYBERPUNK TEXT SCRAMBLE / DECRYPTOR ENGINE (SECTION TITLES)
+    // ========================================================================
+    class TextScrambler {
+      constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________01010101';
+        this.originalText = el.getAttribute("data-original-text") || el.innerText.trim();
+        this.el.setAttribute("data-original-text", this.originalText);
+        this.el.setAttribute("data-text", this.originalText);
+        this.isScrambling = false;
+        this.frameRequest = null;
+      }
+
+      setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const queue = [];
+
+        for (let i = 0; i < length; i++) {
+          const from = oldText[i] || '';
+          const to = newText[i] || '';
+          const start = Math.floor(Math.random() * 12);
+          const end = start + Math.floor(Math.random() * 18);
+          queue.push({ from, to, start, end, char: '' });
+        }
+
+        cancelAnimationFrame(this.frameRequest);
+        let frame = 0;
+        this.isScrambling = true;
+
+        const update = () => {
+          let output = '';
+          let complete = 0;
+
+          for (let i = 0; i < queue.length; i++) {
+            let { from, to, start, end, char } = queue[i];
+            if (frame >= end) {
+              complete++;
+              output += to;
+            } else if (frame >= start) {
+              if (!char || Math.random() < 0.28) {
+                char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                queue[i].char = char;
+              }
+              output += `<span class="scramble-glyph">${char}</span>`;
+            } else {
+              output += from;
+            }
+          }
+
+          this.el.innerHTML = output;
+
+          if (complete === queue.length) {
+            this.isScrambling = false;
+            this.el.innerText = newText;
+            this.el.setAttribute("data-text", newText);
+          } else {
+            frame++;
+            this.frameRequest = requestAnimationFrame(update);
+          }
+        };
+
+        update();
+      }
+
+      scramble() {
+        if (this.isScrambling) return;
+        this.setText(this.originalText);
+      }
+    }
+
+    function initSectionTitleScrambles() {
+      const titles = document.querySelectorAll(".section-headline, .scramble-target, .brand-title");
+      titles.forEach((title) => {
+        const scrambler = new TextScrambler(title);
+        title.addEventListener("mouseenter", () => scrambler.scramble());
+
+        // Auto-scramble on scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              scrambler.scramble();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+        observer.observe(title);
+      });
+    }
+
+    initSectionTitleScrambles();
+
+  
+    // Split Text Reveal Replay on Click
+    const heroTitle = document.querySelector('.hero-headline');
+    if (heroTitle) {
+      heroTitle.addEventListener('click', () => {
+        const chars = heroTitle.querySelectorAll('.split-char');
+        chars.forEach((c, idx) => {
+          c.style.animation = 'none';
+          void c.offsetHeight; // force reflow
+          c.style.animation = `splitCharCinematicReveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) ${0.05 + idx * 0.038}s forwards`;
+        });
+      });
+    }
+
+  
+    // =========================================================================
+    // SCROLL PROGRESS BAR & SCROLL-TRIGGERED LIGHT SWEEP GLARE
+    // =========================================================================
+    const scrollProgressBar = document.getElementById('scroll-progress-bar');
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      if (scrollProgressBar) {
+        scrollProgressBar.style.width = `${scrolled}%`;
+      }
+    }, { passive: true });
+
+    // Observe cards scrolling into view for light sweep glint
+    const sweepCards = document.querySelectorAll(`
+      .project-card-exec, .honor-card-box, .about-card-panel,
+      .internship-card, .skill-cat-card, .trait-chip-card
+    `);
+
+    sweepCards.forEach(card => card.classList.add('card-specular-sweep'));
+
+    if ('IntersectionObserver' in window) {
+      const sweepObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('swept');
+            void entry.target.offsetHeight; // reflow
+            entry.target.classList.add('swept');
+          }
+        });
+      }, { threshold: 0.18 });
+
+      sweepCards.forEach(card => sweepObserver.observe(card));
+    }
+
+  
+    // =========================================================================
+    // CINEMATIC LIGHT SWEEP INTRO FOR CLASSIC PORTFOLIO
+    // =========================================================================
+    function dismissPortfolioIntro() {
+      const overlay = document.getElementById("portfolio-intro-overlay");
+      if (overlay) {
+        overlay.classList.add("dismissed");
+        setTimeout(() => {
+          overlay.style.display = "none";
+        }, 650);
+      }
+    }
+
+    function replayPortfolioIntro() {
+      const overlay = document.getElementById("portfolio-intro-overlay");
+      if (!overlay) return;
+      overlay.style.display = "flex";
+      overlay.classList.remove("dismissed");
+
+      const chars = overlay.querySelectorAll('.p-intro-char');
+      chars.forEach((c, i) => {
+        c.style.animation = 'none';
+        void c.offsetHeight;
+        c.style.animation = `pIntroCharReveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) ${0.08 + i * 0.04}s forwards`;
+      });
+
+      const beam = overlay.querySelector('.portfolio-light-sweep-beam');
+      if (beam) {
+        beam.style.animation = 'none';
+        void beam.offsetHeight;
+        beam.style.animation = 'portfolioBeamSweepAnim 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+      }
+
+      const bar = overlay.querySelector('.portfolio-intro-loader-bar');
+      if (bar) {
+        bar.style.animation = 'none';
+        void bar.offsetHeight;
+        bar.style.animation = 'loaderBarSweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      }
+
+      setTimeout(() => {
+        dismissPortfolioIntro();
+      }, 3200);
+    }
+
+    window.dismissPortfolioIntro = dismissPortfolioIntro;
+    window.replayPortfolioIntro = replayPortfolioIntro;
+
+    // Auto dismiss after 2.6s
+    setTimeout(() => {
+      dismissPortfolioIntro();
+    }, 2600);
+
+    // Dismiss on keypress or click
+    window.addEventListener("keydown", (e) => {
+      if (e.code !== 'F12') {
+        dismissPortfolioIntro();
+      }
+    });
+
   </script>
 </body>
 </html>
