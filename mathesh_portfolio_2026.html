@@ -1949,29 +1949,23 @@
         </div>
       </a>
 
-      <ul class="nav-links">
-          <li><a href="mathesh_3d_adventure.html" style="color: var(--accent-cyan); font-weight: 700;"><i class="fas fa-arrows-spin"></i> 3D Infinite Loop Town <span style="font-size: 9px; padding: 1px 5px; background: rgba(255, 184, 0, 0.2); border: 1px solid #FFD166; color: #FFD166; border-radius: 4px; margin-left: 2px;">ENDLESS 360°</span></a></li>
-        <li><a href="#hero"><i class="fas fa-cube"></i> 3D Details Hub</a></li>
-        <li><a href="#honors"><i class="fas fa-trophy"></i> Ranked Honors</a></li>
-        <li><a href="#about"><i class="fas fa-user-shield"></i> About Me</a></li>
-        <li><a href="#projects"><i class="fas fa-code-branch"></i> Projects</a></li>
-        <li><a href="#internships"><i class="fas fa-briefcase"></i> Internships</a></li>
-        <li><a href="#skills"><i class="fas fa-terminal"></i> Skills</a></li>
-      </ul>
-
+      <!-- Header Action Links: Game Launch, Resume Download, LinkedIn, GitHub -->
       <div class="nav-action-btns">
-          <a href="mathesh_3d_adventure.html" class="btn-exec-adventure" title="Launch Concept 3D Animation & Adventure Portfolio">
-            <i class="fas fa-gamepad"></i> <span>3D Loop Town Tour</span>
-            <span class="badge-adventure-pulse" style="background:#000; color:#FFD166;">ENDLESS 3D</span>
-          </a>
-        <button id="nav-replay-intro-btn" class="btn-exec-outline" onclick="replayPortfolioIntro()" title="Replay Cinematic Light Sweep Intro">
-          <i class="fas fa-film"></i> <span>Intro</span>
-        </button>
-        <button id="nav-open-resume-btn" class="btn-exec-outline">
-          <i class="fas fa-file-pdf"></i> <span>View Resume</span>
-        </button>
-        <a href="https://www.linkedin.com/in/mathesh-t-664112339/" target="_blank" class="btn-exec-primary">
-          <i class="fab fa-linkedin"></i> <span>LinkedIn</span>
+        <a href="mathesh_3d_adventure.html" class="btn-exec-adventure" title="Launch 3D Infinite Town Game">
+          <i class="fas fa-gamepad"></i> <span>Launch 3D Game</span>
+          <span class="badge-adventure-pulse" style="background:#030705; color:#34D399; border: 1px solid rgba(52, 211, 153, 0.4);">360° PLAY</span>
+        </a>
+
+        <a href="Mathesh_T_Cybersecurity_Resume.pdf" download="Mathesh_T_Cybersecurity_Resume.pdf" class="btn-exec-outline" title="Download Official Resume (PDF)">
+          <i class="fas fa-file-arrow-down"></i> <span>Download Resume</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/mathesh-t-664112339/" target="_blank" rel="noopener noreferrer" class="btn-exec-outline" title="Visit LinkedIn Profile">
+          <i class="fab fa-linkedin" style="color:#0a66c2;"></i> <span>LinkedIn</span>
+        </a>
+
+        <a href="https://github.com/MatheshT" target="_blank" rel="noopener noreferrer" class="btn-exec-primary" title="Visit GitHub Profile">
+          <i class="fab fa-github"></i> <span>GitHub</span>
         </a>
       </div>
     </div>
@@ -2857,7 +2851,7 @@
       document.body.removeChild(link);
     }
 
-    document.getElementById("nav-open-resume-btn").addEventListener("click", openResume);
+    document.getElementById("nav-open-resume-btn")?.addEventListener("click", openResume);
     document.getElementById("hero-download-cv-btn").addEventListener("click", downloadResume);
     document.getElementById("contact-open-resume-btn").addEventListener("click", openResume);
     document.getElementById("modal-download-btn").addEventListener("click", downloadResume);
