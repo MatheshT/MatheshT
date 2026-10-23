@@ -19,37 +19,37 @@
 
   <style>
     :root {
-      --bg-base: #0b0704; /* Deep Molten Charcoal */
-      --bg-card: rgba(26, 16, 12, 0.74);
-      --bg-card-hover: rgba(45, 26, 18, 0.88);
-      --border-card: rgba(255, 107, 53, 0.22);
-      --border-card-hover: rgba(255, 122, 69, 0.65);
-      --border-accent: rgba(255, 209, 102, 0.6);
+      --bg-base: #030705; /* Deep Cyber Void Black */
+      --bg-card: rgba(6, 18, 12, 0.76);
+      --bg-card-hover: rgba(10, 28, 18, 0.90);
+      --border-card: rgba(16, 185, 129, 0.25);
+      --border-card-hover: rgba(52, 211, 153, 0.65);
+      --border-accent: rgba(16, 185, 129, 0.6);
 
       /* =========================================================================
-         USER DESIGN SYSTEM TEXT COLOR SYSTEM
+         BLACK & GREEN CYBERSECURITY TEXT COLOR SYSTEM
          ========================================================================= */
       --color-main-heading: #F5F5F5;    /* Main headings: Soft White */
       --color-normal-p: #D4D4D8;        /* Normal paragraphs: Light Gray */
       --color-secondary-text: #A1A1AA;  /* Secondary text: Muted Gray */
-      --color-highlight: #FF6B35;       /* Highlighted words: Ember Orange */
-      --color-special-kw: #FFD166;      /* Special keywords: Warm Yellow */
-      --color-hover-text: #FF9F68;      /* Hover text: Light Orange */
-      --color-link: #FF7A45;            /* Links: Bright Orange */
+      --color-highlight: #10B981;       /* Highlighted words: Cyber Emerald Green */
+      --color-special-kw: #34D399;      /* Special keywords: Neon Mint Green */
+      --color-hover-text: #6EE7B7;      /* Hover text: Bright Mint Green */
+      --color-link: #10B981;            /* Links: Radiant Matrix Green */
 
       /* Semantic tokens */
       --text-main: var(--color-main-heading);
       --text-body: var(--color-normal-p);
       --text-muted: var(--color-secondary-text);
-      --text-subtle: #71717A;
+      --text-subtle: #4B5563;
       --accent-ember: var(--color-highlight);
       --accent-amber: var(--color-special-kw);
       --accent-gold: var(--color-special-kw);
       --accent-cyan: var(--color-link);
       --accent-sky: var(--color-hover-text);
-      --accent-emerald: var(--color-special-kw);
+      --accent-emerald: var(--color-highlight);
       --accent-blue: var(--color-link);
-      --accent-purple: #c2410c;
+      --accent-purple: #059669;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -177,7 +177,7 @@
     .proj-tag-badge:hover,
     .btn-tool-icon:hover {
       color: var(--color-hover-text) !important;
-      text-shadow: 0 0 10px rgba(255, 159, 104, 0.45);
+      text-shadow: 0 0 10px rgba(110, 231, 183, 0.5);
     }
 
     html, body {
@@ -192,8 +192,8 @@
     /* Clean cyber grid background - No dizzying particle noise */
     body {
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(234, 88, 12, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(5, 150, 105, 0.12) 0%, transparent 50%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
@@ -243,7 +243,7 @@
     .brand-symbol {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 88, 12, 0.25));
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25));
       border: 1px solid var(--accent-cyan);
       border-radius: 8px;
       display: flex;
@@ -251,7 +251,7 @@
       justify-content: center;
       color: var(--accent-cyan);
       font-size: 17px;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
     }
     .brand-title {
       font-weight: 800;
@@ -295,9 +295,9 @@
       gap: 12px;
     }
     .btn-exec-primary {
-      background: linear-gradient(135deg, var(--color-highlight), var(--color-link));
+      background: linear-gradient(135deg, #059669, #10B981);
       color: #fff !important;
-      border: 1px solid rgba(255, 209, 102, 0.4);
+      border: 1px solid rgba(52, 211, 153, 0.5);
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 13px;
@@ -307,20 +307,20 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 0 16px rgba(255, 107, 53, 0.3);
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
       transition: all 0.2s ease;
     }
     .btn-exec-primary:hover {
-      background: linear-gradient(135deg, #0369a1, #0284c7);
-      border-color: var(--accent-cyan);
+      background: linear-gradient(135deg, #047857, #059669);
+      border-color: #34D399;
       transform: translateY(-1px);
-      box-shadow: 0 0 22px rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 26px rgba(0, 245, 160, 0.6);
     }
 
     .btn-exec-outline {
-      background: rgba(15, 23, 42, 0.6);
-      color: var(--text-main);
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(6, 18, 12, 0.6);
+      color: var(--color-main-heading);
+      border: 1px solid rgba(16, 185, 129, 0.35);
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 13px;
@@ -333,9 +333,9 @@
       transition: all 0.2s ease;
     }
     .btn-exec-outline:hover {
-      background: rgba(30, 41, 59, 0.8);
-      border-color: var(--accent-sky);
-      color: var(--accent-sky);
+      background: rgba(10, 28, 18, 0.85);
+      border-color: var(--color-hover-text);
+      color: var(--color-hover-text) !important;
       transform: translateY(-1px);
     }
 
@@ -465,11 +465,11 @@
     }
 
     .split-word.gradient-text .split-char {
-      background: linear-gradient(135deg, var(--color-highlight) 0%, var(--color-link) 35%, var(--color-hover-text) 70%, var(--color-special-kw) 100%) !important;
+      background: linear-gradient(135deg, #10B981 0%, #05DF85 35%, #00F5A0 70%, #6EE7B7 100%) !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
-      filter: drop-shadow(0 0 16px rgba(255, 107, 53, 0.35));
+      filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.5));
     }
 
     @keyframes splitCharCinematicReveal {
@@ -493,7 +493,7 @@
       -webkit-background-clip: text !important;
       background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
-      filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.4));
+      filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.45));
     }
 
     .hero-bio-lead {
@@ -1273,7 +1273,7 @@
       z-index: 99999;
       transform: translate(-50%, -50%);
       transition: width 0.15s ease, height 0.15s ease, background-color 0.2s ease;
-      box-shadow: 0 0 10px var(--color-link), 0 0 20px rgba(255, 122, 69, 0.7);
+      box-shadow: 0 0 10px #10B981, 0 0 20px rgba(16, 185, 129, 0.7);
     }
 
     #cursor-ring {
@@ -1282,7 +1282,7 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(255, 122, 69, 0.65);
+      border: 1.5px solid rgba(16, 185, 129, 0.65);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99998;
@@ -1416,11 +1416,11 @@
        FUTURISTIC GLASSMORPHISM BACKGROUND & CONTAINERS
        ========================================================================= */
     :root {
-      --glass-bg: rgba(26, 16, 12, 0.74);
-      --glass-border: rgba(245, 158, 11, 0.26);
-      --glass-border-hover: rgba(249, 115, 22, 0.75);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(254, 215, 170, 0.15);
-      --glass-shadow-hover: 0 14px 44px 0 rgba(249, 115, 22, 0.35), inset 0 1px 2px 0 rgba(254, 215, 170, 0.3);
+      --glass-bg: rgba(6, 18, 12, 0.76);
+      --glass-border: rgba(16, 185, 129, 0.25);
+      --glass-border-hover: rgba(52, 211, 153, 0.75);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.75), inset 0 1px 1px 0 rgba(52, 211, 153, 0.15);
+      --glass-shadow-hover: 0 14px 44px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px 0 rgba(52, 211, 153, 0.3);
       --glass-blur: blur(24px) saturate(200%);
     }
 
@@ -1474,15 +1474,15 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--color-link), var(--color-hover-text), var(--color-special-kw));
+      background: linear-gradient(90deg, #10B981, #00F5A0, #6EE7B7);
       border-radius: 2px;
-      box-shadow: 0 0 10px var(--color-link);
+      box-shadow: 0 0 10px #10B981;
       transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .nav-links a:hover {
       color: var(--color-hover-text) !important;
-      text-shadow: 0 0 12px rgba(255, 159, 104, 0.6);
+      text-shadow: 0 0 12px rgba(110, 231, 183, 0.6);
     }
 
     .nav-links a:hover::after,
@@ -1580,9 +1580,9 @@
       left: 0;
       height: 3.5px;
       width: 0%;
-      background: linear-gradient(90deg, #FF6B35 0%, #FF7A45 35%, #FF9F68 70%, #FFD166 100%);
+      background: linear-gradient(90deg, #059669 0%, #10B981 35%, #00F5A0 70%, #6EE7B7 100%);
       z-index: 999999;
-      box-shadow: 0 0 10px #FF6B35, 0 0 18px #FFD166;
+      box-shadow: 0 0 10px #10B981, 0 0 18px #00F5A0;
       transition: width 0.08s ease-out;
       pointer-events: none;
     }
@@ -1602,10 +1602,10 @@
       background: linear-gradient(
         105deg,
         transparent 0%,
-        rgba(255, 209, 102, 0.0) 30%,
-        rgba(255, 209, 102, 0.35) 48%,
+        rgba(52, 211, 153, 0.0) 30%,
+        rgba(52, 211, 153, 0.35) 48%,
         rgba(255, 255, 255, 0.65) 50%,
-        rgba(255, 209, 102, 0.35) 52%,
+        rgba(52, 211, 153, 0.35) 52%,
         transparent 75%
       );
       transform: rotate(25deg) translate(-120%, -120%);
@@ -1688,26 +1688,26 @@
       background: linear-gradient(
         105deg,
         transparent 0%,
-        rgba(255, 107, 53, 0.15) 25%,
-        rgba(255, 209, 102, 0.7) 48%,
+        rgba(5, 150, 105, 0.15) 25%,
+        rgba(16, 185, 129, 0.7) 48%,
         rgba(255, 255, 255, 0.95) 50%,
-        rgba(255, 209, 102, 0.7) 52%,
-        rgba(255, 122, 69, 0.18) 75%,
+        rgba(16, 185, 129, 0.7) 52%,
+        rgba(52, 211, 153, 0.18) 75%,
         transparent 100%
       );
       transform: rotate(28deg);
       filter: blur(8px);
       pointer-events: none;
       animation: portfolioBeamSweepAnim 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-      box-shadow: 0 0 70px rgba(255, 209, 102, 0.7);
+      box-shadow: 0 0 70px rgba(16, 185, 129, 0.7);
     }
 
     .portfolio-light-sweep-flare {
       position: absolute;
       width: 100vw;
       height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.8), #fff, rgba(255, 209, 102, 0.8), transparent);
-      box-shadow: 0 0 30px #FFD166, 0 0 60px #FF6B35;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), #fff, rgba(52, 211, 153, 0.8), transparent);
+      box-shadow: 0 0 30px #34D399, 0 0 60px #10B981;
       top: 50%;
       left: 0;
       transform: translateY(-50%) scaleX(0);
@@ -1743,15 +1743,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 209, 102, 0.12);
-      border: 1px solid rgba(255, 209, 102, 0.35);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
       padding: 6px 14px;
       border-radius: 9999px;
       font-family: var(--font-mono);
       font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.12em;
-      color: #FFD166;
+      color: #34D399;
       margin-bottom: 20px;
       text-transform: uppercase;
       box-shadow: 0 0 15px rgba(255, 209, 102, 0.2);
@@ -1821,8 +1821,8 @@
     .portfolio-intro-loader-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #FF6B35, #FF7A45, #FFD166);
-      box-shadow: 0 0 10px #FF6B35;
+      background: linear-gradient(90deg, #059669, #10B981, #34D399);
+      box-shadow: 0 0 10px #10B981;
       animation: loaderBarSweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
@@ -1858,8 +1858,8 @@
     }
 
     .btn-enter-portfolio {
-      background: linear-gradient(135deg, #FF6B35, #FF7A45);
-      border: 1px solid rgba(255, 209, 102, 0.4);
+      background: linear-gradient(135deg, #059669, #10B981);
+      border: 1px solid rgba(52, 211, 153, 0.4);
       color: #fff !important;
       font-family: var(--font-sans);
       font-size: 13.5px;
@@ -1872,17 +1872,17 @@
       align-items: center;
       gap: 10px;
       letter-spacing: 0.05em;
-      box-shadow: 0 0 20px rgba(255, 107, 53, 0.45);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
       transition: all 0.25s ease;
       position: relative;
       z-index: 100;
     }
 
     .btn-enter-portfolio:hover {
-      background: linear-gradient(135deg, #e0531c, #eb642f);
-      border-color: #FFD166;
+      background: linear-gradient(135deg, #047857, #059669);
+      border-color: #34D399;
       transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 28px rgba(255, 122, 69, 0.65);
+      box-shadow: 0 0 28px rgba(52, 211, 153, 0.65);
     }
 
   </style>
@@ -2901,11 +2901,11 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const emberLight = new THREE.PointLight(0xf59e0b, 2.6, 30);
+    const emberLight = new THREE.PointLight(0x10b981, 2.6, 30);
     emberLight.position.set(5, 5, 5);
     scene.add(emberLight);
 
-    const flameLight = new THREE.PointLight(0xea580c, 2.2, 30);
+    const flameLight = new THREE.PointLight(0x34d399, 2.2, 30);
     flameLight.position.set(-5, -4, 4);
     scene.add(flameLight);
 
@@ -3301,7 +3301,7 @@
 
         // Emit sparkling micro-particles as cursor travels
         for (let i = 0; i < 3; i++) {
-          const colors = ['#FF6B35', '#FF7A45', '#FF9F68', '#FFD166', '#F5F5F5'];
+          const colors = ['#059669', '#10B981', '#34D399', '#00F5A0', '#6EE7B7', '#F5F5F5'];
           cursorParticles.push({
             x: mouseX + (Math.random() - 0.5) * 8,
             y: mouseY + (Math.random() - 0.5) * 8,
@@ -3455,7 +3455,7 @@
 
       const nodeCount = 75;
       const nodes = [];
-      const colors = ['#FF6B35', '#FF7A45', '#FF9F68', '#FFD166'];
+      const colors = ['#059669', '#10B981', '#34D399', '#00F5A0'];
 
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
