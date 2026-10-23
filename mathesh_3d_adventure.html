@@ -22,16 +22,16 @@
 
   <style>
     :root {
-      --primary-gold: #FFD166;   /* Special keywords: Warm Yellow */
-      --primary-amber: #FF7A45;  /* Links: Bright Orange */
-      --primary-cyan: #FF9F68;   /* Hover text: Light Orange */
-      --primary-emerald: #FFD166;
-      --hud-panel-bg: rgba(15, 23, 42, 0.88);
-      --hud-panel-border: rgba(255, 107, 53, 0.4);
+      --primary-gold: #34D399;   /* Special keywords: Neon Mint Green */
+      --primary-amber: #10B981;  /* Links: Matrix Green */
+      --primary-cyan: #6EE7B7;   /* Hover text: Light Mint Green */
+      --primary-emerald: #10B981;
+      --hud-panel-bg: rgba(6, 18, 12, 0.90);
+      --hud-panel-border: rgba(16, 185, 129, 0.45);
       --text-main: #F5F5F5;      /* Main headings: Soft White */
       --text-muted: #A1A1AA;     /* Secondary text: Muted Gray */
       --text-body: #D4D4D8;      /* Normal paragraphs: Light Gray */
-      --text-highlight: #FF6B35; /* Highlighted words: Ember Orange */
+      --text-highlight: #10B981; /* Highlighted words: Cyber Green */
       --font-display: 'Rajdhani', -apple-system, sans-serif;
       --font-title: 'Orbitron', -apple-system, sans-serif;
       --font-body: 'Inter', -apple-system, sans-serif;
@@ -936,26 +936,26 @@
       background: linear-gradient(
         105deg,
         transparent 0%,
-        rgba(255, 107, 53, 0.12) 25%,
-        rgba(255, 209, 102, 0.65) 48%,
+        rgba(5, 150, 105, 0.15) 25%,
+        rgba(16, 185, 129, 0.7) 48%,
         rgba(255, 255, 255, 0.95) 50%,
-        rgba(255, 209, 102, 0.65) 52%,
-        rgba(255, 122, 69, 0.15) 75%,
+        rgba(16, 185, 129, 0.7) 52%,
+        rgba(52, 211, 153, 0.18) 75%,
         transparent 100%
       );
       transform: rotate(28deg);
       filter: blur(6px);
       pointer-events: none;
       animation: cinematicIntroBeamSweep 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-      box-shadow: 0 0 70px rgba(255, 209, 102, 0.7);
+      box-shadow: 0 0 70px rgba(16, 185, 129, 0.7);
     }
 
     .light-sweep-flare {
       position: absolute;
       width: 100vw;
       height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.8), #fff, rgba(255, 209, 102, 0.8), transparent);
-      box-shadow: 0 0 30px #FFD166, 0 0 60px #FF6B35;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), #fff, rgba(52, 211, 153, 0.8), transparent);
+      box-shadow: 0 0 30px #34D399, 0 0 60px #10B981;
       top: 50%;
       left: 0;
       transform: translateY(-50%) scaleX(0);
@@ -1010,18 +1010,18 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 209, 102, 0.12);
-      border: 1px solid rgba(255, 209, 102, 0.35);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
       padding: 6px 14px;
       border-radius: 9999px;
       font-family: var(--font-display);
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.12em;
-      color: #FFD166;
+      color: #34D399;
       margin-bottom: 20px;
       text-transform: uppercase;
-      box-shadow: 0 0 15px rgba(255, 209, 102, 0.2);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
       animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
@@ -1057,11 +1057,11 @@
     }
 
     .intro-word.intro-grad-word .intro-char {
-      background: linear-gradient(135deg, #FF6B35 0%, #FF7A45 35%, #FF9F68 70%, #FFD166 100%) !important;
+      background: linear-gradient(135deg, #10B981 0%, #05DF85 35%, #00F5A0 70%, #6EE7B7 100%) !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
-      filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.6));
+      filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.6));
     }
 
     @keyframes introCharCascade {
@@ -1092,7 +1092,7 @@
     }
 
     .intro-welcome-subtitle strong {
-      color: #FF6B35;
+      color: #10B981;
       font-weight: 700;
     }
 
@@ -1121,7 +1121,7 @@
     }
 
     .hint-badge i {
-      color: #FFD166;
+      color: #34D399;
     }
 
     
@@ -1139,8 +1139,8 @@
     }
 
     .btn-enter-town {
-      background: linear-gradient(135deg, #FF6B35, #FF7A45);
-      border: 1px solid rgba(255, 209, 102, 0.4);
+      background: linear-gradient(135deg, #059669, #10B981);
+      border: 1px solid rgba(52, 211, 153, 0.4);
       color: #fff;
       font-family: var(--font-display);
       font-size: 14.5px;
@@ -1152,16 +1152,16 @@
       align-items: center;
       gap: 10px;
       letter-spacing: 0.05em;
-      box-shadow: 0 0 20px rgba(255, 107, 53, 0.45);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
       transition: all 0.25s ease;
       animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both;
     }
 
     .btn-enter-town:hover {
-      background: linear-gradient(135deg, #e0531c, #eb642f);
-      border-color: #FFD166;
+      background: linear-gradient(135deg, #047857, #059669);
+      border-color: #34D399;
       transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 30px rgba(255, 122, 69, 0.65);
+      box-shadow: 0 0 30px rgba(52, 211, 153, 0.65);
     }
 
     @keyframes fadeInDown {
@@ -1180,7 +1180,7 @@
       bottom: 120px;
       z-index: 900;
       background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(255, 107, 53, 0.45);
+      border: 1px solid rgba(16, 185, 129, 0.45);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-radius: 10px;
@@ -1205,13 +1205,13 @@
     .scroll-hud-icon {
       width: 28px;
       height: 28px;
-      background: rgba(255, 107, 53, 0.15);
-      border: 1px solid #FF6B35;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFD166;
+      color: #34D399;
       font-size: 13px;
     }
 
@@ -1230,7 +1230,7 @@
 
     .scroll-hud-value {
       font-size: 12px;
-      color: #FFD166;
+      color: #34D399;
       font-weight: 700;
       letter-spacing: 0.04em;
     }
