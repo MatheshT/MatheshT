@@ -4499,6 +4499,7 @@
       createGiantHolographicBillboards();
       createTownHonorExhibits();
       createTownEntranceArchway();
+      createWelcomeHostMan();
 
       initSpeedlinesCanvas();
 
@@ -4597,10 +4598,149 @@
     /* =========================================================================
        COLOSSAL 3D ILLUMINATED ENTRANCE ARCHWAY: "WELCOME TO MATHESH TOWN"
        ========================================================================= */
+    
+    /* =========================================================================
+       THE MAN (MATHESH T HOST AVATAR) POSITIONED AT EXACTLY 60 METERS AHEAD
+       ========================================================================= */
+    let welcomeHostMan = null;
+
+    function createWelcomeHostMan() {
+      const angle60m = 60 / LOOP_RADIUS; // Exactly 60 meters ahead along circular boulevard
+      const manDist = LOOP_RADIUS + 3.4; // Standing on the welcoming boulevard sidewalk
+      const manX = Math.cos(angle60m) * manDist;
+      const manZ = Math.sin(angle60m) * manDist;
+
+      const manGroup = new THREE.Group();
+      manGroup.position.set(manX, 0, manZ);
+      manGroup.rotation.y = -angle60m - Math.PI / 2 + 0.35; // Facing incoming road traffic
+
+      // Glowing Welcome Platform Pad
+      const padGeo = new THREE.CylinderGeometry(2.0, 2.3, 0.25, 16);
+      const padMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 });
+      const pad = new THREE.Mesh(padGeo, padMat);
+      pad.position.y = 0.12;
+      pad.receiveShadow = true;
+      manGroup.add(pad);
+
+      const ringGeo = new THREE.RingGeometry(1.8, 2.05, 32);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0x10b981, side: THREE.DoubleSide });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = 0.26;
+      manGroup.add(ring);
+
+      // The Man (Mathesh T Avatar)
+      // Head
+      const headGeo = new THREE.SphereGeometry(0.28, 16, 16);
+      const headMat = new THREE.MeshStandardMaterial({ color: 0xfbcfe8, roughness: 0.65 });
+      const head = new THREE.Mesh(headGeo, headMat);
+      head.position.y = 1.75;
+      head.castShadow = true;
+      manGroup.add(head);
+
+      // Stylish Dark Hair
+      const hairGeo = new THREE.BoxGeometry(0.4, 0.16, 0.4);
+      const hairMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+      const hair = new THREE.Mesh(hairGeo, hairMat);
+      hair.position.y = 1.9;
+      hair.castShadow = true;
+      manGroup.add(hair);
+
+      // Glowing Green Cyber Visor
+      const visorGeo = new THREE.BoxGeometry(0.36, 0.1, 0.12);
+      const visorMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+      const visor = new THREE.Mesh(visorGeo, visorMat);
+      visor.position.set(0, 1.76, 0.25);
+      manGroup.add(visor);
+
+      // Cyber Blazer Torso
+      const torsoGeo = new THREE.BoxGeometry(0.65, 0.82, 0.38);
+      const torsoMat = new THREE.MeshStandardMaterial({ color: 0x030705, metalness: 0.7, roughness: 0.3 });
+      const torso = new THREE.Mesh(torsoGeo, torsoMat);
+      torso.position.y = 1.15;
+      torso.castShadow = true;
+      manGroup.add(torso);
+
+      // Emerald Tie / Accent
+      const zipGeo = new THREE.BoxGeometry(0.08, 0.68, 0.04);
+      const zipMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+      const zip = new THREE.Mesh(zipGeo, zipMat);
+      zip.position.set(0, 1.15, 0.2);
+      manGroup.add(zip);
+
+      // Legs
+      const legMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5 });
+      const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.75, 8), legMat);
+      legL.position.set(-0.18, 0.4, 0);
+      legL.castShadow = true;
+      manGroup.add(legL);
+
+      const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.75, 8), legMat);
+      legR.position.set(0.18, 0.4, 0);
+      legR.castShadow = true;
+      manGroup.add(legR);
+
+      // Arms (Left at side, Right raised in greeting wave)
+      const armMat = new THREE.MeshStandardMaterial({ color: 0x030705, roughness: 0.4 });
+      const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.65, 8), armMat);
+      armL.position.set(-0.42, 1.25, 0);
+      armL.rotation.z = 0.2;
+      manGroup.add(armL);
+
+      const armRGroup = new THREE.Group();
+      armRGroup.position.set(0.42, 1.45, 0);
+      const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.65, 8), armMat);
+      armR.position.y = -0.3;
+      armRGroup.add(armR);
+      armRGroup.rotation.z = -1.35;
+      armRGroup.rotation.x = -0.35;
+      manGroup.add(armRGroup);
+      manGroup.waveArm = armRGroup;
+
+      // Floating Holographic Sign above Head
+      const tagCanvas = document.createElement('canvas');
+      tagCanvas.width = 640;
+      tagCanvas.height = 180;
+      const tCtx = tagCanvas.getContext('2d');
+      tCtx.fillStyle = 'rgba(3, 7, 5, 0.92)';
+      tCtx.fillRect(0, 0, 640, 180);
+      tCtx.strokeStyle = '#10b981';
+      tCtx.lineWidth = 8;
+      tCtx.strokeRect(4, 4, 632, 172);
+
+      tCtx.fillStyle = '#34d399';
+      tCtx.font = 'bold 24px monospace';
+      tCtx.textAlign = 'center';
+      tCtx.fillText('★ TOWN CREATOR // HOST ★', 320, 46);
+
+      tCtx.fillStyle = '#ffffff';
+      tCtx.font = 'bold 50px "Orbitron", sans-serif';
+      tCtx.fillText('MATHESH T', 320, 106);
+
+      tCtx.fillStyle = '#6ee7b7';
+      tCtx.font = 'bold 24px monospace';
+      tCtx.fillText('WELCOME TO MY TOWN!', 320, 150);
+
+      const tagTex = new THREE.CanvasTexture(tagCanvas);
+      const tagGeo = new THREE.PlaneGeometry(3.6, 1.0);
+      const tagMat = new THREE.MeshBasicMaterial({ map: tagTex, side: THREE.DoubleSide });
+      const tagMesh = new THREE.Mesh(tagGeo, tagMat);
+      tagMesh.position.set(0, 2.55, 0);
+      manGroup.add(tagMesh);
+
+      manGroup.userData = { isHostMan: true, isClickablePhoto: true, photoIndex: 14 };
+      scene.add(manGroup);
+      welcomeHostMan = manGroup;
+      console.log('Spawned The Man (Mathesh T Host Avatar) at exactly 60 meters ahead!');
+    }
+
     function createTownEntranceArchway() {
       const archGroup = new THREE.Group();
-      archGroup.position.set(LOOP_RADIUS, 0, 0);
-      archGroup.rotation.y = 0;
+      const angle30m = 30 / LOOP_RADIUS; // Exactly 30 meters ahead along circular boulevard
+      const archX = Math.cos(angle30m) * LOOP_RADIUS;
+      const archZ = Math.sin(angle30m) * LOOP_RADIUS;
+      archGroup.position.set(archX, 0, archZ);
+      archGroup.rotation.y = -angle30m; // Perpendicular to road curve at 30m
 
       const pylonMat = new THREE.MeshStandardMaterial({ color: 0x0a140f, metalness: 0.9, roughness: 0.2 });
       const neonEmeraldMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
@@ -9595,6 +9735,11 @@
       // Update 360 orbit camera
 
       updateCamera();
+
+      // Animate The Man (Mathesh Host Avatar) waving arm at 60 meters
+      if (welcomeHostMan && welcomeHostMan.waveArm) {
+        welcomeHostMan.waveArm.rotation.z = -1.35 + Math.sin(clock.getElapsedTime() * 3.8) * 0.22;
+      }
 
 
 
