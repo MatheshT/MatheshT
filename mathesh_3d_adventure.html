@@ -4228,7 +4228,7 @@
 
     let isAutoSpin = false;
 
-    let endlessLoopProgress = 0;
+    let endlessLoopProgress = -65 / LOOP_RADIUS;
 
     let isJumping = false;
 
@@ -4300,11 +4300,10 @@
 
 
 
-    let playerAngle = 0;
-
+    const START_OFFSET_ANGLE = -65 / LOOP_RADIUS;
+    let playerAngle = START_OFFSET_ANGLE;
     let playerRadialOffset = 0;
-
-    let playerFacing = 0;
+    let playerFacing = Math.PI - START_OFFSET_ANGLE;
 
 
 
@@ -4605,14 +4604,14 @@
     let welcomeHostMan = null;
 
     function createWelcomeHostMan() {
-      const angle60m = 60 / LOOP_RADIUS; // Exactly 60 meters ahead along circular boulevard
+      const angle60mBefore = -60 / LOOP_RADIUS; // Exactly 60 meters BEFORE start point (Mile 0.0)
       const manDist = LOOP_RADIUS + 3.4; // Standing on the welcoming boulevard sidewalk
-      const manX = Math.cos(angle60m) * manDist;
-      const manZ = Math.sin(angle60m) * manDist;
+      const manX = Math.cos(angle60mBefore) * manDist;
+      const manZ = Math.sin(angle60mBefore) * manDist;
 
       const manGroup = new THREE.Group();
       manGroup.position.set(manX, 0, manZ);
-      manGroup.rotation.y = -angle60m - Math.PI / 2 + 0.35; // Facing incoming road traffic
+      manGroup.rotation.y = -angle60mBefore - Math.PI / 2 + 0.35; // Facing visitors approaching the start point
 
       // Glowing Welcome Platform Pad
       const padGeo = new THREE.CylinderGeometry(2.0, 2.3, 0.25, 16);
@@ -4736,11 +4735,11 @@
 
     function createTownEntranceArchway() {
       const archGroup = new THREE.Group();
-      const angle30m = 30 / LOOP_RADIUS; // Exactly 30 meters ahead along circular boulevard
-      const archX = Math.cos(angle30m) * LOOP_RADIUS;
-      const archZ = Math.sin(angle30m) * LOOP_RADIUS;
+      const angle30mBefore = -30 / LOOP_RADIUS; // Exactly 30 meters BEFORE start point (Mile 0.0)
+      const archX = Math.cos(angle30mBefore) * LOOP_RADIUS;
+      const archZ = Math.sin(angle30mBefore) * LOOP_RADIUS;
       archGroup.position.set(archX, 0, archZ);
-      archGroup.rotation.y = -angle30m; // Perpendicular to road curve at 30m
+      archGroup.rotation.y = -angle30mBefore; // Perpendicular to road curve at -30m
 
       const pylonMat = new THREE.MeshStandardMaterial({ color: 0x0a140f, metalness: 0.9, roughness: 0.2 });
       const neonEmeraldMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
