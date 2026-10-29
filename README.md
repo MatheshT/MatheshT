@@ -225,6 +225,25 @@ mathesh@soc-station:~$ ./triage_alert.py --alert-id 5712
 
 ---
 
+## 🛡️ `OPEN SOURCE SECURITY PLAYBOOKS & RESEARCH ARCHIVES`
+
+<div align="center">
+
+| Archive Category | Direct Repository Link | Description | Status |
+| :--- | :--- | :--- | :---: |
+| **SOC Playbooks** | [`docs/soc-playbooks/`](./docs/soc-playbooks/) | 10+ Standard Operating Procedures for Alert Triage, Phishing, Ransomware & Kerberoasting | ✅ Production |
+| **CTF Walkthroughs** | [`docs/ctf-writeups/`](./docs/ctf-writeups/) | National 1st Place Mirage CTF 2.0 & PicoCTF 150+ Solutions (Pwn, Crypto, Forensics) | 🏆 Champion |
+| **Detection Engineering** | [`docs/detection-engineering/`](./docs/detection-engineering/) | Custom Wazuh SIEM XML Rules, Sigma Rules & VirusTotal Telemetry Pipelines | ⚡ Active |
+| **AegisForensic AI Specs** | [`docs/aegis-forensic-ai/`](./docs/aegis-forensic-ai/) | SQLite Database Carving, ADB Acquisition & Image Super-Resolution Architecture | 🔬 Verified |
+| **Defensive Tooling Scripts** | [`scripts/`](./scripts/) | Scapy Flow Analyzers, Wazuh Event Parsers, IOC Defangers & Hash Reputation Utilities | 🛠️ Open Source |
+| **VAPT & Cloud Security** | [`docs/vapt-assessments/`](./docs/vapt-assessments/) | OWASP Top 10, REST API Security Checklists & AWS IAM Privilege Escalation Guides | 🛡️ Audited |
+
+</div>
+
+<br />
+
+---
+
 ## 📈 `REAL-TIME TELEMETRY & GITHUB ACTIVITY`
 
 <div align="center">
